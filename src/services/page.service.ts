@@ -28,11 +28,11 @@ export class PageService extends BaseService {
   async findAllParent(i18n: I18nContext) {
     const data = await this.repo
       .createQueryBuilder('base')
-      .andWhere(`base.parentId IS NOT NULL`)
-      .leftJoinAndMapMany('base.children', 'Page', 'parent', 'base.parentId = parent.id')
+      .andWhere(`base.parentId IS NULL`)
+      .leftJoinAndSelect('base.children', 'children')
       .leftJoinAndSelect('base.translations', 'translations')
       .addOrderBy('base.order', 'ASC')
-      // .addOrderBy('page.order', 'ASC')
+      .addOrderBy('children.order', 'ASC')
       .getManyAndCount();
     if (!data) {
       throw new NotFoundException(i18n.t('common.Page.data Homepage not found'));
