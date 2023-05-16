@@ -1,0 +1,17 @@
+{
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "rootDir": ".",
+  "testEnvironment": "node",
+  "testRegex": ".e2e-spec.ts$",
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "moduleNameMapper": {
+    "@common": "<rootDir>../src/common",
+    "@controllers": "<rootDir>../src/controllers",
+    "@dtos": "<rootDir>../src/dtos",
+    "@entities": "<rootDir>../src/entities",
+    "@services": "<rootDir>../src/services"
+  },
+  "testRunner": "jest-jasmine2"
+}

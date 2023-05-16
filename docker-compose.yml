@@ -1,0 +1,13 @@
+version: '3.9'
+services:
+  web-member-be:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NODE_ENV: production
+    restart: unless-stopped
+    mem_limit: 2048m
+    cpus: 2
+    ports:
+      - 3008:3000

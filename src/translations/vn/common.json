@@ -1,0 +1,30 @@
+{
+  "Success": "Thành công",
+  "Get List success": "Lấy Danh sách thành công",
+  "Get Detail Success": "Lấy chi tiết thành công",
+  "Create Success": "Tạo thành công",
+  "Update Success": "Cập nhật thành công",
+  "Delete Success": "Xóa thành công",
+  "Auth": {
+    "Invalid credentials for user": "Thông tin đăng nhập không hợp lệ cho người dùng {email}",
+    "email is already taken": "Email này đã được sử dụng",
+    "Passwords are not identical": "Mật khẩu không giống nhau",
+    "Password do not match": "Mật khẩu không khớp!",
+    "Invalid email": "Email không hợp lệ!",
+    "User not found": "Người dùng {email} không tồn tại!"
+  },
+  "Data": {
+    "name is already taken": "Tên đã tồn tại"
+  },
+  "Page": {
+    "Title is already taken": "Title đã tồn tại",
+    "data Homepage not found": "Không tìm thấy dữ liệu Trang chủ",
+    "Data slug not found": "Dữ liệu {slug} không tồn tại"
+  },
+  "user" : {
+    "Passwords are not identical": "Mật khẩu không giống nhau",
+    "Email is already taken": "Email đã được sử dụng",
+    "Other leave requests need approval": "Còn những yêu cầu nghỉ cần duyệt",
+    "Data id not found": "Dữ liệu {id} không tồn tại"
+  }
+}

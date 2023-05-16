@@ -1,0 +1,30 @@
+{
+  "Success": "Success",
+  "Get List success": "Get List success",
+  "Get Detail Success": "Get Detail Success",
+  "Create Success": "Create Success",
+  "Update Success": "Update Success",
+  "Delete Success": "Delete Success",
+  "Auth": {
+    "Invalid credentials for user": "Invalid credentials for user {email}",
+    "email is already taken": "Email is already taken",
+    "Passwords are not identical": "Passwords are not identical",
+    "Password do not match": "Password do not match!",
+    "Invalid email": "Invalid email!",
+    "User not found": "User {email} not found!"
+  },
+  "Data": {
+    "name is already taken": "Name is already taken"
+  },
+  "Page": {
+    "Title is already taken": "Title is already taken",
+    "data Homepage not found": "Data Homepage not found",
+    "Data not found": "Data {slug} not found"
+  },
+  "user" : {
+    "Passwords are not identical": "Passwords are not identical",
+    "Email is already taken": "Email is already taken",
+    "Other leave requests need approval": "Other leave requests need approval",
+    "Data id not found": "data {id} not found"
+  }
+}
