@@ -1,7 +1,7 @@
 import { Body, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { I18n, I18nContext } from 'nestjs-i18n';
 
-import { Auth, Headers, MaxGroup, OnlyUpdateGroup, SerializerBody } from '@common';
+import { Auth, Headers, MaxGroup, OnlyUpdateGroup, Public, SerializerBody } from '@common';
 import {
   PaginationQueryDto,
   CreateUserRequestDto,
@@ -52,12 +52,24 @@ export class UserController {
   async create(
     @I18n() i18n: I18nContext,
     @Body(new SerializerBody([MaxGroup, OnlyUpdateGroup])) createData: CreateUserRequestDto,
-  ): Promise<UserResponseDto> {
+  ): Promise<any> {
     const data = await this.service.create(createData, i18n);
     // await this.service.history(data, 'CREATED');
     return {
       message: i18n.t('common.Create Success'),
-      data: data as DefaultAuthResponsesUserDto,
+      data: data,
+    };
+  }
+
+  @Public({
+    summary: 'Update all days off',
+    serializeOptions: { groups: [MaxGroup] },
+  })
+  @Put('all-days-off')
+  async updateAllDaysOff(@I18n() i18n: I18nContext): Promise<UserResponseDto> {
+    return {
+      message: i18n.t('common.Update Success'),
+      data: await this.service.updateAllDaysOff(i18n),
     };
   }
 
@@ -76,7 +88,7 @@ export class UserController {
     // await this.service.history(data);
     return {
       message: i18n.t('common.Update Success'),
-      data: data as DefaultAuthResponsesUserDto,
+      data: data,
     };
   }
 

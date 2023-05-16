@@ -72,10 +72,12 @@ export class CreateUserRequestDto extends PickType(User, [
   'dob',
   'startDate',
   'positionCode',
+  'teams',
   'description',
   'avatar',
   'dateLeave',
   'roleCode',
+  'managerId',
 ] as const) {
   @MinLength(6)
   @ApiProperty({ example: Example.password, description: '' })
@@ -89,10 +91,12 @@ export class UpdateUserRequestDto extends PickType(User, [
   'dob',
   'startDate',
   'positionCode',
+  'teams',
   'description',
   'avatar',
   'dateLeave',
   'roleCode',
+  'managerId',
 ] as const) {}
 
 export class ListUserResponseDto extends PartialType(PaginationResponsesDto) {

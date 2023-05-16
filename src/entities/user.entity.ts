@@ -1,4 +1,14 @@
-import { BeforeInsert, BeforeUpdate, Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import {
+  BeforeInsert,
+  BeforeUpdate,
+  Column,
+  Entity,
+  JoinColumn,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 import { Exclude, Expose, Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { faker } from '@faker-js/faker';
@@ -9,13 +19,15 @@ import {
   IsNumber,
   IsOptional,
   IsString,
+  IsUUID,
+  Max,
   MaxLength,
   MinLength,
 } from 'class-validator';
 import * as argon2 from 'argon2';
 
 import { Example, MaxGroup, OnlyUpdateGroup, Base } from '@common';
-import { UserRole, Code } from '@entities';
+import { Code, UserRole, UserTeam } from '@entities';
 
 @Entity()
 // @Unique(['email', 'phoneNumber'])
@@ -93,6 +105,30 @@ export class User extends Base {
   @Type(() => UserRole)
   readonly role?: UserRole;
 
+  @OneToMany(() => UserTeam, (team) => team.manager)
+  @Type(() => UserTeam)
+  readonly managers?: UserTeam[];
+
+  @ManyToMany(() => UserTeam, (team) => team.users, { eager: true })
+  @Type(() => UserTeam)
+  @IsOptional()
+  @JoinTable()
+  teams?: UserTeam[];
+
+  @Column({ nullable: true })
+  @Expose({ groups: [MaxGroup] })
+  @IsOptional()
+  @IsUUID()
+  managerId?: string;
+
+  @ManyToOne(() => User, (user) => user.members, { eager: true })
+  @Type(() => User)
+  readonly manager?: User;
+
+  @OneToMany(() => User, (user) => user.manager)
+  @Type(() => User)
+  readonly members?: User[];
+
   @Column({ nullable: true })
   @Expose({ groups: [MaxGroup] })
   @ApiProperty({ example: 'DEV', description: '' })
@@ -112,6 +148,7 @@ export class User extends Base {
   @Column({ nullable: true, type: 'real' })
   @ApiProperty({ example: faker.datatype.number({ min: 0.5, max: 12 }), description: '' })
   @IsNumber()
+  @Max(16)
   @IsOptional()
   dateLeave?: number;
 
