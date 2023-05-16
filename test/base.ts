@@ -6,7 +6,7 @@ import { faker } from '@faker-js/faker';
 import { AppModule } from '../src/app.module';
 import { AppDataSource } from '../src/database/data-source';
 import { Example } from '@common';
-import { UserRoleService, UserService, PageService, DataService, DataTypeService } from '@services';
+import { UserRoleService, UserService } from '@services';
 
 export const BaseTest = {
   userAdmin: {

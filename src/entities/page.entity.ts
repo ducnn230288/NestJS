@@ -1,4 +1,4 @@
-import { Column, Entity, JoinTable, ManyToMany, OneToMany } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { faker } from '@faker-js/faker';
 import { IsArray, IsInt, IsOptional, IsString, IsUUID, Min } from 'class-validator';
@@ -33,8 +33,12 @@ export class Page extends Base {
   @IsOptional()
   parentId?: string;
 
-  @ManyToMany(() => Page)
-  @JoinTable()
+  @ManyToOne(() => Page, (page) => page.children, { eager: true })
+  @IsArray()
+  @IsOptional()
+  parent?: Page;
+
+  @OneToMany(() => Page, (page) => page.parent)
   @IsArray()
   @IsOptional()
   children?: Page[];

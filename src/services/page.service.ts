@@ -28,8 +28,8 @@ export class PageService extends BaseService {
   async findAllParent(i18n: I18nContext) {
     const data = await this.repo
       .createQueryBuilder('base')
-      .andWhere(`base.parentId IS NULL`)
-      // .leftJoinAndMapMany('base.children', 'Page', 'page', 'base.parentId IS NOT NULL AND base.parentId = page.id')
+      .andWhere(`base.parentId IS NOT NULL`)
+      .leftJoinAndMapMany('base.children', 'Page', 'parent', 'base.parentId = parent.id')
       .leftJoinAndSelect('base.translations', 'translations')
       .addOrderBy('base.order', 'ASC')
       // .addOrderBy('page.order', 'ASC')
