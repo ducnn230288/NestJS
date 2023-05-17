@@ -29,10 +29,10 @@ export class PageService extends BaseService {
     const data = await this.repo
       .createQueryBuilder('base')
       .andWhere(`base.parentId IS NULL`)
-      // .leftJoinAndMapMany('base.children', 'Page', 'page', 'base.parentId IS NOT NULL AND base.parentId = page.id')
+      .leftJoinAndSelect('base.children', 'children')
       .leftJoinAndSelect('base.translations', 'translations')
       .addOrderBy('base.order', 'ASC')
-      // .addOrderBy('page.order', 'ASC')
+      .addOrderBy('children.order', 'ASC')
       .getManyAndCount();
     if (!data) {
       throw new NotFoundException(i18n.t('common.Page.data Homepage not found'));
