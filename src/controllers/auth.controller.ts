@@ -3,9 +3,6 @@ import { I18n, I18nContext } from 'nestjs-i18n';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes } from '@nestjs/swagger';
 import * as fs from 'fs';
-import { diskStorage } from 'multer';
-import { extname } from 'path';
-import { v4 as uuid } from 'uuid';
 
 import {
   Auth,
@@ -17,6 +14,7 @@ import {
   RefreshTokenGuard,
   ResetPasswordTokenGuard,
   SerializerBody,
+  SharpPipe,
 } from '@common';
 import {
   DefaultResponsesDto,
@@ -175,25 +173,17 @@ export class AuthController {
       },
     },
   })
-  @UseInterceptors(
-    FileInterceptor('file', {
-      storage: diskStorage({
-        destination: (req, file, callback) => {
-          const pathImage = './uploads';
-          fs.mkdirSync(pathImage, { recursive: true });
-          return callback(null, pathImage);
-        },
-        filename: (req, file, callback) => callback(null, `${uuid()}${extname(file.originalname)}`),
-      }),
-    }),
-  )
-  async uploadFile(@I18n() i18n: I18nContext, @UploadedFile() data: any) {
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadFile(@I18n() i18n: I18nContext, @UploadedFile(SharpPipe) name: string) {
+    // Express.Multer.File
     // const data = await this.authService.uploadS3(file);
     // data.url = data.Location;
-    data.url = process.env.DOMAIN + 'files/' + data.filename;
     return {
       message: i18n.t('common.Success'),
-      data,
+      data: {
+        name,
+        url: process.env.DOMAIN + 'files/' + name,
+      },
     };
   }
 

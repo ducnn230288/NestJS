@@ -8,6 +8,8 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { JwtModule } from '@nestjs/jwt';
+import { MulterModule } from '@nestjs/platform-express';
+import { memoryStorage } from 'multer';
 
 import {
   AccessTokenStrategy,
@@ -109,6 +111,9 @@ import {
       UserRole,
       UserTeam,
     ]),
+    MulterModule.register({
+      storage: memoryStorage(),
+    }),
     JwtModule.registerAsync({
       useFactory: () => ({
         secret: process.env.JWT_PUBLIC_KEY,
