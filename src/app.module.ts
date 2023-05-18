@@ -8,6 +8,8 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { JwtModule } from '@nestjs/jwt';
+import { MulterModule } from '@nestjs/platform-express';
+import { memoryStorage } from 'multer';
 
 import {
   AccessTokenStrategy,
@@ -70,6 +72,9 @@ import {
     UserRoleService,
   ],
   imports: [
+    MulterModule.register({
+      storage: memoryStorage(),
+    }),
     TypeOrmModule.forFeature([Code, CodeType, Data, DataTranslation, DataType, Page, PageTranslation, User, UserRole]),
     JwtModule.registerAsync({
       useFactory: () => ({
