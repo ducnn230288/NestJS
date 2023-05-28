@@ -4,7 +4,13 @@ import { IsArray } from 'class-validator';
 import { DefaultResponsesDto, PaginationResponsesDto } from '@dtos';
 import { Page, PageTranslation } from '@entities';
 
-export class CreatePageRequestDto extends PickType(Page, ['name', 'style', 'translations'] as const) {
+export class CreatePageRequestDto extends PickType(Page, [
+  'name',
+  'style',
+  'order',
+  'translations',
+  'parentId',
+] as const) {
   translations?: CreatePageTranslationRequestDto[];
 }
 export class CreatePageTranslationRequestDto extends PickType(PageTranslation, [
@@ -12,7 +18,8 @@ export class CreatePageTranslationRequestDto extends PickType(PageTranslation, [
   'language',
   'title',
   'slug',
-  'seoDescription',
+  'description',
+  'image',
   'content',
 ] as const) {}
 export class UpdatePageRequestDto extends PartialType(CreatePageRequestDto) {}

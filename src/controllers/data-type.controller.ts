@@ -1,7 +1,7 @@
 import { Body, Delete, Get, Param, Post, Put, Query, ValidationPipe } from '@nestjs/common';
 import { I18n, I18nContext } from 'nestjs-i18n';
 
-import { Auth, Headers, MaxGroup, Public, RelationGroup, SerializerBody } from '@common';
+import { Auth, Headers, MaxGroup, Public, SerializerBody } from '@common';
 import {
   PaginationQueryDto,
   ArrayDataTypeResponseDto,
@@ -41,7 +41,7 @@ export class DataTypeController {
 
   @Public({
     summary: 'Get Detail data',
-    serializeOptions: { groups: [MaxGroup, RelationGroup] },
+    serializeOptions: { groups: [MaxGroup] },
   })
   @Get('/array')
   async findOneByArray(
@@ -56,7 +56,7 @@ export class DataTypeController {
 
   @Public({
     summary: 'Get Detail data',
-    serializeOptions: { groups: [RelationGroup] },
+    serializeOptions: { groups: [MaxGroup] },
   })
   @Get(':code')
   async findOne(@I18n() i18n: I18nContext, @Param('code') code: string): Promise<DataTypeResponseDto> {
