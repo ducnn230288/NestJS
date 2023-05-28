@@ -4,7 +4,7 @@ import { faker } from '@faker-js/faker';
 import { IsBoolean, IsString } from 'class-validator';
 import { Expose } from 'class-transformer';
 
-import { RelationGroup, Base } from '@common';
+import { MaxGroup, Base } from '@common';
 
 import { Data } from './data.entity';
 
@@ -30,6 +30,6 @@ export class DataType extends Base {
   isPrimary: boolean;
 
   @OneToMany(() => Data, (data) => data.item, { eager: true, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
-  @Expose({ groups: [RelationGroup] })
+  @Expose({ groups: [MaxGroup] })
   items?: Data[];
 }

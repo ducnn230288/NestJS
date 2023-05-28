@@ -4,7 +4,7 @@ import { faker } from '@faker-js/faker';
 import { IsArray, IsInt, IsOptional, IsString, IsUUID, Min } from 'class-validator';
 import { Expose } from 'class-transformer';
 
-import { RelationGroup, Base } from '@common';
+import { MaxGroup, Base } from '@common';
 import { PageTranslation } from '@entities';
 
 @Entity()
@@ -28,12 +28,14 @@ export class Page extends Base {
   order?: number;
 
   @Column({ nullable: true })
+  @Expose({ groups: [MaxGroup] })
   @ApiProperty({ example: null, description: '' })
   @IsUUID()
   @IsOptional()
   parentId?: string;
 
   @ManyToOne(() => Page, (page) => page.children, { eager: true })
+  @Expose({ groups: [MaxGroup] })
   @IsArray()
   @IsOptional()
   parent?: Page;
@@ -44,7 +46,7 @@ export class Page extends Base {
   children?: Page[];
 
   @OneToMany(() => PageTranslation, (data) => data.page, { eager: true })
-  @Expose({ groups: [RelationGroup] })
+  @Expose({ groups: [MaxGroup] })
   @IsArray()
   translations?: PageTranslation[];
 }

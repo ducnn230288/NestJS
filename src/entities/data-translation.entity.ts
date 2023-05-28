@@ -10,6 +10,7 @@ import { Data } from '@entities';
 @Entity()
 export class DataTranslation extends Base {
   @Column()
+  @ApiProperty({ example: 'en', description: '' })
   @IsString()
   language: string;
 
@@ -64,6 +65,7 @@ export class DataTranslation extends Base {
     default: {},
   })
   @Expose({ groups: [MaxGroup] })
+  @ApiProperty({ example: [], description: '' })
   @IsOptional()
   readonly content?: Record<string, any>;
 

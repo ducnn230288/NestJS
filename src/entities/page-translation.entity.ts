@@ -28,7 +28,14 @@ export class PageTranslation extends Base {
   @Column({ nullable: true })
   @ApiProperty({ example: faker.lorem.paragraph(), description: '' })
   @IsString()
-  seoDescription: string;
+  @IsOptional()
+  description?: string;
+
+  @Column({ nullable: true })
+  @ApiProperty({ example: faker.image.imageUrl(), description: '' })
+  @IsString()
+  @IsOptional()
+  image?: string;
 
   @Column({
     type: 'jsonb',
