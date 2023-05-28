@@ -40,6 +40,22 @@ import {
   P_USER_ROLE_DETAIL,
   P_USER_ROLE_LISTED,
   P_USER_ROLE_UPDATE,
+  P_USER_TEAM_CREATE,
+  P_USER_TEAM_DELETE,
+  P_USER_TEAM_DETAIL,
+  P_USER_TEAM_LISTED,
+  P_USER_TEAM_UPDATE,
+  P_CUSTOMER_CREATE,
+  P_CUSTOMER_DELETE,
+  P_CUSTOMER_DETAIL,
+  P_CUSTOMER_LISTED,
+  P_CUSTOMER_UPDATE,
+  P_DAYOFF_LISTED,
+  P_DAYOFF_DETAIL,
+  P_DAYOFF_CREATE,
+  P_DAYOFF_UPDATE,
+  P_DAYOFF_UPDATE_STATUS,
+  P_DAYOFF_DELETE,
 } from '@services';
 
 export class UserSeeder implements Seeder {
@@ -88,6 +104,23 @@ export class UserSeeder implements Seeder {
         P_PAGE_CREATE,
         P_PAGE_UPDATE,
         P_PAGE_DELETE,
+
+        P_USER_TEAM_LISTED,
+        P_USER_TEAM_DETAIL,
+        P_USER_TEAM_CREATE,
+        P_USER_TEAM_UPDATE,
+        P_USER_TEAM_DELETE,
+
+        P_CUSTOMER_LISTED,
+        P_CUSTOMER_DETAIL,
+        P_CUSTOMER_CREATE,
+        P_CUSTOMER_UPDATE,
+        P_CUSTOMER_DELETE,
+
+        P_DAYOFF_LISTED,
+        P_DAYOFF_DETAIL,
+        P_DAYOFF_UPDATE,
+        P_DAYOFF_UPDATE_STATUS,
       ],
       isSystemAdmin: false,
     };
@@ -137,6 +170,53 @@ export class UserSeeder implements Seeder {
         // delete newData.createdAt;
         // const newHistory = repositoryHistory.create(newData);
         // await repositoryHistory.save({ ...newHistory, originalID, action: 'CREATED' });
+      }
+    }
+
+    const dataRole: UserRole[] = [
+      {
+        name: 'Manager',
+        code: 'manager',
+        permissions: [
+          P_USER_LISTED,
+          P_USER_DETAIL,
+          P_USER_UPDATE,
+          P_USER_ROLE_LISTED,
+          P_USER_TEAM_LISTED,
+          P_CODE_TYPE_DETAIL,
+          P_DAYOFF_LISTED,
+          P_DAYOFF_DETAIL,
+          P_DAYOFF_CREATE,
+          P_DAYOFF_UPDATE,
+          P_DAYOFF_DELETE,
+          P_DAYOFF_UPDATE_STATUS,
+        ],
+        isSystemAdmin: false,
+      },
+      {
+        name: 'Staff',
+        code: 'staff',
+        permissions: [
+          P_USER_TEAM_LISTED,
+          P_DAYOFF_LISTED,
+          P_DAYOFF_DETAIL,
+          P_DAYOFF_UPDATE,
+          P_DAYOFF_DELETE,
+          P_DAYOFF_CREATE,
+          P_CODE_TYPE_DETAIL,
+        ],
+        isSystemAdmin: false,
+      },
+    ];
+
+    for (const item of dataRole) {
+      const roleExists = await repoRole
+        .createQueryBuilder('base')
+        .andWhere(`base.name=:name`, { name: item.name })
+        .getOne();
+      if (!roleExists) {
+        await repoRole.create(item);
+        await repoRole.save(item);
       }
     }
     // const userFactory = await factoryManager.get(CategoryType); factoryManager: SeederFactoryManager
