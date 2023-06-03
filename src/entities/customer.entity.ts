@@ -21,8 +21,8 @@ export class Customer extends Base {
   @Column()
   @ApiProperty({ example: faker.phone.number('0#########'), description: '' })
   @IsString()
-  @MinLength(10)
-  @MaxLength(15)
+  @MinLength(8)
+  @MaxLength(12)
   readonly phoneNumber: string;
 
   @Column({ nullable: true })
