@@ -21,10 +21,10 @@ export class PageController {
   })
   @Get()
   async findAll(@I18n() i18n: I18nContext): Promise<ListPageResponseDto> {
-    const [result, total] = await this.service.findAllParent(i18n);
+    const result = await this.service.findAllParent(i18n);
     return {
       message: i18n.t('common.Get List success'),
-      count: total,
+      count: 0,
       data: result as ListPageDto[],
     };
   }

@@ -1,16 +1,12 @@
 import { OmitType, PartialType, PickType } from '@nestjs/swagger';
-import { IsArray } from 'class-validator';
+import { IsArray, IsOptional } from 'class-validator';
 
 import { DefaultResponsesDto, PaginationResponsesDto } from '@dtos';
 import { Page, PageTranslation } from '@entities';
 
-export class CreatePageRequestDto extends PickType(Page, [
-  'name',
-  'style',
-  'order',
-  'translations',
-  'parentId',
-] as const) {
+export class CreatePageRequestDto extends PickType(Page, ['name', 'style', 'order', 'translations'] as const) {
+  @IsOptional()
+  parentId?: string;
   translations?: CreatePageTranslationRequestDto[];
 }
 export class CreatePageTranslationRequestDto extends PickType(PageTranslation, [
@@ -28,10 +24,7 @@ export class AllPageRequestDto {
   @IsArray()
   values: ItemPageRequestDto[];
 }
-export class ItemPageRequestDto extends PickType(Page, ['id', 'parentId', 'order'] as const) {
-  @IsArray()
-  parents: string[];
-
+export class ItemPageRequestDto extends PickType(Page, ['id', 'parent', 'order'] as const) {
   @IsArray()
   children: ItemPageRequestDto[];
 }

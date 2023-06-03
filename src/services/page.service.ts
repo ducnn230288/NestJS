@@ -4,7 +4,7 @@ import { DataSource, Repository } from 'typeorm';
 import { I18nContext } from 'nestjs-i18n';
 
 import { BaseService } from '@common';
-import { AllPageRequestDto, CreatePageRequestDto, ItemPageRequestDto, UpdatePageRequestDto } from '@dtos';
+import { AllPageRequestDto, CreatePageRequestDto, ItemPageRequestDto, ListPageDto, UpdatePageRequestDto } from '@dtos';
 import { Page, PageTranslation } from '@entities';
 
 export const P_PAGE_LISTED = '6ac2a002-3f26-40d1-ac56-61c681af832f';
@@ -26,14 +26,9 @@ export class PageService extends BaseService {
   }
 
   async findAllParent(i18n: I18nContext) {
-    const data = await this.repo
-      .createQueryBuilder('base')
-      .andWhere(`base.parentId IS NULL`)
-      .leftJoinAndSelect('base.children', 'children')
-      .leftJoinAndSelect('base.translations', 'translations')
-      .addOrderBy('base.order', 'ASC')
-      .addOrderBy('children.order', 'ASC')
-      .getManyAndCount();
+    const data = await this.dataSource.manager.getTreeRepository<ListPageDto>(Page).findTrees({
+      relations: ['translations'],
+    });
     if (!data) {
       throw new NotFoundException(i18n.t('common.Page.data Homepage not found'));
     }
@@ -53,11 +48,19 @@ export class PageService extends BaseService {
     return await this.findOne(data.pageId);
   }
 
-  async create(body: CreatePageRequestDto, i18n: I18nContext) {
+  async create({ translations, parentId, ...body }: CreatePageRequestDto, i18n: I18nContext) {
     let result = null;
     await this.dataSource.transaction(async (entityManager) => {
-      result = await entityManager.save(entityManager.create(Page, { ...body }));
-      for (const item of body.translations) {
+      const create = entityManager.create(Page, { ...body });
+      if (parentId) {
+        create.parent = await entityManager
+          .createQueryBuilder(Page, 'base')
+          .where(`base.id=:parentId`, { parentId })
+          .withDeleted()
+          .getOne();
+      }
+      result = await entityManager.save(create);
+      for (const item of translations) {
         const existingTitle = await entityManager
           .createQueryBuilder(PageTranslation, 'base')
           .andWhere(`base.title=:title`, { title: item.title })
@@ -132,11 +135,11 @@ export class PageService extends BaseService {
             throw new NotFoundException(i18n.t('common.user.Data id not found', { args: { id: item.id } }));
           }
           data.children = [];
-          if (item.parents) {
-            for (const id of item.parents) {
-              data.children.push(new Page({ id }));
-            }
-          }
+          // if (item.parents) {
+          //   for (const id of item.parents) {
+          //     data.children.push(new Page({ id }));
+          //   }
+          // }
           result = await this.repo.save(data);
           if (children) {
             await loop(children);

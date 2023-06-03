@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany, Tree, TreeChildren, TreeParent } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { faker } from '@faker-js/faker';
 import { IsArray, IsInt, IsOptional, IsString, IsUUID, Min } from 'class-validator';
@@ -8,6 +8,7 @@ import { MaxGroup, Base } from '@common';
 import { PageTranslation } from '@entities';
 
 @Entity()
+@Tree('materialized-path')
 export class Page extends Base {
   @Column()
   @ApiProperty({ example: faker.name.jobType(), description: '' })
@@ -27,20 +28,12 @@ export class Page extends Base {
   @IsOptional()
   order?: number;
 
-  @Column({ nullable: true })
+  @TreeParent()
   @Expose({ groups: [MaxGroup] })
-  @ApiProperty({ example: null, description: '' })
-  @IsUUID()
-  @IsOptional()
-  parentId?: string;
-
-  @ManyToOne(() => Page, (page) => page.children, { eager: true })
-  @Expose({ groups: [MaxGroup] })
-  @IsArray()
   @IsOptional()
   parent?: Page;
 
-  @OneToMany(() => Page, (page) => page.parent)
+  @TreeChildren()
   @IsArray()
   @IsOptional()
   children?: Page[];
