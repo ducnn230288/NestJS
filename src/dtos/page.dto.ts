@@ -4,7 +4,7 @@ import { IsArray, IsOptional } from 'class-validator';
 import { DefaultResponsesDto, PaginationResponsesDto } from '@dtos';
 import { Page, PageTranslation } from '@entities';
 
-export class CreatePageRequestDto extends PickType(Page, ['name', 'style', 'order', 'translations'] as const) {
+export class CreatePageRequestDto extends PickType(Page, ['name', 'type', 'order', 'translations'] as const) {
   @IsOptional()
   parentId?: string;
   translations?: CreatePageTranslationRequestDto[];

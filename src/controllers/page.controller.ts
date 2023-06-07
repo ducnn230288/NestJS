@@ -85,6 +85,7 @@ export class PageController {
   @Auth({
     summary: 'Update data',
     permission: P_PAGE_UPDATE,
+    serializeOptions: { groups: [MaxGroup] },
   })
   @Put(':id')
   async update(
