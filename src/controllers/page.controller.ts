@@ -16,7 +16,7 @@ import { PageService, P_PAGE_CREATE, P_PAGE_UPDATE, P_PAGE_DELETE } from '@servi
 export class PageController {
   constructor(private readonly service: PageService) {}
 
-  @Public({
+  @Auth({
     summary: 'Get List data',
   })
   @Get()
@@ -28,19 +28,19 @@ export class PageController {
       data: result as ListPageDto[],
     };
   }
-  @Public({
-    summary: 'Get Detail data by slug',
-    serializeOptions: { groups: [MaxGroup] },
-  })
-  @Get('/slug/:slug')
-  async findOneBySlug(@I18n() i18n: I18nContext, @Param('slug') slug: string): Promise<PageResponseDto> {
-    return {
-      message: i18n.t('common.Get Detail Success'),
-      data: await this.service.findOneBySlug(slug, i18n.lang, i18n),
-    };
-  }
+  // @Public({
+  //   summary: 'Get Detail data by slug',
+  //   serializeOptions: { groups: [MaxGroup] },
+  // })
+  // @Get('/slug/:slug')
+  // async findOneBySlug(@I18n() i18n: I18nContext, @Param('slug') slug: string): Promise<PageResponseDto> {
+  //   return {
+  //     message: i18n.t('common.Get Detail Success'),
+  //     data: await this.service.findOneBySlug(slug, i18n.lang, i18n),
+  //   };
+  // }
 
-  @Public({
+  @Auth({
     summary: 'Get Detail data',
     serializeOptions: { groups: [MaxGroup] },
   })
@@ -85,6 +85,7 @@ export class PageController {
   @Auth({
     summary: 'Update data',
     permission: P_PAGE_UPDATE,
+    serializeOptions: { groups: [MaxGroup] },
   })
   @Put(':id')
   async update(

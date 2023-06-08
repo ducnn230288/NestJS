@@ -16,10 +16,10 @@ export class Page extends Base {
   name: string;
 
   @Column({ nullable: true })
-  @ApiProperty({ example: 'style1', description: '' })
+  @ApiProperty({ example: 'type1', description: '' })
   @IsString()
   @IsOptional()
-  style: string;
+  type: string;
 
   @Column({ nullable: true })
   @ApiProperty({ example: faker.datatype.number({ min: 0 }), description: '' })
@@ -27,6 +27,9 @@ export class Page extends Base {
   @Min(0)
   @IsOptional()
   order?: number;
+
+  @Column({ nullable: true })
+  parentId?: string;
 
   @TreeParent()
   @Expose({ groups: [MaxGroup] })
@@ -39,7 +42,6 @@ export class Page extends Base {
   children?: Page[];
 
   @OneToMany(() => PageTranslation, (data) => data.page, { eager: true })
-  @Expose({ groups: [MaxGroup] })
   @IsArray()
   translations?: PageTranslation[];
 }

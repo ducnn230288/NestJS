@@ -60,7 +60,7 @@ export class PageService extends BaseService {
           .getOne();
       }
       result = await entityManager.save(create);
-      for (const item of translations) {
+      for (const { id, ...item } of translations) {
         const existingTitle = await entityManager
           .createQueryBuilder(PageTranslation, 'base')
           .andWhere(`base.title=:title`, { title: item.title })
@@ -70,22 +70,23 @@ export class PageService extends BaseService {
         if (existingTitle) {
           throw new BadRequestException(i18n.t('common.Page.Title is already taken'));
         }
-        // const existingSlug = await entityManager
-        //   .createQueryBuilder(PageTranslation, 'base')
-        //   .andWhere(`base.title=:slug`, { slug: item.slug })
-        //   .andWhere(`base.language=:language`, { language: item.language })
-        //   .withDeleted()
-        //   .getCount();
-        // if (existingSlug) {
-        //   throw new BadRequestException(`slug is already taken`);
-        // }
+        const existingSlug = await entityManager
+          .createQueryBuilder(PageTranslation, 'base')
+          .andWhere(`base.title=:slug`, { slug: item.slug })
+          .andWhere(`base.language=:language`, { language: item.language })
+          .withDeleted()
+          .getCount();
+        if (existingSlug) {
+          throw new BadRequestException(`slug is already taken`);
+        }
         await entityManager.save(entityManager.create(PageTranslation, { pageId: result.id, ...item }));
       }
+      result = this.findOne(result.id);
     });
     return result;
   }
 
-  async update(id: string, body: UpdatePageRequestDto, i18n: I18nContext) {
+  async update(id: string, { translations, parentId, ...body }: UpdatePageRequestDto, i18n: I18nContext) {
     let result = null;
     await this.dataSource.transaction(async (entityManager) => {
       const data = await entityManager.preload(Page, {
@@ -95,8 +96,15 @@ export class PageService extends BaseService {
       if (!data) {
         throw new NotFoundException(i18n.t('common.user.Data id not found', { args: { id } }));
       }
-      result = await this.repo.save(data);
-      for (const item of body.translations) {
+      if (parentId) {
+        data.parent = await entityManager
+          .createQueryBuilder(Page, 'base')
+          .where(`base.id=:parentId`, { parentId })
+          .withDeleted()
+          .getOne();
+      }
+      result = await entityManager.save(data);
+      for (const item of translations) {
         const existingTitle = await entityManager
           .createQueryBuilder(PageTranslation, 'base')
           .andWhere(`base.title=:title`, { title: item.title })
@@ -107,18 +115,19 @@ export class PageService extends BaseService {
         if (existingTitle) {
           throw new BadRequestException(i18n.t('common.Page.Title is already taken'));
         }
-        // const existingSlug = await entityManager
-        //   .createQueryBuilder(DataTranslation, 'base')
-        //   .andWhere(`base.slug=:slug`, { slug: item.slug })
-        //   .andWhere(`base.language=:language`, { language: item.language })
-        //   .andWhere(`base.dataId != :dataId`, { dataId: id })
-        //   .withDeleted()
-        //   .getCount();
-        // if (existingSlug) {
-        //   throw new BadRequestException(`slug is already taken`);
-        // }
+        const existingSlug = await entityManager
+          .createQueryBuilder(PageTranslation, 'base')
+          .andWhere(`base.slug=:slug`, { slug: item.slug })
+          .andWhere(`base.language=:language`, { language: item.language })
+          .andWhere(`base.pageId != :pageId`, { pageId: id })
+          .withDeleted()
+          .getCount();
+        if (existingSlug) {
+          throw new BadRequestException(`slug is already taken`);
+        }
         await entityManager.save(await entityManager.preload(PageTranslation, { pageId: result.id, ...item }));
       }
+      result = this.findOne(result.id);
     });
     return result;
   }
