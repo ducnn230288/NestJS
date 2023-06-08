@@ -42,7 +42,6 @@ export class Page extends Base {
   children?: Page[];
 
   @OneToMany(() => PageTranslation, (data) => data.page, { eager: true })
-  @Expose({ groups: [MaxGroup] })
   @IsArray()
   translations?: PageTranslation[];
 }
