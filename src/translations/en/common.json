@@ -26,5 +26,8 @@
     "Email is already taken": "Email is already taken",
     "Other leave requests need approval": "Other leave requests need approval",
     "Data id not found": "data {id} not found"
+  },
+  "DayOff": {
+    "The leave date has been registered": "The leave date has been registered"
   }
 }

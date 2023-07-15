@@ -2,6 +2,7 @@ import { PickType, PartialType } from '@nestjs/swagger';
 import { DefaultResponsesDto, PaginationResponsesDto } from '@dtos';
 import { DayOff } from '@entities';
 export class CreateDayoffRequestDto extends PickType(DayOff, [
+  'code',
   'time',
   'type',
   'reason',

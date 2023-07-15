@@ -26,5 +26,8 @@
     "Email is already taken": "Email đã được sử dụng",
     "Other leave requests need approval": "Còn những yêu cầu nghỉ cần duyệt",
     "Data id not found": "Dữ liệu {id} không tồn tại"
+  },
+  "DayOff": {
+    "The leave date has been registered": "Ngày nghỉ đã được đăng ký"
   }
 }

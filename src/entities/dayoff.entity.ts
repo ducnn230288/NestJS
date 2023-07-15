@@ -10,6 +10,12 @@ import { User } from '@entities';
 @Entity()
 export class DayOff extends Base {
   @Column()
+  @ApiProperty({ example: '230715000001', description: '' })
+  @IsString()
+  @IsOptional()
+  code: string;
+
+  @Column()
   @ApiProperty({ example: faker.datatype.number({ min: 1, max: 3 }), description: '' })
   @IsInt()
   @Min(1)

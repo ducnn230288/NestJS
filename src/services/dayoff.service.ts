@@ -137,6 +137,15 @@ export class DayoffService extends BaseService {
       number = number - (number + 1) + (number + 1) * 2;
     }
     body.timeNumber = body.time === 0 ? dateLeaveEnd.diff(dateLeaveStart, 'days') + number : 0.5;
+    const count = await this.repo
+      .createQueryBuilder('base')
+      .where(`"created_at" BETWEEN :startDate AND :endDate`, {
+        startDate: dayjs().startOf('days').toDate(),
+        endDate: dayjs().endOf('days').toDate(),
+      })
+      .getCount();
+    body.code = (parseInt(dayjs().format('YYMMDD')) * 1000000 + (count + 1)).toString();
+
     const data = await super.create(body, i18n);
     await this.updateStaff(user, i18n);
     return data;
