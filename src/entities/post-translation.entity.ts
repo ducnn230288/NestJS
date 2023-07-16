@@ -1,14 +1,14 @@
 import { Column, Entity, ManyToOne } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { faker } from '@faker-js/faker';
 import { IsOptional, IsString, IsUUID } from 'class-validator';
 import { Expose } from 'class-transformer';
-import { faker } from '@faker-js/faker';
 
 import { MaxGroup, Base } from '@common';
-import { Page } from '@entities';
+import { Post } from '@entities';
 
 @Entity()
-export class PageTranslation extends Base {
+export class PostTranslation extends Base {
   @Column()
   @ApiProperty({ example: 'en', description: '' })
   @IsString()
@@ -17,13 +17,7 @@ export class PageTranslation extends Base {
   @Column()
   @ApiProperty({ example: faker.name.jobType(), description: '' })
   @IsString()
-  title: string;
-
-  @Column({ nullable: true })
-  @ApiProperty({ example: faker.lorem.slug(), description: '' })
-  @IsString()
-  @IsOptional()
-  slug: string;
+  name: string;
 
   @Column({ nullable: true })
   @ApiProperty({ example: faker.lorem.paragraph(), description: '' })
@@ -32,16 +26,25 @@ export class PageTranslation extends Base {
   description?: string;
 
   @Column({ nullable: true })
-  @ApiProperty({ example: faker.image.imageUrl(), description: '' })
+  @ApiProperty({ example: faker.lorem.slug(), description: '' })
   @IsString()
   @IsOptional()
-  image?: string;
+  slug: string;
+
+  @Column({ nullable: true })
+  @ApiProperty({ example: faker.name.jobType(), description: '' })
+  @IsString()
+  seoTitle: string;
+
+  @Column({ nullable: true })
+  @ApiProperty({ example: faker.lorem.paragraph(), description: '' })
+  @IsString()
+  seoDescription: string;
 
   @Column({
     type: 'jsonb',
     array: false,
-    default: [],
-    nullable: false,
+    default: {},
   })
   @Expose({ groups: [MaxGroup] })
   @ApiProperty({ example: [], description: '' })
@@ -50,12 +53,10 @@ export class PageTranslation extends Base {
 
   @Column()
   @Expose({ groups: [MaxGroup] })
-  @ApiProperty({ example: faker.datatype.uuid(), description: '' })
   @IsUUID()
   @IsOptional()
-  pageId?: string;
+  postId?: string;
 
-  @ManyToOne(() => Page, (data) => data.translations, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
-  @Expose({ groups: [MaxGroup] })
-  public page?: Page;
+  @ManyToOne(() => Post, (data) => data.translations, { eager: false, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+  public post?: Post;
 }
