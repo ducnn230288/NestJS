@@ -55,14 +55,26 @@ export class PostTypeController {
   }
 
   @Public({
-    summary: 'Get Detail data',
+    summary: 'Get Detail data by code',
     serializeOptions: { groups: [MaxGroup] },
   })
-  @Get(':code')
-  async findOne(@I18n() i18n: I18nContext, @Param('code') code: string): Promise<PostTypeResponseDto> {
+  @Get('code/:code')
+  async findOneCode(@I18n() i18n: I18nContext, @Param('code') code: string): Promise<PostTypeResponseDto> {
     return {
       message: i18n.t('common.Get Detail Success'),
       data: await this.service.findCode(code),
+    };
+  }
+
+  @Public({
+    summary: 'Get Detail data',
+    serializeOptions: { groups: [MaxGroup] },
+  })
+  @Get(':id')
+  async findOne(@I18n() i18n: I18nContext, @Param('id') id: string): Promise<PostTypeResponseDto> {
+    return {
+      message: i18n.t('common.Get Detail Success'),
+      data: await this.service.findOne(id),
     };
   }
 
