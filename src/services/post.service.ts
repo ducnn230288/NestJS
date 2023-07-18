@@ -43,7 +43,7 @@ export class PostService extends BaseService {
     return result;
   }
 
-  async update(id: string, body: UpdatePostRequestDto, i18n: I18nContext) {
+  async update(id: string, { translations, ...body }: UpdatePostRequestDto, i18n: I18nContext) {
     let result = null;
     await this.dataSource.transaction(async (entityManager) => {
       const data = await entityManager.preload(Post, {
@@ -54,7 +54,7 @@ export class PostService extends BaseService {
         throw new NotFoundException(i18n.t('common.user.Post id not found', { args: { id } }));
       }
       result = await this.repo.save(data);
-      for (const item of body.translations) {
+      for (const item of translations) {
         const existingName = await entityManager
           .createQueryBuilder(PostTranslation, 'base')
           .andWhere(`base.name=:name`, { name: item.name })
