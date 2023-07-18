@@ -51,7 +51,6 @@ export class Data extends Base {
   public item?: DataType;
 
   @OneToMany(() => DataTranslation, (data) => data.data, { eager: true })
-  @Expose({ groups: [MaxGroup] })
   @IsArray()
   public translations?: DataTranslation[];
 }

@@ -56,7 +56,6 @@ export class Post extends Base {
   public item?: PostType;
 
   @OneToMany(() => PostTranslation, (data) => data.post, { eager: true })
-  @Expose({ groups: [MaxGroup] })
   @IsArray()
   public translations?: PostTranslation[];
 }

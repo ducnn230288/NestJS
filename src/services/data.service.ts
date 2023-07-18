@@ -20,6 +20,7 @@ export class DataService extends BaseService {
     private readonly dataSource: DataSource,
   ) {
     super(repo);
+    this.listJoin = ['translations'];
   }
 
   async create(body: CreateDataRequestDto, i18n: I18nContext) {

@@ -41,7 +41,7 @@ export class PostController {
   async findOne(@I18n() i18n: I18nContext, @Param('id') id: string): Promise<PostResponseDto> {
     return {
       message: i18n.t('common.Get Detail Success'),
-      data: await this.service.findOne(id, ['translations']),
+      data: await this.service.findOne(id),
     };
   }
 
