@@ -23,11 +23,12 @@ export class PostService extends BaseService {
     this.listJoin = ['translations'];
   }
 
-  async create(body: CreatePostRequestDto, i18n: I18nContext) {
+  async create({ translations, ...body }: CreatePostRequestDto, i18n: I18nContext) {
     let result = null;
     await this.dataSource.transaction(async (entityManager) => {
       result = await entityManager.save(entityManager.create(Post, { ...body }));
-      for (const item of body.translations) {
+      for (const item of translations) {
+        delete item.id;
         const existingName = await entityManager
           .createQueryBuilder(PostTranslation, 'base')
           .andWhere(`base.name=:name`, { name: item.name })
