@@ -48,7 +48,7 @@ export class CustomerController {
   async findOne(@I18n() i18n: I18nContext, @Param('id') id: string): Promise<CustomerResponseDto> {
     return {
       message: i18n.t('common.Get Detail Success'),
-      data: await this.service.findOne(id),
+      data: await this.service.findOne(id, [], i18n),
     };
   }
 

@@ -63,7 +63,7 @@ export class UserService extends BaseService {
 
   async update(id: string, body: any, i18n: I18nContext) {
     if (body.managerId) {
-      const user = await this.findOne(id);
+      const user = await this.findOne(id, [], i18n);
       if (user.managerId && body.managerId != user.managerId) {
         const countDayOff = await this.repoDayOff
           .createQueryBuilder('base')
@@ -120,7 +120,7 @@ export class UserService extends BaseService {
   }
 
   async remove(id: string, i18n: I18nContext) {
-    const user = await this.findOne(id);
+    const user = await this.findOne(id, [], i18n);
     if (user.roleCode === 'manager') {
       const count = await this.repo
         .createQueryBuilder('base')
@@ -143,7 +143,7 @@ export class UserService extends BaseService {
 
     const res = await this.repo.softDelete(id);
     if (!res.affected) {
-      throw new NotFoundException(id);
+      throw new BadRequestException(id);
     }
 
     const teams = await this.repoUserTeam

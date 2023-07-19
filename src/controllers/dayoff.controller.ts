@@ -54,7 +54,7 @@ export class DayoffController {
   async findOne(@I18n() i18n: I18nContext, @Param('id') id: string): Promise<DayoffResponseDto> {
     return {
       message: i18n.t('common.Get Detail Success'),
-      data: await this.service.findOne(id),
+      data: await this.service.findOne(id, [], i18n),
     };
   }
 
@@ -85,7 +85,7 @@ export class DayoffController {
     @Body(new SerializerBody()) body: UpdateDayoffRequestDto,
     @AuthUser() user: User,
   ): Promise<DayoffResponseDto> {
-    if ((await this.service.findOne(id)).staffId !== user.id) {
+    if ((await this.service.findOne(id, [], i18n)).staffId !== user.id) {
       throw ForbiddenException;
     }
     const data = await this.service.update(id, body, i18n);
@@ -116,7 +116,7 @@ export class DayoffController {
   })
   @Delete(':id')
   async remove(@I18n() i18n: I18nContext, @Param('id') id: string, @AuthUser() user: User): Promise<DayoffResponseDto> {
-    if ((await this.service.findOne(id)).staffId !== user.id) {
+    if ((await this.service.findOne(id, [], i18n)).staffId !== user.id) {
       throw ForbiddenException;
     }
 

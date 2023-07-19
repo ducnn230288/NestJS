@@ -152,7 +152,7 @@ export class DayoffService extends BaseService {
   }
 
   async updateStatus(id: string, body: StatusDayoffRequestDto, user: User, i18n: I18nContext) {
-    const { managerId, staff } = await this.findOne(id);
+    const { managerId, staff } = await this.findOne(id, [], i18n);
     if (managerId !== user.id) {
       throw ForbiddenException;
     }
