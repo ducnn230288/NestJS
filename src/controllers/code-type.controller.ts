@@ -50,7 +50,7 @@ export class CodeTypeController {
   async findOne(@I18n() i18n: I18nContext, @Param('code') code: string): Promise<CodeTypeRelationshipResponseDto> {
     return {
       message: i18n.t('common.Get Detail Success'),
-      data: (await this.service.findOneCode(code)) as CodeTypeRelationshipDto,
+      data: (await this.service.findOneCode(code, i18n)) as CodeTypeRelationshipDto,
     };
   }
 
@@ -95,7 +95,7 @@ export class CodeTypeController {
   async remove(@I18n() i18n: I18nContext, @Param('id') id: string): Promise<CodeTypeResponseDto> {
     return {
       message: i18n.t('common.Delete Success'),
-      data: await this.service.removeHard(id),
+      data: await this.service.removeHard(id, i18n),
     };
   }
 }

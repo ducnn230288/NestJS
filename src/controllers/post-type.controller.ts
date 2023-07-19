@@ -4,33 +4,33 @@ import { I18n, I18nContext } from 'nestjs-i18n';
 import { Auth, Headers, MaxGroup, Public, SerializerBody } from '@common';
 import {
   PaginationQueryDto,
-  ArrayDataTypeResponseDto,
-  CreateDataTypeRequestDto,
-  DataTypeResponseDto,
-  ListDataTypeResponseDto,
-  UpdateDataTypeRequestDto,
+  ArrayPostTypeResponseDto,
+  CreatePostTypeRequestDto,
+  PostTypeResponseDto,
+  ListPostTypeResponseDto,
+  UpdatePostTypeRequestDto,
 } from '@dtos';
 import {
-  DataTypeService,
-  P_DATA_TYPE_CREATE,
-  P_DATA_TYPE_DELETE,
-  P_DATA_TYPE_LISTED,
-  P_DATA_TYPE_UPDATE,
+  PostTypeService,
+  P_POST_TYPE_CREATE,
+  P_POST_TYPE_DELETE,
+  P_POST_TYPE_LISTED,
+  P_POST_TYPE_UPDATE,
 } from '@services';
 
-@Headers('data-type')
-export class DataTypeController {
-  constructor(private readonly service: DataTypeService) {}
+@Headers('post-type')
+export class PostTypeController {
+  constructor(private readonly service: PostTypeService) {}
 
   @Auth({
     summary: 'Get List data',
-    permission: P_DATA_TYPE_LISTED,
+    permission: P_POST_TYPE_LISTED,
   })
   @Get()
   async findAll(
     @I18n() i18n: I18nContext,
     @Query(new ValidationPipe({ transform: true })) paginationQuery: PaginationQueryDto,
-  ): Promise<ListDataTypeResponseDto> {
+  ): Promise<ListPostTypeResponseDto> {
     const [result, total] = await this.service.findAll(paginationQuery);
     return {
       message: i18n.t('common.Get List success'),
@@ -47,7 +47,7 @@ export class DataTypeController {
   async findOneByArray(
     @I18n() i18n: I18nContext,
     @Query(new ValidationPipe({ transform: true })) query: { array: string[] },
-  ): Promise<ArrayDataTypeResponseDto> {
+  ): Promise<ArrayPostTypeResponseDto> {
     return {
       message: i18n.t('common.Get Detail Success'),
       data: await this.service.findArrayCode(query.array, i18n),
@@ -59,7 +59,7 @@ export class DataTypeController {
     serializeOptions: { groups: [MaxGroup] },
   })
   @Get('code/:code')
-  async findOneCode(@I18n() i18n: I18nContext, @Param('code') code: string): Promise<DataTypeResponseDto> {
+  async findOneCode(@I18n() i18n: I18nContext, @Param('code') code: string): Promise<PostTypeResponseDto> {
     return {
       message: i18n.t('common.Get Detail Success'),
       data: await this.service.findCode(code, i18n),
@@ -71,7 +71,7 @@ export class DataTypeController {
     serializeOptions: { groups: [MaxGroup] },
   })
   @Get(':id')
-  async findOne(@I18n() i18n: I18nContext, @Param('id') id: string): Promise<DataTypeResponseDto> {
+  async findOne(@I18n() i18n: I18nContext, @Param('id') id: string): Promise<PostTypeResponseDto> {
     return {
       message: i18n.t('common.Get Detail Success'),
       data: await this.service.findOne(id, [], i18n),
@@ -80,13 +80,13 @@ export class DataTypeController {
 
   @Auth({
     summary: 'Create data',
-    permission: P_DATA_TYPE_CREATE,
+    permission: P_POST_TYPE_CREATE,
   })
   @Post()
   async create(
     @I18n() i18n: I18nContext,
-    @Body(new SerializerBody([MaxGroup])) body: CreateDataTypeRequestDto,
-  ): Promise<DataTypeResponseDto> {
+    @Body(new SerializerBody([MaxGroup])) body: CreatePostTypeRequestDto,
+  ): Promise<PostTypeResponseDto> {
     return {
       message: i18n.t('common.Create Success'),
       data: await this.service.create(body, i18n),
@@ -95,14 +95,14 @@ export class DataTypeController {
 
   @Auth({
     summary: 'Update data',
-    permission: P_DATA_TYPE_UPDATE,
+    permission: P_POST_TYPE_UPDATE,
   })
   @Put(':id')
   async update(
     @I18n() i18n: I18nContext,
     @Param('id') id: string,
-    @Body(new SerializerBody()) body: UpdateDataTypeRequestDto,
-  ): Promise<DataTypeResponseDto> {
+    @Body(new SerializerBody()) body: UpdatePostTypeRequestDto,
+  ): Promise<PostTypeResponseDto> {
     return {
       message: i18n.t('common.Update Success'),
       data: await this.service.update(id, body, i18n),
@@ -111,13 +111,13 @@ export class DataTypeController {
 
   @Auth({
     summary: 'Delete data',
-    permission: P_DATA_TYPE_DELETE,
+    permission: P_POST_TYPE_DELETE,
   })
   @Delete(':id')
-  async remove(@I18n() i18n: I18nContext, @Param('id') id: string): Promise<DataTypeResponseDto> {
+  async remove(@I18n() i18n: I18nContext, @Param('id') id: string): Promise<PostTypeResponseDto> {
     return {
       message: i18n.t('common.Delete Success'),
-      data: await this.service.removeHard(id, i18n),
+      data: await this.service.removeCheck(id, i18n),
     };
   }
 }

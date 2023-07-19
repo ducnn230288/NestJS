@@ -10,8 +10,9 @@ import { UserRole } from '../entities/user-role.entity';
 import { Data } from '../entities/data.entity';
 import { DataTranslation } from '../entities/data-translation.entity';
 import { DataType } from '../entities/data-type.entity';
-import { Page } from '../entities/page.entity';
-import { PageTranslation } from '../entities/page-translation.entity';
+import { Post } from '../entities/post.entity';
+import { PostTranslation } from '../entities/post-translation.entity';
+import { PostType } from '../entities/post-type.entity';
 import { UserTeam } from '../entities/user-team.entity';
 import { Customer } from '../entities/customer.entity';
 import { DayOff } from '../entities/dayoff.entity';
@@ -25,7 +26,7 @@ const options: DataSourceOptions & SeederOptions = {
   username: process.env.DATABASE_USER,
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_NAME,
-  entities: [Code, CodeType, User, UserRole, Data, DataTranslation, DataType, Page, PageTranslation, UserTeam, Customer, DayOff],
+  entities: [Code, CodeType, User, UserRole, Data, DataTranslation, DataType, Post, PostTranslation, PostType, UserTeam, Customer, DayOff],
   migrations: [member1669372347132],
   seeds: [MainSeeder],
 };

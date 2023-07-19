@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
 import { I18nContext } from 'nestjs-i18n';
@@ -20,13 +20,15 @@ export class DataService extends BaseService {
     private readonly dataSource: DataSource,
   ) {
     super(repo);
+    this.listJoin = ['translations'];
   }
 
-  async create(body: CreateDataRequestDto, i18n: I18nContext) {
+  async create({ translations, ...body }: CreateDataRequestDto, i18n: I18nContext) {
     let result = null;
     await this.dataSource.transaction(async (entityManager) => {
       result = await entityManager.save(entityManager.create(Data, { ...body }));
-      for (const item of body.translations) {
+      for (const item of translations) {
+        delete item.id;
         const existingName = await entityManager
           .createQueryBuilder(DataTranslation, 'base')
           .andWhere(`base.name=:name`, { name: item.name })
@@ -42,7 +44,7 @@ export class DataService extends BaseService {
     return result;
   }
 
-  async update(id: string, body: UpdateDataRequestDto, i18n: I18nContext) {
+  async update(id: string, { translations, ...body }: UpdateDataRequestDto, i18n: I18nContext) {
     let result = null;
     await this.dataSource.transaction(async (entityManager) => {
       const data = await entityManager.preload(Data, {
@@ -50,10 +52,10 @@ export class DataService extends BaseService {
         ...body,
       });
       if (!data) {
-        throw new NotFoundException(i18n.t('common.user.Data id not found', { args: { id } }));
+        throw new BadRequestException(i18n.t('common.user.Data id not found', { args: { id } }));
       }
       result = await this.repo.save(data);
-      for (const item of body.translations) {
+      for (const item of translations) {
         const existingName = await entityManager
           .createQueryBuilder(DataTranslation, 'base')
           .andWhere(`base.name=:name`, { name: item.name })

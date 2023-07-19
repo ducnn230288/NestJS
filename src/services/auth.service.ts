@@ -13,7 +13,7 @@ import {
   RestPasswordAuthRequestDto,
 } from '@dtos';
 import { BaseService } from '@common';
-import { Data, Page, User } from '@entities';
+import { Data, User } from '@entities';
 import { MailService } from './mail.service';
 
 export const P_AUTH_DELETE_IMAGE_TEMP = '11cc566b-b109-49f8-983f-84ff08f9849e';
@@ -23,7 +23,6 @@ export class AuthService extends BaseService {
   constructor(
     @InjectRepository(User) public repo: Repository<User>,
     private readonly jwtService: JwtService,
-    @InjectRepository(Page) public repoPage: Repository<Page>,
     @InjectRepository(Data) public repoData: Repository<Data>,
     private mailService: MailService,
   ) {
@@ -203,7 +202,7 @@ export class AuthService extends BaseService {
         .getCount();
     }
     // if (!data) {
-    //   const dataTemp = await this.repoPage.find({});
+    //   const dataTemp = await this.repoPost.find({});
     //   dataTemp.forEach((item: Page) => {
     //     item.content.forEach((subItem: any) => {
     //       if (!data && subItem.image && subItem.image.indexOf(fileName) === (process.env.DOMAIN + 'files/').length) {

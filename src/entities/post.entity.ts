@@ -1,14 +1,14 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { faker } from '@faker-js/faker';
-import { IsArray, IsInt, IsOptional, IsString, Min } from 'class-validator';
+import { IsArray, IsOptional, IsString } from 'class-validator';
 import { Expose } from 'class-transformer';
 
 import { MaxGroup, Base } from '@common';
-import { DataType, DataTranslation } from '@entities';
+import { PostType, PostTranslation } from '@entities';
 
 @Entity()
-export class Data extends Base {
+export class Post extends Base {
   @Column()
   @ApiProperty({ example: faker.random.alpha({ count: 3, casing: 'upper', bannedChars: ['A'] }), description: '' })
   @IsString()
@@ -18,39 +18,44 @@ export class Data extends Base {
   @ApiProperty({ example: faker.image.imageUrl(), description: '' })
   @IsString()
   @IsOptional()
-  image?: string;
+  thumbnailUrl?: string;
 
   @Column({ nullable: true })
   @ApiProperty({ example: faker.image.imageUrl(), description: '' })
   @IsString()
   @IsOptional()
-  image1?: string;
+  coverUrl?: string;
 
   @Column({ nullable: true })
   @ApiProperty({ example: faker.image.imageUrl(), description: '' })
   @IsString()
   @IsOptional()
-  image2?: string;
+  backGroundColor?: string;
 
   @Column({ nullable: true })
   @ApiProperty({ example: faker.image.imageUrl(), description: '' })
   @IsString()
   @IsOptional()
-  image3?: string;
+  titleForeColor?: string;
 
   @Column({ nullable: true })
-  @ApiProperty({ example: faker.datatype.number({ min: 0 }), description: '' })
-  @IsInt()
-  @Min(0)
+  @ApiProperty({ example: faker.image.imageUrl(), description: '' })
+  @IsString()
   @IsOptional()
-  order?: number;
+  customCSSClass?: string;
 
-  @ManyToOne(() => DataType, (dataType) => dataType.items, { eager: false })
+  @Column({ nullable: true })
+  @ApiProperty({ example: faker.image.imageUrl(), description: '' })
+  @IsString()
+  @IsOptional()
+  customCSS?: string;
+
+  @ManyToOne(() => PostType, (dataType) => dataType.items, { eager: false })
   @JoinColumn({ name: 'type', referencedColumnName: 'code' })
   @Expose({ groups: [MaxGroup] })
-  public item?: DataType;
+  public item?: PostType;
 
-  @OneToMany(() => DataTranslation, (data) => data.data, { eager: true })
+  @OneToMany(() => PostTranslation, (data) => data.post, { eager: true })
   @IsArray()
-  public translations?: DataTranslation[];
+  public translations?: PostTranslation[];
 }

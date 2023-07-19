@@ -1,9 +1,10 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { BaseService } from '@common';
 import { CodeType } from '@entities';
+import { I18nContext } from 'nestjs-i18n';
 
 export const P_CODE_TYPE_LISTED = '2a71d57d-7c2d-49ad-a7e9-3cd4aace132f';
 export const P_CODE_TYPE_DETAIL = '7af26c77-e81f-4875-89df-9d4c2fa3ce52';
@@ -21,7 +22,7 @@ export class CodeTypeService extends BaseService {
     this.listJoin = ['items'];
   }
 
-  async findOneCode(code: string) {
+  async findOneCode(code: string, i18n: I18nContext) {
     const data = await this.repo
       .createQueryBuilder('base')
       .where(`base.code=:code`, { code })
@@ -31,7 +32,7 @@ export class CodeTypeService extends BaseService {
       .getOne();
 
     if (!data) {
-      throw new NotFoundException(`data  ${code} not found`);
+      throw new BadRequestException(i18n.t('common.user.Data id not found', { args: { id: code } }));
     }
     return data;
   }

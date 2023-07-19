@@ -1,5 +1,5 @@
 import { Brackets, Repository } from 'typeorm';
-import { NotFoundException } from '@nestjs/common';
+import { BadRequestException } from '@nestjs/common';
 import { I18nContext } from 'nestjs-i18n';
 import * as dayjs from 'dayjs';
 
@@ -146,7 +146,7 @@ export abstract class BaseService {
     return [res[0], res[1]];
   }
 
-  async findOne(id: string, listJoin: string[] = []) {
+  async findOne(id: string, listJoin: string[] = [], i18n: I18nContext) {
     const request = this.repo.createQueryBuilder('base').withDeleted().andWhere('base.isDeleted Is Null');
     if (this.listJoin.length) {
       this.listJoin.forEach((key) => {
@@ -162,7 +162,7 @@ export abstract class BaseService {
     }
     const data = await request.where(`base.id=:id`, { id }).withDeleted().getOne();
     if (!data) {
-      throw new NotFoundException(`data  #${id} not found`);
+      throw new BadRequestException(i18n.t('common.user.Data id not found', { args: { id } }));
     }
     return data;
   }
@@ -178,7 +178,7 @@ export abstract class BaseService {
       ...body,
     });
     if (!data) {
-      throw new NotFoundException(`data  #${id} not found`);
+      throw new BadRequestException(i18n.t('common.user.Data id not found', { args: { id } }));
     }
     return this.repo.save(data);
   }
@@ -186,16 +186,16 @@ export abstract class BaseService {
   async remove(id: string, i18n: I18nContext) {
     const res = await this.repo.softDelete(id);
     if (!res.affected) {
-      throw new NotFoundException(id);
+      throw new BadRequestException(i18n.t('common.user.Data id not found', { args: { id } }));
     }
-    return await this.findOne(id);
+    return await this.findOne(id, [], i18n);
   }
 
-  async removeHard(id: string) {
-    const data = await this.findOne(id);
+  async removeHard(id: string, i18n: I18nContext) {
+    const data = await this.findOne(id, [], i18n);
     const res = await this.repo.delete(id);
     if (!res.affected) {
-      throw new NotFoundException(id);
+      throw new BadRequestException(i18n.t('common.user.Data id not found', { args: { id } }));
     }
     return data;
   }

@@ -30,10 +30,14 @@ import {
   P_DATA_TYPE_DELETE,
   P_DATA_TYPE_LISTED,
   P_DATA_TYPE_UPDATE,
-  P_PAGE_CREATE,
-  P_PAGE_DELETE,
-  P_PAGE_LISTED,
-  P_PAGE_UPDATE,
+  P_POST_CREATE,
+  P_POST_DELETE,
+  P_POST_LISTED,
+  P_POST_UPDATE,
+  P_POST_TYPE_CREATE,
+  P_POST_TYPE_DELETE,
+  P_POST_TYPE_LISTED,
+  P_POST_TYPE_UPDATE,
   P_USER_CREATE,
   P_USER_DELETE,
   P_USER_DETAIL,
@@ -156,10 +160,15 @@ export class UserRoleController {
         P_DATA_UPDATE,
         P_DATA_DELETE,
 
-        P_PAGE_LISTED,
-        P_PAGE_CREATE,
-        P_PAGE_UPDATE,
-        P_PAGE_DELETE,
+        P_POST_CREATE,
+        P_POST_DELETE,
+        P_POST_LISTED,
+        P_POST_UPDATE,
+
+        P_POST_TYPE_CREATE,
+        P_POST_TYPE_DELETE,
+        P_POST_TYPE_LISTED,
+        P_POST_TYPE_UPDATE,
       ],
     };
   }
@@ -172,7 +181,7 @@ export class UserRoleController {
   async findOne(@I18n() i18n: I18nContext, @Param('id') id: string): Promise<UserRoleResponseDto> {
     return {
       message: i18n.t('common.Get Detail Success'),
-      data: await this.service.findOne(id),
+      data: await this.service.findOne(id, [], i18n),
     };
   }
 }

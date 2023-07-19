@@ -1,4 +1,3 @@
-export * from './base.entity';
 export * from './code.entity';
 export * from './code-type.entity';
 export * from './customer.entity';
@@ -6,8 +5,9 @@ export * from './data.entity';
 export * from './data-translation.entity';
 export * from './data-type.entity';
 export * from './dayoff.entity';
-export * from './page.entity';
-export * from './page-translation.entity';
+export * from './post.entity';
+export * from './post-translation.entity';
+export * from './post-type.entity';
 export * from './user.entity';
 export * from './user-role.entity';
 export * from './user-team.entity';
