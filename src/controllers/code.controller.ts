@@ -41,7 +41,7 @@ export class CodeController {
   async findOne(@I18n() i18n: I18nContext, @Param('id') id: string): Promise<CodeRelationshipResponseDto> {
     return {
       message: i18n.t('common.Get Detail Success'),
-      data: await this.service.findOne(id),
+      data: await this.service.findOne(id, [], i18n),
     };
   }
 
@@ -84,7 +84,7 @@ export class CodeController {
   async remove(@I18n() i18n: I18nContext, @Param('id') id: string): Promise<CodeResponseDto> {
     return {
       message: i18n.t('common.Delete Success'),
-      data: await this.service.removeHard(id),
+      data: await this.service.removeHard(id, i18n),
     };
   }
 }

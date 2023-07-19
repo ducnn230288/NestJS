@@ -95,7 +95,7 @@ export class CodeTypeController {
   async remove(@I18n() i18n: I18nContext, @Param('id') id: string): Promise<CodeTypeResponseDto> {
     return {
       message: i18n.t('common.Delete Success'),
-      data: await this.service.removeHard(id),
+      data: await this.service.removeHard(id, i18n),
     };
   }
 }
