@@ -8,13 +8,19 @@ import { MaxGroup, Base } from '@common';
 import { Post } from '@entities';
 
 @Entity()
-@Unique(['slug'])
+@Unique(['code'])
 export class PostType extends Base {
   @Column()
   @ApiProperty({ example: faker.name.jobType(), description: '' })
   @Expose()
   @IsString()
   name: string;
+
+  @Column()
+  @Expose()
+  @ApiProperty({ example: faker.random.alpha({ count: 3, casing: 'upper', bannedChars: ['A'] }), description: '' })
+  @IsString()
+  code: string;
 
   @Column()
   @Expose()

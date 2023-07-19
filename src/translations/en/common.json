@@ -16,15 +16,11 @@
   "Data": {
     "name is already taken": "Name is already taken"
   },
-  "Page": {
-    "Title is already taken": "Title is already taken",
-    "data Homepage not found": "Data Homepage not found",
-    "Data not found": "Data {slug} not found"
-  },
   "user" : {
     "Passwords are not identical": "Passwords are not identical",
     "Email is already taken": "Email is already taken",
     "Other leave requests need approval": "Other leave requests need approval",
-    "Data id not found": "data {id} not found"
+    "Data id not found": "Data {id} not found",
+    "Can't be deleted because there's still link data": "Can't be deleted because there's still link data"
   }
 }

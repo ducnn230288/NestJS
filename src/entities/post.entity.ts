@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { faker } from '@faker-js/faker';
-import { IsArray, IsInt, IsOptional, IsString, Min } from 'class-validator';
+import { IsArray, IsOptional, IsString } from 'class-validator';
 import { Expose } from 'class-transformer';
 
 import { MaxGroup, Base } from '@common';
@@ -51,7 +51,7 @@ export class Post extends Base {
   customCSS?: string;
 
   @ManyToOne(() => PostType, (dataType) => dataType.items, { eager: false })
-  @JoinColumn({ name: 'type', referencedColumnName: 'slug' })
+  @JoinColumn({ name: 'type', referencedColumnName: 'code' })
   @Expose({ groups: [MaxGroup] })
   public item?: PostType;
 

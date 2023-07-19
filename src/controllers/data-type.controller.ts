@@ -50,7 +50,7 @@ export class DataTypeController {
   ): Promise<ArrayDataTypeResponseDto> {
     return {
       message: i18n.t('common.Get Detail Success'),
-      data: await this.service.findArrayCode(query.array),
+      data: await this.service.findArrayCode(query.array, i18n),
     };
   }
 
@@ -62,7 +62,7 @@ export class DataTypeController {
   async findOneCode(@I18n() i18n: I18nContext, @Param('code') code: string): Promise<DataTypeResponseDto> {
     return {
       message: i18n.t('common.Get Detail Success'),
-      data: await this.service.findCode(code),
+      data: await this.service.findCode(code, i18n),
     };
   }
 

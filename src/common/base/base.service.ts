@@ -1,5 +1,5 @@
 import { Brackets, Repository } from 'typeorm';
-import { NotFoundException } from '@nestjs/common';
+import { BadRequestException } from '@nestjs/common';
 import { I18nContext } from 'nestjs-i18n';
 import * as dayjs from 'dayjs';
 
@@ -162,7 +162,7 @@ export abstract class BaseService {
     }
     const data = await request.where(`base.id=:id`, { id }).withDeleted().getOne();
     if (!data) {
-      throw new NotFoundException(`data  #${id} not found`);
+      throw new BadRequestException(`data  #${id} not found`);
     }
     return data;
   }
@@ -178,7 +178,7 @@ export abstract class BaseService {
       ...body,
     });
     if (!data) {
-      throw new NotFoundException(`data  #${id} not found`);
+      throw new BadRequestException(`data  #${id} not found`);
     }
     return this.repo.save(data);
   }
@@ -186,7 +186,7 @@ export abstract class BaseService {
   async remove(id: string, i18n: I18nContext) {
     const res = await this.repo.softDelete(id);
     if (!res.affected) {
-      throw new NotFoundException(id);
+      throw new BadRequestException(id);
     }
     return await this.findOne(id);
   }
@@ -195,7 +195,7 @@ export abstract class BaseService {
     const data = await this.findOne(id);
     const res = await this.repo.delete(id);
     if (!res.affected) {
-      throw new NotFoundException(id);
+      throw new BadRequestException(id);
     }
     return data;
   }

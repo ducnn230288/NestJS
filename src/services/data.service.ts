@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
 import { I18nContext } from 'nestjs-i18n';
@@ -52,7 +52,7 @@ export class DataService extends BaseService {
         ...body,
       });
       if (!data) {
-        throw new NotFoundException(i18n.t('common.user.Data id not found', { args: { id } }));
+        throw new BadRequestException(i18n.t('common.user.Data id not found', { args: { id } }));
       }
       result = await this.repo.save(data);
       for (const item of translations) {

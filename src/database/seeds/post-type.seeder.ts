@@ -7,8 +7,8 @@ export class PostTypeSeeder implements Seeder {
   async run(dataSource: DataSource): Promise<void> {
     const repository = dataSource.getRepository(PostType);
     const listData: PostType[] = [
-      { name: 'News', slug: 'news', isPrimary: true },
-      { name: 'Projects', slug: 'projects', isPrimary: true },
+      { name: 'News', code: 'news', slug: 'news', isPrimary: true },
+      { name: 'Projects', code: 'projects', slug: 'projects', isPrimary: true },
     ];
 
     for (const data of listData) {

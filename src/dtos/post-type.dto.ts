@@ -5,12 +5,14 @@ import { PostType } from '@entities';
 
 export class CreatePostTypeRequestDto extends PickType(PostType, [
   'name',
+  'code',
   'slug',
   'coverUrl',
   'description',
 ] as const) {}
 export class UpdatePostTypeRequestDto extends PickType(PostType, [
   'name',
+  'code',
   'slug',
   'coverUrl',
   'description',
