@@ -7,21 +7,21 @@ export class CodeSeeder implements Seeder {
   async run(dataSource: DataSource): Promise<void> {
     const repository = dataSource.getRepository(Code);
     const listData: Code[] = [
-      { name: 'President & CEO', code: 'PC', type: 'POS' },
-      { name: 'CCO', code: 'CCO', type: 'POS' },
-      { name: 'Vice Director', code: 'VD', type: 'POS' },
-      { name: 'Vice Director', code: 'VD', type: 'POS' },
-      { name: 'Delivery Manager', code: 'DM', type: 'POS' },
-      { name: 'CTO', code: 'CTO', type: 'POS' },
-      { name: 'Admin', code: 'AD', type: 'POS' },
-      { name: 'Accountant', code: 'ACC', type: 'POS' },
-      { name: 'Ai Technical Leader', code: 'ATL', type: 'POS' },
-      { name: 'Web-App Technical Leader', code: 'WATL', type: 'POS' },
-      { name: 'Project Technical Leader', code: 'PTL', type: 'POS' },
-      { name: 'Developer', code: 'DEV', type: 'POS' },
-      { name: 'Engineer', code: 'ENG', type: 'POS' },
-      { name: 'Business Analyst', code: 'BA', type: 'POS' },
-      { name: 'Tester', code: 'TEST', type: 'POS' },
+      { name: 'President & CEO', code: 'PC', type: 'position' },
+      { name: 'CCO', code: 'CCO', type: 'position' },
+      { name: 'Vice Director', code: 'VD', type: 'position' },
+      { name: 'Vice Director', code: 'VD', type: 'position' },
+      { name: 'Delivery Manager', code: 'DM', type: 'position' },
+      { name: 'CTO', code: 'CTO', type: 'position' },
+      { name: 'Admin', code: 'AD', type: 'position' },
+      { name: 'Accountant', code: 'ACC', type: 'position' },
+      { name: 'Ai Technical Leader', code: 'ATL', type: 'position' },
+      { name: 'Web-App Technical Leader', code: 'WATL', type: 'position' },
+      { name: 'Project Technical Leader', code: 'PTL', type: 'position' },
+      { name: 'Developer', code: 'DEV', type: 'position' },
+      { name: 'Engineer', code: 'ENG', type: 'position' },
+      { name: 'Business Analyst', code: 'BA', type: 'position' },
+      { name: 'Tester', code: 'TEST', type: 'position' },
     ];
 
     for (const data of listData) {
