@@ -7,11 +7,11 @@ export class DataTypeSeeder implements Seeder {
   async run(dataSource: DataSource): Promise<void> {
     const repository = dataSource.getRepository(DataType);
     const listData: DataType[] = [
-      { name: 'Mission', code: 'MISSION', isPrimary: true },
-      { name: 'Services', code: 'SERVICES', isPrimary: true },
-      { name: 'Value', code: 'VALUE', isPrimary: true },
-      { name: 'Member', code: 'MEMBER', isPrimary: true },
-      { name: 'Partner', code: 'PARTNER', isPrimary: true },
+      { name: 'Mission', code: 'mission', isPrimary: true },
+      { name: 'Services', code: 'services', isPrimary: true },
+      { name: 'Value', code: 'value', isPrimary: true },
+      { name: 'Member', code: 'member', isPrimary: true },
+      { name: 'Partner', code: 'partner', isPrimary: true },
     ];
 
     for (const data of listData) {
