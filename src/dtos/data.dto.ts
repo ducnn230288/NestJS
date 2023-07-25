@@ -1,19 +1,12 @@
 import { OmitType, PartialType, PickType } from '@nestjs/swagger';
-import { IsArray } from 'class-validator';
+import { IsArray, IsOptional } from 'class-validator';
 
 import { DefaultResponsesDto, PaginationResponsesDto } from '@dtos';
 import { Data, DataTranslation } from '@entities';
 
-export class CreateDataRequestDto extends PickType(Data, [
-  'type',
-  'image',
-  'image1',
-  'image2',
-  'image3',
-  'order',
-  'createdAt',
-] as const) {
+export class CreateDataRequestDto extends PickType(Data, ['type', 'image', 'name', 'order', 'createdAt'] as const) {
   @IsArray()
+  @IsOptional()
   translations: CreateDataTranslationRequestDto[];
 }
 export class CreateDataTranslationRequestDto extends PickType(DataTranslation, [
@@ -21,12 +14,7 @@ export class CreateDataTranslationRequestDto extends PickType(DataTranslation, [
   'language',
   'name',
   'description',
-  'slug',
-  'seoTitle',
-  'seoDescription',
-  'text1',
-  'text2',
-  'text3',
+  'position',
   'content',
 ] as const) {}
 

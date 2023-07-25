@@ -4,15 +4,7 @@ import { IsArray } from 'class-validator';
 import { DefaultResponsesDto, PaginationResponsesDto } from '@dtos';
 import { Post, PostTranslation } from '@entities';
 
-export class CreatePostRequestDto extends PickType(Post, [
-  'type',
-  'thumbnailUrl',
-  'coverUrl',
-  'backGroundColor',
-  'titleForeColor',
-  'customCSSClass',
-  'customCSS',
-] as const) {
+export class CreatePostRequestDto extends PickType(Post, ['type', 'thumbnailUrl', 'createdAt'] as const) {
   @IsArray()
   translations: CreatePostTranslationRequestDto[];
 }
@@ -22,8 +14,6 @@ export class CreatePostTranslationRequestDto extends PickType(PostTranslation, [
   'name',
   'description',
   'slug',
-  'seoTitle',
-  'seoDescription',
   'content',
 ] as const) {}
 

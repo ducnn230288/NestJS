@@ -26,38 +26,10 @@ export class DataTranslation extends Base {
   description?: string;
 
   @Column({ nullable: true })
-  @ApiProperty({ example: faker.lorem.slug(), description: '' })
-  @IsString()
-  @IsOptional()
-  slug: string;
-
-  @Column({ nullable: true })
-  @ApiProperty({ example: faker.name.jobType(), description: '' })
-  @IsString()
-  seoTitle: string;
-
-  @Column({ nullable: true })
-  @ApiProperty({ example: faker.lorem.paragraph(), description: '' })
-  @IsString()
-  seoDescription: string;
-
-  @Column({ nullable: true })
   @ApiProperty({ example: faker.lorem.paragraph(), description: '' })
   @IsString()
   @IsOptional()
-  text1?: string;
-
-  @Column({ nullable: true })
-  @ApiProperty({ example: faker.lorem.paragraph(), description: '' })
-  @IsString()
-  @IsOptional()
-  text2?: string;
-
-  @Column({ nullable: true })
-  @ApiProperty({ example: faker.lorem.paragraph(), description: '' })
-  @IsString()
-  @IsOptional()
-  text3?: string;
+  position?: string;
 
   @Column({
     type: 'jsonb',

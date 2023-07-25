@@ -18,25 +18,13 @@ export class Data extends Base {
   @ApiProperty({ example: faker.image.imageUrl(), description: '' })
   @IsString()
   @IsOptional()
+  name?: string;
+
+  @Column({ nullable: true })
+  @ApiProperty({ example: faker.image.imageUrl(), description: '' })
+  @IsString()
+  @IsOptional()
   image?: string;
-
-  @Column({ nullable: true })
-  @ApiProperty({ example: faker.image.imageUrl(), description: '' })
-  @IsString()
-  @IsOptional()
-  image1?: string;
-
-  @Column({ nullable: true })
-  @ApiProperty({ example: faker.image.imageUrl(), description: '' })
-  @IsString()
-  @IsOptional()
-  image2?: string;
-
-  @Column({ nullable: true })
-  @ApiProperty({ example: faker.image.imageUrl(), description: '' })
-  @IsString()
-  @IsOptional()
-  image3?: string;
 
   @Column({ nullable: true })
   @ApiProperty({ example: faker.datatype.number({ min: 0 }), description: '' })

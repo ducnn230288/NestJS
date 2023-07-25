@@ -31,16 +31,6 @@ export class PostTranslation extends Base {
   @IsOptional()
   slug: string;
 
-  @Column({ nullable: true })
-  @ApiProperty({ example: faker.name.jobType(), description: '' })
-  @IsString()
-  seoTitle: string;
-
-  @Column({ nullable: true })
-  @ApiProperty({ example: faker.lorem.paragraph(), description: '' })
-  @IsString()
-  seoDescription: string;
-
   @Column({
     type: 'jsonb',
     array: false,

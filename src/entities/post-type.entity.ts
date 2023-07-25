@@ -22,24 +22,6 @@ export class PostType extends Base {
   @IsString()
   code: string;
 
-  @Column()
-  @Expose()
-  @ApiProperty({ example: faker.random.alpha({ count: 3, casing: 'upper', bannedChars: ['A'] }), description: '' })
-  @IsString()
-  slug: string;
-
-  @Column({ nullable: true })
-  @ApiProperty({ example: faker.image.imageUrl(), description: '' })
-  @IsString()
-  @IsOptional()
-  coverUrl?: string;
-
-  @Column({ nullable: true })
-  @ApiProperty({ example: faker.lorem.paragraph(), description: '' })
-  @IsString()
-  @IsOptional()
-  description?: string;
-
   @Column({ default: false })
   @Expose()
   @ApiProperty({ example: false, description: '' })

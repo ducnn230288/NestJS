@@ -27,18 +27,20 @@ export class DataService extends BaseService {
     let result = null;
     await this.dataSource.transaction(async (entityManager) => {
       result = await entityManager.save(entityManager.create(Data, { ...body }));
-      for (const item of translations) {
-        delete item.id;
-        const existingName = await entityManager
-          .createQueryBuilder(DataTranslation, 'base')
-          .andWhere(`base.name=:name`, { name: item.name })
-          .andWhere(`base.language=:language`, { language: item.language })
-          .withDeleted()
-          .getCount();
-        if (existingName) {
-          throw new BadRequestException(i18n.t('common.Data.name is already taken'));
+      if (translations) {
+        for (const item of translations) {
+          delete item.id;
+          const existingName = await entityManager
+            .createQueryBuilder(DataTranslation, 'base')
+            .andWhere(`base.name=:name`, { name: item.name })
+            .andWhere(`base.language=:language`, { language: item.language })
+            .withDeleted()
+            .getCount();
+          if (existingName) {
+            throw new BadRequestException(i18n.t('common.Data.name is already taken'));
+          }
+          await entityManager.save(entityManager.create(DataTranslation, { dataId: result.id, ...item }));
         }
-        await entityManager.save(entityManager.create(DataTranslation, { dataId: result.id, ...item }));
       }
     });
     return result;
@@ -55,18 +57,20 @@ export class DataService extends BaseService {
         throw new BadRequestException(i18n.t('common.user.Data id not found', { args: { id } }));
       }
       result = await this.repo.save(data);
-      for (const item of translations) {
-        const existingName = await entityManager
-          .createQueryBuilder(DataTranslation, 'base')
-          .andWhere(`base.name=:name`, { name: item.name })
-          .andWhere(`base.language=:language`, { language: item.language })
-          .andWhere(`base.dataId != :dataId`, { dataId: id })
-          .withDeleted()
-          .getCount();
-        if (existingName) {
-          throw new BadRequestException(i18n.t('common.Data.name is already taken'));
+      if (translations) {
+        for (const item of translations) {
+          const existingName = await entityManager
+            .createQueryBuilder(DataTranslation, 'base')
+            .andWhere(`base.name=:name`, { name: item.name })
+            .andWhere(`base.language=:language`, { language: item.language })
+            .andWhere(`base.dataId != :dataId`, { dataId: id })
+            .withDeleted()
+            .getCount();
+          if (existingName) {
+            throw new BadRequestException(i18n.t('common.Data.name is already taken'));
+          }
+          await entityManager.save(await entityManager.preload(DataTranslation, { dataId: result.id, ...item }));
         }
-        await entityManager.save(await entityManager.preload(DataTranslation, { dataId: result.id, ...item }));
       }
     });
     return result;

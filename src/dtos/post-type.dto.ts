@@ -3,20 +3,8 @@ import { OmitType, PartialType, PickType } from '@nestjs/swagger';
 import { DefaultResponsesDto, PaginationResponsesDto } from '@dtos';
 import { PostType } from '@entities';
 
-export class CreatePostTypeRequestDto extends PickType(PostType, [
-  'name',
-  'code',
-  'slug',
-  'coverUrl',
-  'description',
-] as const) {}
-export class UpdatePostTypeRequestDto extends PickType(PostType, [
-  'name',
-  'code',
-  'slug',
-  'coverUrl',
-  'description',
-] as const) {}
+export class CreatePostTypeRequestDto extends PickType(PostType, ['name', 'code'] as const) {}
+export class UpdatePostTypeRequestDto extends PickType(PostType, ['name', 'code'] as const) {}
 
 export class ArrayPostTypeResponseDto extends PartialType(DefaultResponsesDto) {
   readonly data: { [key: string]: PostType };
