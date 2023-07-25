@@ -20,36 +20,6 @@ export class Post extends Base {
   @IsOptional()
   thumbnailUrl?: string;
 
-  @Column({ nullable: true })
-  @ApiProperty({ example: faker.image.imageUrl(), description: '' })
-  @IsString()
-  @IsOptional()
-  coverUrl?: string;
-
-  @Column({ nullable: true })
-  @ApiProperty({ example: faker.image.imageUrl(), description: '' })
-  @IsString()
-  @IsOptional()
-  backGroundColor?: string;
-
-  @Column({ nullable: true })
-  @ApiProperty({ example: faker.image.imageUrl(), description: '' })
-  @IsString()
-  @IsOptional()
-  titleForeColor?: string;
-
-  @Column({ nullable: true })
-  @ApiProperty({ example: faker.image.imageUrl(), description: '' })
-  @IsString()
-  @IsOptional()
-  customCSSClass?: string;
-
-  @Column({ nullable: true })
-  @ApiProperty({ example: faker.image.imageUrl(), description: '' })
-  @IsString()
-  @IsOptional()
-  customCSS?: string;
-
   @ManyToOne(() => PostType, (dataType) => dataType.items, { eager: false })
   @JoinColumn({ name: 'type', referencedColumnName: 'code' })
   @Expose({ groups: [MaxGroup] })
