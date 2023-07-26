@@ -6,7 +6,7 @@ import { CodeType } from '@entities';
 export class CodeTypeSeeder implements Seeder {
   async run(dataSource: DataSource): Promise<void> {
     const repository = dataSource.getRepository(CodeType);
-    const data: CodeType = { name: 'Position', code: 'POS', isPrimary: true };
+    const data: CodeType = { name: 'Position', code: 'position', isPrimary: true };
 
     const dataExists = await repository
       .createQueryBuilder('base')
