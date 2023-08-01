@@ -22,12 +22,10 @@ export abstract class Base<T extends Base = any> {
   isDeleted?: Date;
 
   @CreateDateColumn({ name: 'created_at' })
-  @Expose({ groups: [MaxGroup] })
   @IsDateString()
   @IsOptional()
   createdAt?: Date;
 
   @UpdateDateColumn({ name: 'updated_at' })
-  @Expose({ groups: [MaxGroup] })
   readonly updatedAt?: Date;
 }
