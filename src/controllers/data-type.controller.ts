@@ -43,33 +43,6 @@ export class DataTypeController {
     summary: 'Get Detail data',
     serializeOptions: { groups: [MaxGroup] },
   })
-  @Get('/array')
-  async findOneByArray(
-    @I18n() i18n: I18nContext,
-    @Query(new ValidationPipe({ transform: true })) query: { array: string[] },
-  ): Promise<ArrayDataTypeResponseDto> {
-    return {
-      message: i18n.t('common.Get Detail Success'),
-      data: await this.service.findArrayCode(query.array, i18n),
-    };
-  }
-
-  @Public({
-    summary: 'Get Detail data by code',
-    serializeOptions: { groups: [MaxGroup] },
-  })
-  @Get('code/:code')
-  async findOneCode(@I18n() i18n: I18nContext, @Param('code') code: string): Promise<DataTypeResponseDto> {
-    return {
-      message: i18n.t('common.Get Detail Success'),
-      data: await this.service.findCode(code, i18n),
-    };
-  }
-
-  @Public({
-    summary: 'Get Detail data',
-    serializeOptions: { groups: [MaxGroup] },
-  })
   @Get(':id')
   async findOne(@I18n() i18n: I18nContext, @Param('id') id: string): Promise<DataTypeResponseDto> {
     return {

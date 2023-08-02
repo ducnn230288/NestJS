@@ -23,6 +23,28 @@ export class DataService extends BaseService {
     this.listJoin = ['translations'];
   }
 
+  async findArrayCode(types: string[]) {
+    const tempData: { [key: string]: Data[] } = {};
+    for (const type of types) {
+      tempData[type] = (await this.findAll({ filter: { type }, sorts: { order: 'ASC' } }))[0];
+    }
+    return tempData;
+  }
+
+  async findType(type: string, i18n: I18nContext) {
+    const data = await this.repo
+      .createQueryBuilder('base')
+      .where(`base.type=:type`, { type })
+      .leftJoinAndSelect('base.translations', 'translations')
+      .addOrderBy('base.order', 'ASC')
+      .withDeleted()
+      .getMany();
+    if (!data) {
+      throw new BadRequestException(i18n.t('common.user.Data id not found', { args: { id: type } }));
+    }
+    return data;
+  }
+
   async create({ translations, ...body }: CreateDataRequestDto, i18n: I18nContext) {
     let result = null;
     await this.dataSource.transaction(async (entityManager) => {
