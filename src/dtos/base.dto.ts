@@ -13,12 +13,12 @@ export class PaginationQueryDto {
   @IsOptional()
   @IsPositive()
   @Type(() => Number)
-  perPage: number;
+  perPage?: number;
 
   @IsOptional()
   @IsPositive()
   @Type(() => Number)
-  page: number;
+  page?: number;
 
   @IsOptional()
   @Transform(({ value }) => JSON.parse(value))
@@ -40,6 +40,10 @@ export class PaginationQueryDto {
   fullTextSearch?: string;
 
   where?: object[];
+
+  @IsOptional()
+  @Transform(({ value }) => JSON.parse(value))
+  array?: string[];
 }
 export class PaginationResponsesDto extends PartialType(DefaultResponsesDto) {
   @ApiProperty({ example: faker.random.numeric(), description: '' })

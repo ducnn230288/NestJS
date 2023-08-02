@@ -109,7 +109,8 @@ export abstract class BaseService {
         request = request.orderBy('base.' + key, sorts[key]);
       });
     }
-    request = request.take(perPage || 10).skip((page !== undefined ? page - 1 : 0) * (perPage || 10));
+    if (perPage !== undefined && page !== undefined)
+      request = request.take(perPage || 10).skip((page !== undefined ? page - 1 : 0) * (perPage || 10));
     const res: [any, number] = await request.getManyAndCount();
     if (extend && Object.keys(extend).length) {
       let isGet = false;

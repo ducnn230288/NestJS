@@ -8,6 +8,7 @@ import {
   ListDataResponseDto,
   CreateDataRequestDto,
   UpdateDataRequestDto,
+  ArrayDataTypeResponseDto,
 } from '@dtos';
 import { DataService, P_DATA_LISTED, P_DATA_CREATE, P_DATA_UPDATE, P_DATA_DELETE } from '@services';
 
@@ -30,6 +31,21 @@ export class DataController {
       message: i18n.t('common.Get List success'),
       count: total,
       data: result,
+    };
+  }
+
+  @Public({
+    summary: 'Get Detail data',
+    serializeOptions: { groups: [MaxGroup] },
+  })
+  @Get('/array')
+  async findOneByArray(
+    @I18n() i18n: I18nContext,
+    @Query(new ValidationPipe({ transform: true })) query: PaginationQueryDto,
+  ): Promise<ArrayDataTypeResponseDto> {
+    return {
+      message: i18n.t('common.Get Detail Success'),
+      data: await this.service.findArrayCode(query.array),
     };
   }
 
