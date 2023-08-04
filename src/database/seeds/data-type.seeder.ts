@@ -12,6 +12,7 @@ export class DataTypeSeeder implements Seeder {
       { name: 'Value', code: 'value', isPrimary: true },
       { name: 'Member', code: 'member', isPrimary: true },
       { name: 'Partner', code: 'partner', isPrimary: true },
+      { name: 'Tech', code: 'tech', isPrimary: true },
     ];
 
     for (const data of listData) {
