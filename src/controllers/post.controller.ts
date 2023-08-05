@@ -8,6 +8,7 @@ import {
   ListPostResponseDto,
   CreatePostRequestDto,
   UpdatePostRequestDto,
+  ArrayDataTypeResponseDto,
 } from '@dtos';
 import { PostService, P_POST_LISTED, P_POST_CREATE, P_POST_UPDATE, P_POST_DELETE } from '@services';
 
@@ -34,6 +35,33 @@ export class PostController {
   }
 
   @Public({
+    summary: 'Get Detail data',
+    serializeOptions: { groups: [MaxGroup] },
+  })
+  @Get('/array')
+  async findOneByArray(
+    @I18n() i18n: I18nContext,
+    @Query(new ValidationPipe({ transform: true })) query: PaginationQueryDto,
+  ): Promise<ArrayDataTypeResponseDto> {
+    return {
+      message: i18n.t('common.Get Detail Success'),
+      data: await this.service.findArrayCode(query.array),
+    };
+  }
+
+  @Public({
+    summary: 'Get Detail data',
+    serializeOptions: { groups: [MaxGroup] },
+  })
+  @Get('/slug/:slug')
+  async findSlug(@I18n() i18n: I18nContext, @Param('slug') slug: string): Promise<PostResponseDto> {
+    return {
+      message: i18n.t('common.Get Detail Success'),
+      data: await this.service.findSlug(slug, i18n),
+    };
+  }
+
+  @Auth({
     summary: 'Get Detail data',
     serializeOptions: { groups: [MaxGroup] },
   })

@@ -21,25 +21,6 @@ export class PostTypeService extends BaseService {
   ) {
     super(repo);
   }
-
-  async findArrayCode(slugs: string[], i18n: I18nContext) {
-    const tempData: { [key: string]: PostType } = {};
-    for (const slug of slugs) tempData[slug] = await this.findCode(slug, i18n);
-    return tempData;
-  }
-
-  async findCode(code: string, i18n: I18nContext) {
-    const data = await this.repo
-      .createQueryBuilder('base')
-      .where(`base.code=:code`, { code })
-      .leftJoinAndMapMany('base.items', 'Post', 'post', 'base.slug = post.type')
-      .addOrderBy('data.createdAt', 'ASC')
-      .withDeleted()
-      .getOne();
-    if (!data) throw new BadRequestException(i18n.t('common.user.Data id not found', { args: { id: code } }));
-    return data;
-  }
-
   async removeCheck(id: string, i18n: I18nContext) {
     const data = await this.findOne(id, [], i18n);
     const count = await this.repoPost

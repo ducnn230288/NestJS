@@ -5,7 +5,7 @@ import { I18nContext } from 'nestjs-i18n';
 
 import { BaseService } from '@common';
 import { CreatePostRequestDto, UpdatePostRequestDto } from '@dtos';
-import { Post, PostTranslation } from '@entities';
+import { Data, Post, PostTranslation } from '@entities';
 
 export const P_POST_LISTED = '7c34dc92-cbbe-4419-8dbc-745818d76098';
 export const P_POST_CREATE = '0ca9634c-3496-4059-bf86-5bec23c96b55';
@@ -17,10 +17,29 @@ export class PostService extends BaseService {
   constructor(
     @InjectRepository(Post)
     public repo: Repository<Post>,
+    @InjectRepository(PostTranslation)
+    public repoTranslation: Repository<PostTranslation>,
     private readonly dataSource: DataSource,
   ) {
     super(repo);
     this.listJoin = ['translations'];
+  }
+
+  async findArrayCode(types: string[]) {
+    const tempData: { [key: string]: Data[] } = {};
+    for (const type of types) {
+      tempData[type] = (await this.findAll({ filter: { type }, sorts: { createdAt: 'DESC' } }))[0];
+    }
+    return tempData;
+  }
+
+  async findSlug(slug: string, i18n: I18nContext) {
+    const { postId } = await this.repoTranslation
+      .createQueryBuilder('base')
+      .where(`base.slug=:slug`, { slug })
+      .withDeleted()
+      .getOne();
+    return this.findOne(postId, [], i18n);
   }
 
   async create({ translations, ...body }: CreatePostRequestDto, i18n: I18nContext) {
