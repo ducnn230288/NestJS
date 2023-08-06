@@ -39,7 +39,7 @@ export class DataTypeController {
     };
   }
 
-  @Public({
+  @Auth({
     summary: 'Get Detail data',
     serializeOptions: { groups: [MaxGroup] },
   })
