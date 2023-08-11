@@ -57,7 +57,8 @@ export abstract class BaseService {
               }
             } else if (typeof filter[key] !== 'object') {
               // /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(filter[key])
-              qb = qb.andWhere(`base.${key}=:${key}`, { [key]: filter[key] });
+              if (filter[key] === 'NULL') qb = qb.andWhere(`base.${key} IS NULL`);
+              else qb = qb.andWhere(`base.${key}=:${key}`, { [key]: filter[key] });
             }
           });
 

@@ -28,7 +28,7 @@ export class PostService extends BaseService {
   async findArrayCode(types: string[]) {
     const tempData: { [key: string]: Data[] } = {};
     for (const type of types) {
-      tempData[type] = (await this.findAll({ filter: { type, isDisabled: null }, sorts: { createdAt: 'DESC' } }))[0];
+      tempData[type] = (await this.findAll({ filter: { type, isDisabled: 'NULL' }, sorts: { createdAt: 'DESC' } }))[0];
     }
     return tempData;
   }
