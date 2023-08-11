@@ -2,6 +2,7 @@ import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable } from '@nestjs/common';
 
 import { User } from '@entities';
+import { ContactRequestDto } from '@dtos';
 
 @Injectable()
 export class MailService {
@@ -17,6 +18,16 @@ export class MailService {
         name: user.name,
         url: process.env.DOMAIN_FE + 'auth/reset-password?token=' + token,
       },
+    });
+  }
+
+  async sendUserContact(context: ContactRequestDto) {
+    await this.mailerService.sendMail({
+      to: 'langphongmtb@gmail.com',
+      from: '"ARI TECHNOLOGY" <' + process.env.MAIL_FROM + '>',
+      subject: 'We got a request to Contact',
+      template: './contact',
+      context,
     });
   }
 }

@@ -28,6 +28,7 @@ import {
   UserResponseDto,
   AuthDto,
   DefaultAuthResponsesUserDto,
+  ContactRequestDto,
 } from '@dtos';
 import { User } from '@entities';
 import { AuthService, P_AUTH_DELETE_IMAGE_TEMP } from '@services';
@@ -65,6 +66,20 @@ export class AuthController {
     @Body(new SerializerBody()) body: ForgottenPasswordAuthRequestDto,
   ): Promise<DefaultResponsesDto> {
     await this.authService.forgottenPassword(body, i18n);
+    return {
+      message: i18n.t('common.Success'),
+    };
+  }
+
+  @Public({
+    summary: 'Send email Contact',
+  })
+  @Post('send-email-contact')
+  async sendEmailContact(
+    @I18n() i18n: I18nContext,
+    @Body(new SerializerBody([MaxGroup])) body: ContactRequestDto,
+  ): Promise<DefaultResponsesDto> {
+    await this.authService.sendMailContact(body, i18n);
     return {
       message: i18n.t('common.Success'),
     };

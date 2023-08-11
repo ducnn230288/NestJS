@@ -4,6 +4,7 @@ import { ApiProperty, OmitType, PartialType, PickType } from '@nestjs/swagger';
 import { Example } from '@common';
 import { DefaultResponsesDto, PaginationResponsesDto, CodeDto, UserRoleDto } from '@dtos';
 import { User } from '@entities';
+import { faker } from '@faker-js/faker';
 
 export class LoginAuthRequestDto extends PickType(User, ['email', 'password'] as const) {}
 export class RegisterAuthRequestDto extends PickType(User, [
@@ -18,6 +19,15 @@ export class RegisterAuthRequestDto extends PickType(User, [
   @MinLength(6)
   @ApiProperty({ example: Example.password, description: '' })
   readonly retypedPassword: string;
+}
+export class ContactRequestDto extends PickType(User, ['email', 'phoneNumber', 'description'] as const) {
+  @ApiProperty({ example: faker.person.firstName(), description: '' })
+  @IsString()
+  readonly firstName: string;
+
+  @ApiProperty({ example: faker.person.lastName(), description: '' })
+  @IsString()
+  readonly lastName: string;
 }
 export class ProfileAuthRequestDto extends PickType(User, [
   'name',
