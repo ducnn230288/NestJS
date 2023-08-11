@@ -7,6 +7,7 @@ import { Repository } from 'typeorm';
 import { I18nContext } from 'nestjs-i18n';
 
 import {
+  ContactRequestDto,
   ForgottenPasswordAuthRequestDto,
   LoginAuthRequestDto,
   RegisterAuthRequestDto,
@@ -93,6 +94,11 @@ export class AuthService extends BaseService {
     );
     await this.update(user.id, user, i18n);
     await this.mailService.sendUserConfirmation(user, user.resetPasswordToken);
+    return true;
+  }
+
+  async sendMailContact(body: ContactRequestDto) {
+    await this.mailService.sendUserContact(body);
     return true;
   }
 
