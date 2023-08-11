@@ -150,7 +150,7 @@ export class UserSeeder implements Seeder {
         avatar: 'https://hinhanhdep.org/wp-content/uploads/2016/07/anh-avatar-girl-xinh.jpg',
         positionCode: 'DEV',
         roleCode: newDataRoleSuperAdmin.code,
-        name: faker.name.fullName(),
+        name: faker.person.fullName(),
         password: Example.password,
         phoneNumber: faker.phone.number('0#########'),
         dob: faker.date.birthdate(),

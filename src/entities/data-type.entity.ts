@@ -12,14 +12,14 @@ import { Data } from './data.entity';
 @Unique(['code'])
 export class DataType extends Base {
   @Column()
-  @ApiProperty({ example: faker.name.jobType(), description: '' })
+  @ApiProperty({ example: faker.person.jobType(), description: '' })
   @Expose()
   @IsString()
   name: string;
 
   @Column()
   @Expose()
-  @ApiProperty({ example: faker.random.alpha({ count: 3, casing: 'upper', bannedChars: ['A'] }), description: '' })
+  @ApiProperty({ example: faker.string.alpha({ length: 3, casing: 'upper', exclude: ['A'] }), description: '' })
   @IsString()
   code: string;
 

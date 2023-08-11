@@ -10,24 +10,24 @@ import { DataType, DataTranslation } from '@entities';
 @Entity()
 export class Data extends Base {
   @Column()
-  @ApiProperty({ example: faker.random.alpha({ count: 3, casing: 'upper', bannedChars: ['A'] }), description: '' })
+  @ApiProperty({ example: faker.string.alpha({ length: 3, casing: 'upper', exclude: ['A'] }), description: '' })
   @IsString()
   type: string;
 
   @Column({ nullable: true })
-  @ApiProperty({ example: faker.image.imageUrl(), description: '' })
+  @ApiProperty({ example: faker.image.url(), description: '' })
   @IsString()
   @IsOptional()
   name?: string;
 
   @Column({ nullable: true })
-  @ApiProperty({ example: faker.image.imageUrl(), description: '' })
+  @ApiProperty({ example: faker.image.url(), description: '' })
   @IsString()
   @IsOptional()
   image?: string;
 
   @Column({ nullable: true })
-  @ApiProperty({ example: faker.datatype.number({ min: 0 }), description: '' })
+  @ApiProperty({ example: faker.number.int({ min: 0 }), description: '' })
   @IsInt()
   @Min(0)
   @IsOptional()

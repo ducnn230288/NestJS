@@ -33,12 +33,12 @@ import { Code, UserRole, UserTeam } from '@entities';
 // @Unique(['email', 'phoneNumber'])
 export class User extends Base {
   @Column()
-  @ApiProperty({ example: faker.name.fullName(), description: '' })
+  @ApiProperty({ example: faker.person.fullName(), description: '' })
   @IsString()
   readonly name: string;
 
   @Column({ nullable: true })
-  @ApiProperty({ example: faker.image.imageUrl(), description: '' })
+  @ApiProperty({ example: faker.image.url(), description: '' })
   @IsString()
   @IsOptional()
   avatar?: string;
@@ -146,14 +146,14 @@ export class User extends Base {
   startDate?: Date;
 
   @Column({ nullable: true, type: 'real' })
-  @ApiProperty({ example: faker.datatype.number({ min: 0.5, max: 12 }), description: '' })
+  @ApiProperty({ example: faker.number.int({ min: 0.5, max: 12 }), description: '' })
   @IsNumber()
   @Max(16)
   @IsOptional()
   dateLeave?: number;
 
   @Column({ nullable: true, type: 'real', default: 0 })
-  @ApiProperty({ example: faker.datatype.number({ min: 0.5, max: 12 }), description: '' })
+  @ApiProperty({ example: faker.number.int({ min: 0.5, max: 12 }), description: '' })
   @IsDecimal()
   readonly dateOff: number;
 }
