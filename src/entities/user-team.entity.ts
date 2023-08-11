@@ -10,7 +10,7 @@ import { User } from '@entities';
 @Entity()
 export class UserTeam extends Base {
   @Column()
-  @ApiProperty({ example: faker.name.jobType(), description: '' })
+  @ApiProperty({ example: faker.person.jobType(), description: '' })
   @IsString()
   name: string;
 

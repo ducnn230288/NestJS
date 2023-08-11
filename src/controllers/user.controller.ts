@@ -7,7 +7,7 @@ import {
   CreateUserRequestDto,
   ListUserResponseDto,
   UpdateUserRequestDto,
-  UserResponseDto,
+  UserResponseDto, DefaultAuthResponsesUserDto,
 } from '@dtos';
 import { P_USER_CREATE, P_USER_DELETE, P_USER_DETAIL, P_USER_LISTED, P_USER_UPDATE, UserService } from '@services';
 import * as dayjs from 'dayjs';

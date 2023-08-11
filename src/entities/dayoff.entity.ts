@@ -16,14 +16,14 @@ export class DayOff extends Base {
   code: string;
 
   @Column()
-  @ApiProperty({ example: faker.datatype.number({ min: 1, max: 3 }), description: '' })
+  @ApiProperty({ example: faker.number.int({ min: 1, max: 3 }), description: '' })
   @IsInt()
   @Min(1)
   @Max(3)
   type: number;
 
   @Column({ default: 0 })
-  @ApiProperty({ example: faker.datatype.number({ min: -1, max: 1 }), description: '' })
+  @ApiProperty({ example: faker.number.int({ min: -1, max: 1 }), description: '' })
   @IsInt()
   @Min(-1)
   @Max(1)
@@ -35,14 +35,14 @@ export class DayOff extends Base {
   reason: string;
 
   @Column()
-  @ApiProperty({ example: faker.datatype.number({ min: 0, max: 2 }), description: '' })
+  @ApiProperty({ example: faker.number.int({ min: 0, max: 2 }), description: '' })
   @IsInt()
   @Min(0)
   @Max(2)
   time: number;
 
   @Column({ nullable: true, type: 'real' })
-  @ApiProperty({ example: faker.datatype.number({ min: 0.5, max: 1 }), description: '' })
+  @ApiProperty({ example: faker.number.int({ min: 0.5, max: 1 }), description: '' })
   @IsDecimal()
   @Min(0.5)
   @Max(1)
@@ -50,23 +50,23 @@ export class DayOff extends Base {
   timeNumber: number;
 
   @Column({ nullable: true })
-  @ApiProperty({ example: faker.image.imageUrl(), description: '' })
+  @ApiProperty({ example: faker.image.url(), description: '' })
   @IsString()
   @IsOptional()
   image: string;
 
   @Column()
-  @ApiProperty({ example: faker.date.soon(1), description: '' })
+  @ApiProperty({ example: faker.date.soon({days: 1}), description: '' })
   @IsDateString()
   dateLeaveStart: Date;
 
   @Column()
-  @ApiProperty({ example: faker.date.soon(10), description: '' })
+  @ApiProperty({ example: faker.date.soon({days: 10}), description: '' })
   @IsDateString()
   dateLeaveEnd: Date;
 
   @Column({ nullable: true })
-  @ApiProperty({ example: faker.date.soon(10), description: '' })
+  @ApiProperty({ example: faker.date.soon({days: 10}), description: '' })
   @IsDateString()
   approvedAt: Date;
 

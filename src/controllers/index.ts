@@ -2,7 +2,6 @@ export * from './app.controller';
 export * from './auth.controller';
 export * from './code.controller';
 export * from './code-type.controller';
-export * from './customer.controller';
 export * from './data.controller';
 export * from './data-type.controller';
 export * from './dayoff.controller';

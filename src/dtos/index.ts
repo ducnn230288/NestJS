@@ -1,7 +1,6 @@
 export * from './base.dto';
 export * from './code.dto';
 export * from './code-type.dto';
-export * from './customer.dto';
 export * from './data.dto';
 export * from './data-type.dto';
 export * from './dayoff.dto';

@@ -1,6 +1,5 @@
 export * from './code.entity';
 export * from './code-type.entity';
-export * from './customer.entity';
 export * from './data.entity';
 export * from './data-translation.entity';
 export * from './data-type.entity';
