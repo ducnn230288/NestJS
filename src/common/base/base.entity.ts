@@ -12,7 +12,7 @@ export abstract class Base<T extends Base = any> {
 
   @PrimaryGeneratedColumn('uuid')
   @IsUUID()
-  @ApiProperty({ example: faker.datatype.uuid(), description: '' })
+  @ApiProperty({ example: faker.string.uuid(), description: '' })
   id?: string;
 
   @DeleteDateColumn()

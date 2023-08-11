@@ -15,7 +15,7 @@ export class DataTranslation extends Base {
   language: string;
 
   @Column()
-  @ApiProperty({ example: faker.name.jobType(), description: '' })
+  @ApiProperty({ example: faker.person.jobType(), description: '' })
   @IsString()
   name: string;
 

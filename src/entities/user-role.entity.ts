@@ -15,7 +15,7 @@ export class UserRole extends Base {
   code: string;
 
   @Column()
-  @ApiProperty({ example: faker.name.jobType(), description: '' })
+  @ApiProperty({ example: faker.person.jobType(), description: '' })
   @IsString()
   name: string;
 

@@ -46,6 +46,6 @@ export class PaginationQueryDto {
   array?: string[];
 }
 export class PaginationResponsesDto extends PartialType(DefaultResponsesDto) {
-  @ApiProperty({ example: faker.random.numeric(), description: '' })
+  @ApiProperty({ example: faker.string.numeric(), description: '' })
   count: number;
 }

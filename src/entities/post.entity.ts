@@ -10,12 +10,12 @@ import { PostType, PostTranslation } from '@entities';
 @Entity()
 export class Post extends Base {
   @Column()
-  @ApiProperty({ example: faker.random.alpha({ count: 3, casing: 'upper', bannedChars: ['A'] }), description: '' })
+  @ApiProperty({ example: faker.string.alpha({ length: 3, casing: 'upper', exclude: ['A'] }), description: '' })
   @IsString()
   type: string;
 
   @Column({ nullable: true })
-  @ApiProperty({ example: faker.image.imageUrl(), description: '' })
+  @ApiProperty({ example: faker.image.url(), description: '' })
   @IsString()
   @IsOptional()
   thumbnailUrl?: string;

@@ -11,17 +11,17 @@ import { CodeType, User } from '@entities';
 @Unique(['code'])
 export class Code extends Base {
   @Column()
-  @ApiProperty({ example: faker.random.alpha({ count: 3, casing: 'upper', bannedChars: ['A'] }), description: '' })
+  @ApiProperty({ example: faker.string.alpha({ length: 3, casing: 'upper', exclude: ['A'] }), description: '' })
   @IsString()
   code: string;
 
   @Column()
-  @ApiProperty({ example: faker.random.alpha({ count: 3, casing: 'upper', bannedChars: ['A'] }), description: '' })
+  @ApiProperty({ example: faker.string.alpha({ length: 3, casing: 'upper', exclude: ['A'] }), description: '' })
   @IsString()
   type: string;
 
   @Column()
-  @ApiProperty({ example: faker.name.jobType(), description: '' })
+  @ApiProperty({ example: faker.person.jobType(), description: '' })
   @IsString()
   name: string;
 
