@@ -1,7 +1,7 @@
 import { Entity, Column, OneToMany, Unique } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { faker } from '@faker-js/faker';
-import { IsBoolean, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsString } from 'class-validator';
 import { Expose } from 'class-transformer';
 
 import { MaxGroup, Base } from '@common';

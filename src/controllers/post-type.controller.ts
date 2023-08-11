@@ -4,7 +4,6 @@ import { I18n, I18nContext } from 'nestjs-i18n';
 import { Auth, Headers, MaxGroup, Public, SerializerBody } from '@common';
 import {
   PaginationQueryDto,
-  ArrayPostTypeResponseDto,
   CreatePostTypeRequestDto,
   PostTypeResponseDto,
   ListPostTypeResponseDto,
@@ -17,6 +16,7 @@ import {
   P_POST_TYPE_LISTED,
   P_POST_TYPE_UPDATE,
 } from '@services';
+import * as dayjs from 'dayjs';
 
 @Headers('post-type')
 export class PostTypeController {
@@ -78,6 +78,22 @@ export class PostTypeController {
     return {
       message: i18n.t('common.Update Success'),
       data: await this.service.update(id, body, i18n),
+    };
+  }
+
+  @Auth({
+    summary: 'Update disable',
+    permission: P_POST_TYPE_UPDATE,
+  })
+  @Put(':id/disable/:boolean')
+  async updateDisable(
+    @I18n() i18n: I18nContext,
+    @Param('id') id: string,
+    @Param('boolean') boolean: string,
+  ): Promise<PostTypeResponseDto> {
+    return {
+      message: i18n.t('common.Update Success'),
+      data: await this.service.update(id, { isDisabled: boolean === 'true' ? dayjs().toDate() : null }, i18n),
     };
   }
 

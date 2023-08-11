@@ -4,7 +4,7 @@ import { IsArray } from 'class-validator';
 import { DefaultResponsesDto, PaginationResponsesDto } from '@dtos';
 import { Post, PostTranslation } from '@entities';
 
-export class CreatePostRequestDto extends PickType(Post, ['type', 'thumbnailUrl', 'createdAt'] as const) {
+export class CreatePostRequestDto extends PickType(Post, ['type', 'thumbnailUrl', 'createdAt', 'isDisabled'] as const) {
   @IsArray()
   translations: CreatePostTranslationRequestDto[];
 }

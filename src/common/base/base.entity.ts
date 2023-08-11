@@ -1,10 +1,8 @@
-import { CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { Expose, Exclude } from 'class-transformer';
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Exclude } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { faker } from '@faker-js/faker';
 import { IsDateString, IsOptional, IsUUID } from 'class-validator';
-
-import { MaxGroup } from '@common';
 
 @Entity()
 export abstract class Base<T extends Base = any> {
@@ -20,6 +18,11 @@ export abstract class Base<T extends Base = any> {
   @DeleteDateColumn()
   @Exclude()
   isDeleted?: Date;
+
+  @Column({ nullable: true })
+  @IsDateString()
+  @IsOptional()
+  isDisabled?: Date;
 
   @CreateDateColumn({ name: 'created_at' })
   @IsDateString()

@@ -4,7 +4,14 @@ import { IsArray, IsOptional } from 'class-validator';
 import { DefaultResponsesDto, PaginationResponsesDto } from '@dtos';
 import { Data, DataTranslation } from '@entities';
 
-export class CreateDataRequestDto extends PickType(Data, ['type', 'image', 'name', 'order', 'createdAt'] as const) {
+export class CreateDataRequestDto extends PickType(Data, [
+  'type',
+  'image',
+  'name',
+  'order',
+  'createdAt',
+  'isDisabled',
+] as const) {
   @IsArray()
   @IsOptional()
   translations: CreateDataTranslationRequestDto[];
