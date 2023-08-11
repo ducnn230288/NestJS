@@ -11,6 +11,7 @@ import {
   UpdateCodeRequestDto,
 } from '@dtos';
 import { CodeService, P_CODE_LISTED, P_CODE_DETAIL, P_CODE_CREATE, P_CODE_UPDATE, P_CODE_DELETE } from '@services';
+import * as dayjs from 'dayjs';
 
 @Headers('code')
 export class CodeController {
@@ -73,6 +74,22 @@ export class CodeController {
     return {
       message: i18n.t('common.Update Success'),
       data: await this.service.update(id, body, i18n),
+    };
+  }
+
+  @Auth({
+    summary: 'Update disable',
+    permission: P_CODE_UPDATE,
+  })
+  @Put(':id/disable/:boolean')
+  async updateDisable(
+    @I18n() i18n: I18nContext,
+    @Param('id') id: string,
+    @Param('boolean') boolean: string,
+  ): Promise<CodeResponseDto> {
+    return {
+      message: i18n.t('common.Update Success'),
+      data: await this.service.update(id, { isDisabled: boolean === 'true' ? dayjs().toDate() : null }, i18n),
     };
   }
 

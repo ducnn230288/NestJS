@@ -10,6 +10,7 @@ import {
   UserResponseDto,
 } from '@dtos';
 import { P_USER_CREATE, P_USER_DELETE, P_USER_DETAIL, P_USER_LISTED, P_USER_UPDATE, UserService } from '@services';
+import * as dayjs from 'dayjs';
 
 @Headers('user')
 export class UserController {
@@ -88,6 +89,26 @@ export class UserController {
     return {
       message: i18n.t('common.Update Success'),
       data: data,
+    };
+  }
+
+  @Auth({
+    summary: 'Update disable',
+    permission: P_USER_UPDATE,
+  })
+  @Put(':id/disable/:boolean')
+  async updateDisable(
+    @I18n() i18n: I18nContext,
+    @Param('id') id: string,
+    @Param('boolean') boolean: string,
+  ): Promise<UserResponseDto> {
+    return {
+      message: i18n.t('common.Update Success'),
+      data: (await this.service.update(
+        id,
+        { isDisabled: boolean === 'true' ? dayjs().toDate() : null },
+        i18n,
+      )) as DefaultAuthResponsesUserDto,
     };
   }
 

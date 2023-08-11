@@ -11,6 +11,7 @@ import {
   ArrayDataTypeResponseDto,
 } from '@dtos';
 import { DataService, P_DATA_LISTED, P_DATA_CREATE, P_DATA_UPDATE, P_DATA_DELETE } from '@services';
+import * as dayjs from 'dayjs';
 
 @Headers('data')
 export class DataController {
@@ -89,6 +90,22 @@ export class DataController {
     return {
       message: i18n.t('common.Update Success'),
       data: await this.service.update(id, body, i18n),
+    };
+  }
+
+  @Auth({
+    summary: 'Update disable',
+    permission: P_DATA_UPDATE,
+  })
+  @Put(':id/disable/:boolean')
+  async updateDisable(
+    @I18n() i18n: I18nContext,
+    @Param('id') id: string,
+    @Param('boolean') boolean: string,
+  ): Promise<DataResponseDto> {
+    return {
+      message: i18n.t('common.Update Success'),
+      data: await this.service.update(id, { isDisabled: boolean === 'true' ? dayjs().toDate() : null }, i18n),
     };
   }
 
