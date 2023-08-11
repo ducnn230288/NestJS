@@ -43,7 +43,7 @@ export abstract class BaseService {
       request = request.andWhere(
         new Brackets((qb) => {
           Object.keys(filter).forEach((key) => {
-            if (typeof filter[key] === 'object' && filter[key].length > 0) {
+            if (typeof filter[key] === 'object' && filter[key]?.length > 0) {
               if (dayjs(filter[key][0]).isValid()) {
                 qb = qb.andWhere(`"${key}" BETWEEN :startDate AND :endDate`, {
                   startDate: filter[key][0],
