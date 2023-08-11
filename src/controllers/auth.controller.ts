@@ -79,7 +79,7 @@ export class AuthController {
     @I18n() i18n: I18nContext,
     @Body(new SerializerBody([MaxGroup])) body: ContactRequestDto,
   ): Promise<DefaultResponsesDto> {
-    await this.authService.sendMailContact(body, i18n);
+    await this.authService.sendMailContact(body);
     return {
       message: i18n.t('common.Success'),
     };

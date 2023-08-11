@@ -23,7 +23,7 @@ export class MailService {
 
   async sendUserContact(context: ContactRequestDto) {
     await this.mailerService.sendMail({
-      to: process.env.MAIL_FROM,
+      to: 'langphongmtb@gmail.com',
       from: '"ARI TECHNOLOGY" <' + process.env.MAIL_FROM + '>',
       subject: 'We got a request to Contact',
       template: './contact',

@@ -97,7 +97,7 @@ export class AuthService extends BaseService {
     return true;
   }
 
-  async sendMailContact(body: ContactRequestDto, i18n: I18nContext) {
+  async sendMailContact(body: ContactRequestDto) {
     await this.mailService.sendUserContact(body);
     return true;
   }
