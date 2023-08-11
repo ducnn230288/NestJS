@@ -26,7 +26,7 @@ export class DataService extends BaseService {
   async findArrayCode(types: string[]) {
     const tempData: { [key: string]: Data[] } = {};
     for (const type of types) {
-      tempData[type] = (await this.findAll({ filter: { type }, sorts: { order: 'ASC' } }))[0];
+      tempData[type] = (await this.findAll({ filter: { type, isDisabled: null }, sorts: { order: 'ASC' } }))[0];
     }
     return tempData;
   }
