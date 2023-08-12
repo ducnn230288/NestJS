@@ -1,7 +1,7 @@
 import { Body, Delete, ForbiddenException, Get, Param, Post, Put, Query, ValidationPipe } from '@nestjs/common';
 import { I18n, I18nContext } from 'nestjs-i18n';
 
-import { Auth, AuthUser, Headers, SerializerBody } from '@common';
+import { Auth, AuthUser, Headers, MaxGroup, SerializerBody } from '@common';
 import {
   PaginationQueryDto,
   DayoffResponseDto,
@@ -49,6 +49,7 @@ export class DayoffController {
   @Auth({
     summary: 'Get Detail data',
     permission: P_DAYOFF_DETAIL,
+    serializeOptions: { groups: [MaxGroup] },
   })
   @Get(':id')
   async findOne(@I18n() i18n: I18nContext, @Param('id') id: string): Promise<DayoffResponseDto> {
@@ -96,6 +97,7 @@ export class DayoffController {
   @Auth({
     summary: 'Update data status',
     permission: P_DAYOFF_UPDATE_STATUS,
+    serializeOptions: { groups: [MaxGroup] },
   })
   @Put(':id/status')
   async updateStatus(

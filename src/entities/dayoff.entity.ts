@@ -56,28 +56,29 @@ export class DayOff extends Base {
   image: string;
 
   @Column()
-  @ApiProperty({ example: faker.date.soon({days: 1}), description: '' })
+  @ApiProperty({ example: faker.date.soon({ days: 1 }), description: '' })
   @IsDateString()
   dateLeaveStart: Date;
 
   @Column()
-  @ApiProperty({ example: faker.date.soon({days: 10}), description: '' })
+  @ApiProperty({ example: faker.date.soon({ days: 10 }), description: '' })
   @IsDateString()
   dateLeaveEnd: Date;
 
   @Column({ nullable: true })
-  @ApiProperty({ example: faker.date.soon({days: 10}), description: '' })
+  @ApiProperty({ example: faker.date.soon({ days: 10 }), description: '' })
   @IsDateString()
   approvedAt: Date;
 
   @Column({ nullable: true })
-  @Exclude()
+  @Expose({ groups: [MaxGroup] })
   @IsUUID()
   approvedById: string;
 
   @ManyToOne(() => User, (user) => user.id, { eager: true })
   @JoinColumn({ name: 'approvedById', referencedColumnName: 'id' })
   @Type(() => User)
+  @Expose({ groups: [MaxGroup] })
   approvedBy: User;
 
   @Column({ nullable: true })
@@ -86,7 +87,7 @@ export class DayOff extends Base {
   reasonReject: string;
 
   @Column()
-  @Exclude()
+  @Expose({ groups: [MaxGroup] })
   @IsUUID()
   @IsOptional()
   staffId: string;
@@ -94,6 +95,7 @@ export class DayOff extends Base {
   @ManyToOne(() => User, (user) => user.id, { eager: true })
   @JoinColumn({ name: 'staffId', referencedColumnName: 'id' })
   @Type(() => User)
+  @Expose({ groups: [MaxGroup] })
   staff: User;
 
   @Column({ nullable: true })
@@ -104,5 +106,6 @@ export class DayOff extends Base {
 
   @ManyToOne(() => User, (user) => user.members, { eager: true })
   @Type(() => User)
+  @Expose({ groups: [MaxGroup] })
   readonly manager?: User;
 }

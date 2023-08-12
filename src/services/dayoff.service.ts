@@ -163,10 +163,10 @@ export class DayoffService extends BaseService {
     //     .orderBy('base.createdAt', 'DESC')
     //     .getOne()
     // ).id;
-    const result = await this.update(id, { ...body, approvedById: user.id, approvedAt: new Date() }, i18n);
+    await this.update(id, { ...body, approvedById: user.id, approvedAt: new Date() }, i18n);
     if (body.status === -1) {
       await this.updateStaff(staff, i18n);
     }
-    return result;
+    return await this.findOne(id, [], i18n);
   }
 }
