@@ -150,36 +150,12 @@ export class AuthService extends BaseService {
     return data;
   }
 
-  async uploadS3(file): Promise<any> {
-    const { originalname, buffer } = file;
-    const s3 = new S3({
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    });
-    return new Promise((resolve, reject) => {
-      s3.upload(
-        {
-          Bucket: process.env.AWS_ACCESS_BUCKET_NAME + '/avata-dev',
-          Key: originalname,
-          Body: buffer,
-        },
-        (err, data) => {
-          if (err) {
-            console.log(err);
-            reject(err.message);
-          }
-          resolve(data);
-        },
-      );
-    });
-  }
   async getListS3(): Promise<any> {
-    const s3 = new S3({
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    });
     return new Promise((resolve, reject) => {
-      s3.listObjectsV2(
+      new S3({
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+      }).listObjectsV2(
         {
           Bucket: process.env.AWS_ACCESS_BUCKET_NAME,
           Delimiter: '/',
@@ -224,24 +200,23 @@ export class AuthService extends BaseService {
     //     });
     //   });
     // }
+    if (!data && process.env.AWS_ACCESS_KEY_ID) {
+      new S3({
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+      }).deleteObject(
+        {
+          Bucket: process.env.AWS_ACCESS_BUCKET_NAME,
+          Key: fileName,
+        },
+        (err, data) => {
+          if (err) {
+            console.log(err);
+          }
+          console.log(data);
+        },
+      );
+    }
     return data;
-    // if (!data) {
-    //   const s3 = new S3({
-    //     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    //     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    //   });
-    //   s3.deleteObject(
-    //     {
-    //       Bucket: process.env.AWS_ACCESS_BUCKET_NAME,
-    //       Key: fileName,
-    //     },
-    //     (err, data) => {
-    //       if (err) {
-    //         console.log(err);
-    //       }
-    //       console.log(data);
-    //     },
-    //   );
-    // }
   }
 }

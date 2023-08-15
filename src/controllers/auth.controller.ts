@@ -189,16 +189,10 @@ export class AuthController {
     },
   })
   @UseInterceptors(FileInterceptor('file'))
-  async uploadFile(@I18n() i18n: I18nContext, @UploadedFile(SharpPipe) name: string) {
-    // Express.Multer.File
-    // const data = await this.authService.uploadS3(file);
-    // data.url = data.Location;
+  async uploadFile(@I18n() i18n: I18nContext, @UploadedFile(SharpPipe) data: { name: string; url: string }) {
     return {
       message: i18n.t('common.Success'),
-      data: {
-        name,
-        url: process.env.DOMAIN + 'files/' + name,
-      },
+      data,
     };
   }
 
@@ -208,13 +202,16 @@ export class AuthController {
     permission: P_AUTH_DELETE_IMAGE_TEMP,
   })
   async checkDeleteFile(@I18n() i18n: I18nContext): Promise<ProfileAuthResponseDto> {
-    fs.readdir('./uploads', async (err, files) => {
-      for (const file of files) {
-        !(await this.authService.checkDeleteFile(file)) && fs.unlinkSync('./uploads/' + file);
-      }
-    });
-    // const data = await this.authService.getListS3();
-    // data.Contents.forEach(async (file) => await this.authService.checkDeleteFile(file.Key));
+    if (process.env.AWS_ACCESS_KEY_ID) {
+      const data = await this.authService.getListS3();
+      data.Contents.forEach(async (file) => await this.authService.checkDeleteFile(file.Key));
+    } else {
+      fs.readdir('./uploads', async (err, files) => {
+        for (const file of files) {
+          !(await this.authService.checkDeleteFile(file)) && fs.unlinkSync('./uploads/' + file);
+        }
+      });
+    }
     return {
       message: i18n.t('common.Success'),
       data: null,
