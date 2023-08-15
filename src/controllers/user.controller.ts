@@ -7,7 +7,8 @@ import {
   CreateUserRequestDto,
   ListUserResponseDto,
   UpdateUserRequestDto,
-  UserResponseDto, DefaultAuthResponsesUserDto,
+  UserResponseDto,
+  DefaultAuthResponsesUserDto,
 } from '@dtos';
 import { P_USER_CREATE, P_USER_DELETE, P_USER_DETAIL, P_USER_LISTED, P_USER_UPDATE, UserService } from '@services';
 import * as dayjs from 'dayjs';
@@ -70,6 +71,18 @@ export class UserController {
     return {
       message: i18n.t('common.Update Success'),
       data: await this.service.updateAllDaysOff(i18n),
+    };
+  }
+
+  @Auth({
+    summary: 'Update date leave',
+    permission: P_USER_UPDATE,
+  })
+  @Put('dateLeave/:dateLeave')
+  async updateDateOff(@I18n() i18n: I18nContext, @Param('dateLeave') dateLeave: string): Promise<UserResponseDto> {
+    return {
+      message: i18n.t('common.Update Success'),
+      data: (await this.service.update(undefined, { dateLeave }, i18n)) as DefaultAuthResponsesUserDto,
     };
   }
 
