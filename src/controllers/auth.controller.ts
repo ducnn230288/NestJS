@@ -1,4 +1,4 @@
-import { Body, Get, Post, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Get, Post, Put, StreamableFile, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { I18n, I18nContext } from 'nestjs-i18n';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes } from '@nestjs/swagger';
@@ -32,6 +32,7 @@ import {
 } from '@dtos';
 import { User } from '@entities';
 import { AuthService, P_AUTH_DELETE_IMAGE_TEMP } from '@services';
+import { S3 } from 'aws-sdk';
 
 @Headers('auth')
 export class AuthController {
@@ -170,6 +171,41 @@ export class AuthController {
       message: i18n.t('common.Success'),
       data: null,
     };
+  }
+
+  @Get('file')
+  public async getPrivateFile() {
+    const s3 = new S3({
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    });
+    const file = fs.createWriteStream('1692200391425-191669914_2017510928389714_3375932420804512806_n.webp');
+    file.on('close', function () {
+      // return file;
+      console.log(file);
+    });
+    await s3
+      .getObject({
+        Bucket: process.env.AWS_ACCESS_BUCKET_NAME,
+        Key: 'avata-dev/1692200391425-191669914_2017510928389714_3375932420804512806_n.webp',
+      })
+      .createReadStream()
+      .on('error', function (err) {
+        console.log(err);
+      })
+      .pipe(file);
+    // var s3 = new S3({
+    //   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    //   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    //   });
+    // var params = {Bucket: 'myBucket', Key: 'avata-dev/1692200391425-191669914_2017510928389714_3375932420804512806_n.webp'};
+    // var file = fs.createWriteStream('/path/to/file.jpg');
+    return new Promise((resolve, reject) => {
+      file.on('close', function () {
+        console.log(file);
+        resolve(file);
+      });
+    });
   }
 
   @Post('upload')

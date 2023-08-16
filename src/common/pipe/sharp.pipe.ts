@@ -29,6 +29,7 @@ export class SharpPipe implements PipeTransform<Express.Multer.File, Promise<{ n
               console.log(err);
               reject(err.message);
             }
+            console.log(data);
             resolve({ name: filename, url: data.Location });
           },
         );
