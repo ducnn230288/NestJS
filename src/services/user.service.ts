@@ -61,46 +61,44 @@ export class UserService extends BaseService {
     return null;
   }
 
-  async update(id?: string, body?: any, i18n?: I18nContext) {
-    if (id) {
-      if (body.managerId) {
-        const user = await this.findOne(id, [], i18n);
-        if (user.managerId && body.managerId != user.managerId) {
-          const countDayOff = await this.repoDayOff
-            .createQueryBuilder('base')
-            .where(`base.status = :status`, { status: 0 })
-            .andWhere(`base.staffId = :staffId`, { staffId: id })
-            .getCount();
-          if (countDayOff > 0) {
-            throw new BadRequestException(i18n.t('common.user.Other leave requests need approval'));
-          }
+  async update(id: string, body: any, i18n: I18nContext) {
+    if (body.managerId) {
+      const user = await this.findOne(id, [], i18n);
+      if (user.managerId && body.managerId != user.managerId) {
+        const countDayOff = await this.repoDayOff
+          .createQueryBuilder('base')
+          .where(`base.status = :status`, { status: 0 })
+          .andWhere(`base.staffId = :staffId`, { staffId: id })
+          .getCount();
+        if (countDayOff > 0) {
+          throw new BadRequestException(i18n.t('common.user.Other leave requests need approval'));
         }
       }
-      let data;
-      if (body.teams && body.teams.length > 0) {
-        const teams = await this.repoUserTeam
-          .createQueryBuilder('base')
-          .where(`base.id IN (:...id)`, { id: body.teams })
-          .withDeleted()
-          .getMany();
-        data = await this.repo.preload({
-          id,
-          ...body,
-          teams,
-        });
-      } else {
-        data = await this.repo.preload({
-          id,
-          ...body,
-        });
-      }
+    }
+    let data;
+    if (body.teams && body.teams.length > 0) {
+      const teams = await this.repoUserTeam
+        .createQueryBuilder('base')
+        .where(`base.id IN (:...id)`, { id: body.teams })
+        .withDeleted()
+        .getMany();
+      data = await this.repo.preload({
+        id,
+        ...body,
+        teams,
+      });
+    } else {
+      data = await this.repo.preload({
+        id,
+        ...body,
+      });
+    }
 
-      if (!data) {
-        throw new BadRequestException(i18n.t('common.user.Data id not found', { args: { id } }));
-      }
-      delete data.password;
-      return await this.repo.save(data);
-    } else return await this.repo.update({}, body);
+    if (!data) {
+      throw new BadRequestException(i18n.t('common.user.Data id not found', { args: { id } }));
+    }
+    delete data.password;
+    return await this.repo.save(data);
   }
 
   getTotalDate(startDate: Date): number {

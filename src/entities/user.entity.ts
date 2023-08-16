@@ -27,7 +27,7 @@ import {
 import * as argon2 from 'argon2';
 
 import { Example, MaxGroup, OnlyUpdateGroup, Base } from '@common';
-import { Code, UserRole, UserTeam } from '@entities';
+import { BookingRoom, Code, UserRole, UserTeam } from '@entities';
 
 @Entity()
 // @Unique(['email', 'phoneNumber'])
@@ -156,4 +156,8 @@ export class User extends Base {
   @ApiProperty({ example: faker.number.int({ min: 0.5, max: 12 }), description: '' })
   @IsDecimal()
   readonly dateOff: number;
+
+  @OneToMany(() => BookingRoom, (booking) => booking.user)
+  @Type(() => BookingRoom)
+  readonly bookingRoom?: BookingRoom[];
 }

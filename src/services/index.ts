@@ -11,3 +11,4 @@ export * from './post-type.service';
 export * from './user.service';
 export * from './user-role.service';
 export * from './user-team.service';
+export * from './booking-room.service'

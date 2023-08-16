@@ -10,3 +10,5 @@ export * from './post-type.entity';
 export * from './user.entity';
 export * from './user-role.entity';
 export * from './user-team.entity';
+export * from './booking-room.entity';
+export * from './room.entity';

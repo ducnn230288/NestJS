@@ -10,3 +10,4 @@ export * from './post-type.controller';
 export * from './user.controller';
 export * from './user-role.controller';
 export * from './user-team.controller';
+export * from './booking-room.controller';

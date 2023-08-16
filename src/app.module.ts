@@ -20,6 +20,7 @@ import {
 import {
   AppController,
   AuthController,
+  BookingRoomController,
   CodeController,
   CodeTypeController,
   DataController,
@@ -44,6 +45,8 @@ import {
   User,
   UserRole,
   UserTeam,
+  BookingRoom,
+  Room
 } from '@entities';
 import {
   AuthService,
@@ -58,6 +61,7 @@ import {
   UserRoleService,
   UserService,
   UserTeamService,
+  BookingRoomService
 } from '@services';
 
 @Module({
@@ -74,6 +78,8 @@ import {
     UserController,
     UserRoleController,
     UserTeamController,
+    BookingRoomController,
+
   ],
   providers: [
     AccessTokenStrategy,
@@ -95,6 +101,7 @@ import {
     UserService,
     UserRoleService,
     UserTeamService,
+    BookingRoomService,
   ],
   imports: [
     TypeOrmModule.forFeature([
@@ -110,6 +117,8 @@ import {
       User,
       UserRole,
       UserTeam,
+      BookingRoom,
+      Room
     ]),
     MulterModule.register({
       storage: memoryStorage(),
