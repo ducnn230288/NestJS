@@ -29,7 +29,7 @@ export class PostTypeService extends BaseService {
       .withDeleted()
       .getCount();
     if (count > 0)
-      throw new BadRequestException(i18n.t(`common.user.Can't be deleted because there's still link data`));
+      throw new BadRequestException(i18n.t(`common.User.Can't be deleted because there's still link data`));
     return await this.removeHard(id, i18n);
   }
 }

@@ -142,7 +142,7 @@ export class AuthService extends BaseService {
       .getOne();
 
     if (existingUser) {
-      throw new BadRequestException(i18n.t('common.Auth.email is already taken'));
+      throw new BadRequestException(i18n.t('common.Auth.Email is already taken'));
     }
     const user = this.repo.create(createUserDto);
     const data = await this.repo.save(user);

@@ -27,7 +27,7 @@ export class UserService extends BaseService {
 
   async create(body: CreateUserRequestDto, i18n: I18nContext) {
     if (body.password !== body.retypedPassword) {
-      throw new BadRequestException(i18n.t('common.user.Passwords are not identical'));
+      throw new BadRequestException(i18n.t('common.Auth.Passwords are not identical'));
     }
 
     const existingUser = await this.repo
@@ -36,7 +36,7 @@ export class UserService extends BaseService {
       .getOne();
 
     if (existingUser) {
-      throw new BadRequestException(i18n.t('common.user.Email is already taken'));
+      throw new BadRequestException(i18n.t('common.Auth.Email is already taken'));
     }
     const user = this.repo.create(body);
     return await this.repo.save(user);
@@ -48,7 +48,7 @@ export class UserService extends BaseService {
       ...body,
     });
     if (!data) {
-      throw new BadRequestException(i18n.t('common.user.Data id not found', { args: { id } }));
+      throw new BadRequestException(i18n.t('common.Data id not found', { args: { id } }));
     }
     delete data.password;
     return this.repo.save(data);
