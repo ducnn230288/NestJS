@@ -71,7 +71,7 @@ export class UserService extends BaseService {
           .andWhere(`base.staffId = :staffId`, { staffId: id })
           .getCount();
         if (countDayOff > 0) {
-          throw new BadRequestException(i18n.t('common.user.Other leave requests need approval'));
+          throw new BadRequestException(i18n.t('common.User.Other leave requests need approval'));
         }
       }
     }
@@ -127,7 +127,7 @@ export class UserService extends BaseService {
         .andWhere(`base.managerId = :managerId`, { managerId: user.id })
         .getCount();
       if (count > 0) {
-        throw new BadRequestException(i18n.t('common.user.Still managing other people'));
+        throw new BadRequestException(i18n.t('common.User.Still managing other people'));
       }
     }
     if (user.managerId) {
@@ -137,7 +137,7 @@ export class UserService extends BaseService {
         .andWhere(`base.managerId = :managerId`, { managerId: user.managerId })
         .getCount();
       if (countDayOff > 0) {
-        throw new BadRequestException(i18n.t('common.user.Other leave requests need approval'));
+        throw new BadRequestException(i18n.t('common.User.Other leave requests need approval'));
       }
     }
 

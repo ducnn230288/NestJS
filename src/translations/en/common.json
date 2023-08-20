@@ -18,6 +18,8 @@
     "Name is already taken": "Name is already taken"
   },
   "User" : {
+    "Other leave requests need approval": "Other leave requests need approval",
+    "Still managing other people": "Still managing other people",
     "Can't be deleted because there's still link data": "Can't be deleted because there's still link data"
   },
   "DayOff": {

@@ -18,7 +18,7 @@
   },
   "user" : {
     "Other leave requests need approval": "Còn những yêu cầu nghỉ cần duyệt",
-    "Data id not found": "Dữ liệu {id} không tồn tại",
+    "Still managing other people": "Còn quản lý người khác",
     "Can't be deleted because there's still link data": "Không thể xóa được do vẫn còn dữ liệu liên kết"
   },
   "DayOff": {
