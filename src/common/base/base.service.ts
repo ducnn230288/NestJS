@@ -12,6 +12,24 @@ export abstract class BaseService {
   public listHistoryKey = [];
   protected constructor(public repo: Repository<any>, public repoHistory?: Repository<any>) {}
 
+  /**
+   * Decorator that marks a class as a [provider](https://docs.nestjs.com/providers).
+   * Providers can be injected into other classes via constructor parameter injection
+   * using Nest's built-in [Dependency Injection (DI)](https://docs.nestjs.com/providers#dependency-injection)
+   * system.
+   *
+   * When injecting a provider, it must be visible within the module scope (loosely
+   * speaking, the containing module) of the class it is being injected into. This
+   * can be done by:
+   *
+   * - defining the provider in the same module scope
+   * - exporting the provider from one module scope and importing that module into the
+   *   module scope of the class being injected into
+   * - exporting the provider from a module that is marked as global using the
+   *   `@Global()` decorator
+   *
+   * @param paginationQuery string or object describing the error condition.
+   */
   async findAll(paginationQuery: PaginationQueryDto) {
     const { where, perPage, page, fullTextSearch } = paginationQuery;
     let { filter, sorts, extend, skip } = paginationQuery;
