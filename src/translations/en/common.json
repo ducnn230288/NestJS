@@ -5,22 +5,19 @@
   "Create Success": "Create Success",
   "Update Success": "Update Success",
   "Delete Success": "Delete Success",
+  "Data id not found": "Data {id} not found",
   "Auth": {
     "Invalid credentials for user": "Invalid credentials for user {email}",
-    "email is already taken": "Email is already taken",
+    "Email is already taken": "Email is already taken",
     "Passwords are not identical": "Passwords are not identical",
     "Password do not match": "Password do not match!",
     "Invalid email": "Invalid email!",
     "User not found": "User {email} not found!"
   },
   "Data": {
-    "name is already taken": "Name is already taken"
+    "Name is already taken": "Name is already taken"
   },
-  "user" : {
-    "Passwords are not identical": "Passwords are not identical",
-    "Email is already taken": "Email is already taken",
-    "Other leave requests need approval": "Other leave requests need approval",
-    "Data id not found": "Data {id} not found",
+  "User" : {
     "Can't be deleted because there's still link data": "Can't be deleted because there's still link data"
   },
   "DayOff": {

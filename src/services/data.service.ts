@@ -45,7 +45,7 @@ export class DataService extends BaseService {
             .withDeleted()
             .getCount();
           if (existingName) {
-            throw new BadRequestException(i18n.t('common.Data.name is already taken'));
+            throw new BadRequestException(i18n.t('common.Data.Name is already taken'));
           }
           await entityManager.save(entityManager.create(DataTranslation, { dataId: result.id, ...item }));
         }
@@ -62,7 +62,7 @@ export class DataService extends BaseService {
         ...body,
       });
       if (!data) {
-        throw new BadRequestException(i18n.t('common.user.Data id not found', { args: { id } }));
+        throw new BadRequestException(i18n.t('common.Data id not found', { args: { id } }));
       }
       result = await this.repo.save(data);
       if (translations) {
@@ -75,7 +75,7 @@ export class DataService extends BaseService {
             .withDeleted()
             .getCount();
           if (existingName) {
-            throw new BadRequestException(i18n.t('common.Data.name is already taken'));
+            throw new BadRequestException(i18n.t('common.Data.Name is already taken'));
           }
           await entityManager.save(await entityManager.preload(DataTranslation, { dataId: result.id, ...item }));
         }

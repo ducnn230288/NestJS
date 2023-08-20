@@ -17,8 +17,6 @@
     "name is already taken": "Tên đã tồn tại"
   },
   "user" : {
-    "Passwords are not identical": "Mật khẩu không giống nhau",
-    "Email is already taken": "Email đã được sử dụng",
     "Other leave requests need approval": "Còn những yêu cầu nghỉ cần duyệt",
     "Data id not found": "Dữ liệu {id} không tồn tại",
     "Can't be deleted because there's still link data": "Không thể xóa được do vẫn còn dữ liệu liên kết"

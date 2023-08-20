@@ -164,7 +164,7 @@ export abstract class BaseService {
     }
     const data = await request.where(`base.id=:id`, { id }).withDeleted().getOne();
     if (!data) {
-      throw new BadRequestException(i18n.t('common.user.Data id not found', { args: { id } }));
+      throw new BadRequestException(i18n.t('common.Data id not found', { args: { id } }));
     }
     return data;
   }
@@ -180,7 +180,7 @@ export abstract class BaseService {
       ...body,
     });
     if (!data) {
-      throw new BadRequestException(i18n.t('common.user.Data id not found', { args: { id } }));
+      throw new BadRequestException(i18n.t('common.Data id not found', { args: { id } }));
     }
     return this.repo.save(data);
   }
@@ -188,7 +188,7 @@ export abstract class BaseService {
   async remove(id: string, i18n: I18nContext) {
     const res = await this.repo.softDelete(id);
     if (!res.affected) {
-      throw new BadRequestException(i18n.t('common.user.Data id not found', { args: { id } }));
+      throw new BadRequestException(i18n.t('common.Data id not found', { args: { id } }));
     }
     return await this.findOne(id, [], i18n);
   }
@@ -197,7 +197,7 @@ export abstract class BaseService {
     const data = await this.findOne(id, [], i18n);
     const res = await this.repo.delete(id);
     if (!res.affected) {
-      throw new BadRequestException(i18n.t('common.user.Data id not found', { args: { id } }));
+      throw new BadRequestException(i18n.t('common.Data id not found', { args: { id } }));
     }
     return data;
   }

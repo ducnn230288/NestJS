@@ -32,7 +32,7 @@ export class CodeTypeService extends BaseService {
       .getOne();
 
     if (!data) {
-      throw new BadRequestException(i18n.t('common.user.Data id not found', { args: { id: code } }));
+      throw new BadRequestException(i18n.t('common.Data id not found', { args: { id: code } }));
     }
     return data;
   }
