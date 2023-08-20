@@ -71,7 +71,7 @@ export class PostService extends BaseService {
         ...body,
       });
       if (!data) {
-        throw new BadRequestException(i18n.t('common.user.Post id not found', { args: { id } }));
+        throw new BadRequestException(i18n.t('common.Data id not found', { args: { id } }));
       }
       result = await this.repo.save(data);
       for (const item of translations) {
