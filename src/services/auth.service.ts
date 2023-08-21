@@ -20,7 +20,7 @@ import { MailService } from './mail.service';
 export const P_AUTH_DELETE_IMAGE_TEMP = '11cc566b-b109-49f8-983f-84ff08f9849e';
 
 @Injectable()
-export class AuthService extends BaseService {
+export class AuthService extends BaseService<User> {
   constructor(
     @InjectRepository(User) public repo: Repository<User>,
     private readonly jwtService: JwtService,
@@ -29,13 +29,17 @@ export class AuthService extends BaseService {
   ) {
     super(repo);
   }
-  async updateRefreshToken(userId: string, refreshToken: string) {
-    await this.repo.update(userId, {
-      refreshToken: await argon2.hash(refreshToken),
-    });
+  async updateRefreshToken(userId: string, refreshToken: string, i18n: I18nContext) {
+    await this.update(
+      userId,
+      {
+        refreshToken: await argon2.hash(refreshToken),
+      },
+      i18n,
+    );
   }
 
-  async getTokens(user: User, returnRefresh = true) {
+  async getTokens(user: User, returnRefresh = true, i18n: I18nContext) {
     const [accessToken, refreshToken] = await Promise.all([
       this.jwtService.signAsync(
         {
@@ -61,7 +65,7 @@ export class AuthService extends BaseService {
         : null,
     ]);
     if (returnRefresh) {
-      await this.updateRefreshToken(user.id, refreshToken);
+      await this.updateRefreshToken(user.id, refreshToken, i18n);
     }
     return {
       accessToken,
@@ -69,8 +73,8 @@ export class AuthService extends BaseService {
     };
   }
 
-  async logout(user: User) {
-    return await this.repo.update(user.id, { refreshToken: null });
+  async logout(user: User, i18n: I18nContext) {
+    return await this.update(user.id, { refreshToken: null }, i18n);
   }
 
   async forgottenPassword(body: ForgottenPasswordAuthRequestDto, i18n: I18nContext) {

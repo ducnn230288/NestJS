@@ -40,7 +40,7 @@ export class UserController {
   async findOne(@I18n() i18n: I18nContext, @Param('id') id: string): Promise<UserResponseDto> {
     return {
       message: i18n.t('common.Get Detail Success'),
-      data: await this.service.findOne(id, [], i18n),
+      data: (await this.service.findOne(id, [], i18n)) as DefaultAuthResponsesUserDto,
     };
   }
 
@@ -73,7 +73,10 @@ export class UserController {
     @Param('id') id: string,
     @Body(new SerializerBody([MaxGroup])) updateData: UpdateUserRequestDto,
   ): Promise<UserResponseDto> {
-    const data = await this.service.update(id, updateData, i18n);
+    const data = await this.service.update(id, updateData, i18n, (data) => {
+      delete data.password;
+      return data;
+    });
     // await this.service.history(data);
     return {
       message: i18n.t('common.Update Success'),
@@ -110,7 +113,7 @@ export class UserController {
   async remove(@I18n() i18n: I18nContext, @Param('id') id: string): Promise<UserResponseDto> {
     return {
       message: i18n.t('common.Delete Success'),
-      data: await this.service.remove(id, i18n),
+      data: (await this.service.remove(id, i18n)) as DefaultAuthResponsesUserDto,
     };
   }
 }

@@ -4,13 +4,15 @@ import { I18nContext } from 'nestjs-i18n';
 import * as dayjs from 'dayjs';
 
 import { PaginationQueryDto } from '@dtos';
+import { DeepPartial } from 'typeorm/common/DeepPartial';
+import { BaseRepository } from './base.respoitory';
 
-export abstract class BaseService {
+export abstract class BaseService<T> {
   public listQuery: string[] = [];
   public listJoin = [];
   public listJoinCount = [];
   public listHistoryKey = [];
-  protected constructor(public repo: Repository<any>, public repoHistory?: Repository<any>) {}
+  protected constructor(public repo: BaseRepository<T>, public repoHistory?: Repository<T>) {}
 
   /**
    * Decorator that marks a class as a [provider](https://docs.nestjs.com/providers).
@@ -160,7 +162,7 @@ export abstract class BaseService {
       if (isGet) {
         const data = await request.getMany();
         const ids = new Set(res[0].map((d) => d.id));
-        res[0] = res[0].concat(data.filter((item) => !ids.has(item.id)));
+        res[0] = res[0].concat(data.filter((item) => !ids.has(item['id'])));
       }
     }
     return [res[0], res[1]];
@@ -187,19 +189,20 @@ export abstract class BaseService {
     return data;
   }
 
-  async create(body: any, i18n: I18nContext) {
+  async create(body: DeepPartial<T>, i18n: I18nContext) {
     const data = this.repo.create({ ...body });
     return this.repo.save(data);
   }
 
-  async update(id: string, body: any, i18n: I18nContext) {
-    const data = await this.repo.preload({
+  async update(id: string, body: any, i18n: I18nContext, callBack?: (data: Awaited<T>) => Awaited<T>) {
+    let data = await this.repo.preload({
       id,
       ...body,
     });
     if (!data) {
       throw new BadRequestException(i18n.t('common.Data id not found', { args: { id } }));
     }
+    if (!!callBack) data = callBack(data);
     return this.repo.save(data);
   }
 

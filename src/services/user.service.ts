@@ -1,12 +1,11 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { I18nContext } from 'nestjs-i18n';
 import * as dayjs from 'dayjs';
 
 import { BaseService } from '@common';
 import { CreateUserRequestDto } from '@dtos';
 import { User } from '@entities';
+import { UserRepository } from '../repositories/user.repository';
 
 export const P_USER_LISTED = 'ac0c4f13-776d-4b71-be4d-f9952734a319';
 export const P_USER_DETAIL = 'a9de3f3d-4c04-4f50-9d1b-c3c2e2eca6dc';
@@ -15,11 +14,8 @@ export const P_USER_UPDATE = 'bc0b5f32-ddf7-4c61-b435-384fc5ac7574';
 export const P_USER_DELETE = 'b82e6224-12c3-4e6c-b4e0-62495fb799bf';
 
 @Injectable()
-export class UserService extends BaseService {
-  constructor(
-    @InjectRepository(User)
-    public repo: Repository<User>,
-  ) {
+export class UserService extends BaseService<User> {
+  constructor(private readonly repo: UserRepository) {
     super(repo);
     this.listQuery = ['name', 'email', 'phoneNumber'];
     this.listJoin = ['role', 'position'];
@@ -38,20 +34,7 @@ export class UserService extends BaseService {
     if (existingUser) {
       throw new BadRequestException(i18n.t('common.Auth.Email is already taken'));
     }
-    const user = this.repo.create(body);
-    return await this.repo.save(user);
-  }
-
-  async update(id: string, body: any, i18n: I18nContext) {
-    const data = await this.repo.preload({
-      id,
-      ...body,
-    });
-    if (!data) {
-      throw new BadRequestException(i18n.t('common.Data id not found', { args: { id } }));
-    }
-    delete data.password;
-    return this.repo.save(data);
+    return super.create(body, i18n);
   }
 
   async history(newData: User, status = 'UPDATED') {
@@ -86,7 +69,7 @@ export class UserService extends BaseService {
 
     delete newData.id;
     delete newData.createdAt;
-    const data = this.repoHistory.create({ ...newData, originalID, action: status });
-    await this.repoHistory.save(data);
+    // const data = this.repoHistory.create({ ...newData, originalID, action: status });
+    // await this.repoHistory.save(data);
   }
 }
