@@ -74,6 +74,7 @@ export class AuthService extends BaseService {
   }
 
   async forgottenPassword(body: ForgottenPasswordAuthRequestDto, i18n: I18nContext) {
+
     const user = await this.repo
       .createQueryBuilder('base')
       .andWhere(`base.email=:email`, { email: body.email })
@@ -92,8 +93,10 @@ export class AuthService extends BaseService {
         expiresIn: process.env.JWT_EXPIRATION_TIME,
       },
     );
-    await this.update(user.id, user, i18n);
-    await this.mailService.sendUserConfirmation(user, user.resetPasswordToken);
+    console.log(user);
+    
+    // await this.update(user.id, user, i18n);
+    // await this.mailService.sendUserConfirmation(user, user.resetPasswordToken);
     return true;
   }
 
@@ -218,5 +221,9 @@ export class AuthService extends BaseService {
       );
     }
     return data;
+  }
+
+  createOTP() {
+    return Math.floor(100000 + Math.random() * 900000);
   }
 }
