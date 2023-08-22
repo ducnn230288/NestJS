@@ -42,6 +42,13 @@ import {
   UserRole,
 } from '@entities';
 import {
+  CodeTypeRepository,
+  DataRepository,
+  PostRepository,
+  PostTranslationRepository,
+  UserRepository,
+} from '@repositories';
+import {
   AuthService,
   CodeService,
   CodeTypeService,
@@ -78,11 +85,16 @@ import {
     AuthService,
     MailService,
     CodeService,
+    CodeTypeRepository,
     CodeTypeService,
+    DataRepository,
     DataService,
     DataTypeService,
+    PostRepository,
     PostService,
+    PostTranslationRepository,
     PostTypeService,
+    UserRepository,
     UserService,
     UserRoleService,
   ],

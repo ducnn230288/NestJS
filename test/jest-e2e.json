@@ -11,6 +11,7 @@
     "@controllers": "<rootDir>../src/controllers",
     "@dtos": "<rootDir>../src/dtos",
     "@entities": "<rootDir>../src/entities",
+    "@repositories": "<rootDir>../src/repositories",
     "@services": "<rootDir>../src/services"
   },
   "testRunner": "jest-jasmine2"

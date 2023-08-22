@@ -9,7 +9,38 @@ export class UserRepository extends BaseRepository<User> {
     super(User, dataSource.createEntityManager());
   }
 
-  async getUserByEmail(email: string) {
-    return this.createQueryBuilder('base').andWhere(`base.email=:email`, { email }).getOne();
+  async getDataByIdAndEmail(id: string, email: string) {
+    return await this.createQueryBuilder('base')
+      .andWhere(`base.id=:id`, { id })
+      .andWhere(`base.email=:email`, { email })
+      .getOne();
+  }
+
+  async getDataByIdAndEmailJoinRole(id: string, email: string) {
+    return await this.createQueryBuilder('base')
+      .andWhere(`base.id=:id`, { id })
+      .andWhere(`base.email=:email`, { email })
+      .leftJoinAndSelect('base.role', 'role')
+      .getOne();
+  }
+
+  async getDataByResetPassword(id: string, email: string, token: string) {
+    return await this.createQueryBuilder('base')
+      .andWhere(`base.id=:id`, { id })
+      .andWhere(`base.email=:email`, { email })
+      .andWhere(`base.resetPasswordToken=:token`, { token })
+      .getOne();
+  }
+
+  async getDataByEmail(email: string) {
+    return await this.createQueryBuilder('base').andWhere(`base.email=:email`, { email }).getOne();
+  }
+
+  async getDataByEmailJoin(email: string) {
+    return await this.createQueryBuilder('base')
+      .andWhere(`base.email=:email`, { email })
+      .leftJoinAndSelect('base.role', 'role')
+      .leftJoinAndSelect('base.position', 'position')
+      .getOne();
   }
 }

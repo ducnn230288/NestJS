@@ -51,7 +51,7 @@ export class CodeTypeController {
   async findOne(@I18n() i18n: I18nContext, @Param('code') code: string): Promise<CodeTypeRelationshipResponseDto> {
     return {
       message: i18n.t('common.Get Detail Success'),
-      data: (await this.service.findOneCode(code, i18n)) as CodeTypeRelationshipDto,
+      data: await this.service.findOneCode(code, i18n),
     };
   }
 

@@ -47,11 +47,11 @@ export class AuthController {
     @Body(new SerializerBody([MaxGroup, OnlyUpdateGroup])) loginAuthDto: LoginAuthRequestDto,
   ): Promise<DefaultAuthResponseDto> {
     const user = await this.authService.login(loginAuthDto, i18n);
-    const tokens = await this.authService.getTokens(user);
+    const tokens = await this.authService.getTokens(user, true, i18n);
     return {
       message: i18n.t('common.Success'),
       data: {
-        user: user as DefaultAuthResponsesUserDto,
+        user: user,
         ...tokens,
       },
     };
@@ -113,7 +113,7 @@ export class AuthController {
   ): Promise<ProfileAuthResponseDto> {
     return {
       message: i18n.t('common.Success'),
-      data: (await this.authService.register(createUserDto, i18n)) as DefaultAuthResponsesUserDto,
+      data: await this.authService.register(createUserDto, i18n),
     };
   }
 
@@ -125,7 +125,7 @@ export class AuthController {
   async getProfile(@I18n() i18n: I18nContext, @AuthUser() user: User): Promise<UserResponseDto> {
     return {
       message: i18n.t('common.Success'),
-      data: user as DefaultAuthResponsesUserDto,
+      data: user,
     };
   }
 
@@ -144,7 +144,7 @@ export class AuthController {
     }
     return {
       message: i18n.t('common.Success'),
-      data: (await this.authService.update(user.id, updateData, i18n)) as DefaultAuthResponsesUserDto,
+      data: await this.authService.update(user.id, updateData, i18n),
     };
   }
 
@@ -156,7 +156,7 @@ export class AuthController {
   async refreshTokens(@I18n() i18n: I18nContext, @AuthUser() user: User): Promise<DefaultAuthResponseDto> {
     return {
       message: i18n.t('common.Success'),
-      data: (await this.authService.getTokens(user, false)) as AuthDto,
+      data: (await this.authService.getTokens(user, false, i18n)) as AuthDto,
     };
   }
 
@@ -165,7 +165,7 @@ export class AuthController {
     summary: 'Logout',
   })
   async logout(@I18n() i18n: I18nContext, @AuthUser() user: User): Promise<UserResponseDto> {
-    await this.authService.logout(user);
+    await this.authService.logout(user, i18n);
     return {
       message: i18n.t('common.Success'),
       data: null,
@@ -207,9 +207,9 @@ export class AuthController {
       data.Contents.forEach(async (file) => await this.authService.checkDeleteFile(file.Key));
     } else {
       fs.readdir('./uploads', async (err, files) => {
-        for (const file of files) {
-          !(await this.authService.checkDeleteFile(file)) && fs.unlinkSync('./uploads/' + file);
-        }
+        // for (const file of files) {
+        //   !(await this.authService.checkDeleteFile(file)) && fs.unlinkSync('./uploads/' + file);
+        // }
       });
     }
     return {

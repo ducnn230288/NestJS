@@ -13,47 +13,32 @@ export const testCase = (type?: string, permissions: string[] = []) => {
   afterAll(BaseTest.initAfterAll);
 
   const dataType: CreateDataTypeRequestDto = {
-    name: faker.name.jobType(),
+    name: faker.person.jobType(),
     code: faker.finance.bic(),
   };
   const dataUpdateType: UpdateDataTypeRequestDto = {
-    name: faker.name.jobType(),
+    name: faker.person.jobType(),
   };
   let resultType: DataType = {
-    id: faker.datatype.uuid(),
-    name: faker.name.jobType(),
+    id: faker.string.uuid(),
+    name: faker.person.jobType(),
     code: faker.finance.bic(),
     isPrimary: false,
   };
 
   const data: CreateDataRequestDto = {
     type: dataType.code,
-    image: faker.image.imageUrl(),
-    image1: faker.image.imageUrl(),
-    image2: faker.image.imageUrl(),
-    image3: faker.image.imageUrl(),
+    image: faker.image.url(),
     translations: [
       {
         language: 'vn',
-        name: faker.name.jobType(),
+        name: faker.person.jobType(),
         description: faker.lorem.paragraph(),
-        text1: faker.lorem.paragraph(),
-        text2: faker.lorem.paragraph(),
-        text3: faker.lorem.paragraph(),
-        slug: faker.lorem.slug(),
-        seoTitle: faker.name.jobType(),
-        seoDescription: faker.lorem.paragraph(),
       },
       {
         language: 'en',
-        name: faker.name.jobType(),
+        name: faker.person.jobType(),
         description: faker.lorem.paragraph(),
-        text1: faker.lorem.paragraph(),
-        text2: faker.lorem.paragraph(),
-        text3: faker.lorem.paragraph(),
-        slug: faker.lorem.slug(),
-        seoTitle: faker.name.jobType(),
-        seoDescription: faker.lorem.paragraph(),
       },
     ],
     order: 1,
@@ -61,32 +46,26 @@ export const testCase = (type?: string, permissions: string[] = []) => {
 
   const dataUpdate: UpdateDataRequestDto = {
     type: dataType.code,
-    image: faker.image.imageUrl(),
+    image: faker.image.url(),
     translations: [
       {
         language: 'vn',
-        name: faker.name.jobType(),
+        name: faker.person.jobType(),
         description: faker.lorem.paragraph(),
-        slug: faker.lorem.slug(),
-        seoTitle: faker.name.jobType(),
-        seoDescription: faker.lorem.paragraph(),
       },
       {
         language: 'en',
-        name: faker.name.jobType(),
+        name: faker.person.jobType(),
         description: faker.lorem.paragraph(),
-        slug: faker.lorem.slug(),
-        seoTitle: faker.name.jobType(),
-        seoDescription: faker.lorem.paragraph(),
       },
     ],
     order: 2,
   };
 
   let result: Data = {
-    id: faker.datatype.uuid(),
+    id: faker.string.uuid(),
     type: resultType.code,
-    image: faker.image.imageUrl(),
+    image: faker.image.url(),
   };
   it('Create [POST /api/data-type]', async () => {
     await new Promise((res) => setTimeout(res, 1));
@@ -117,7 +96,7 @@ export const testCase = (type?: string, permissions: string[] = []) => {
       resultType = await BaseTest.moduleFixture.get(DataTypeService).create(dataType);
     }
     const { body } = await request(BaseTest.server)
-      .get('/api/data-type/' + resultType.code)
+      .get('/api/data-type/' + resultType.id)
       .set('Authorization', 'Bearer ' + BaseTest.token)
       .expect(HttpStatus.OK);
     if (type) {

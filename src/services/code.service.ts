@@ -12,7 +12,7 @@ export const P_CODE_UPDATE = '6d34b679-9c0e-489a-a2de-a17e37fadf72';
 export const P_CODE_DELETE = 'e21ac25b-1651-443e-9834-e593789807c9';
 
 @Injectable()
-export class CodeService extends BaseService {
+export class CodeService extends BaseService<Code> {
   constructor(
     @InjectRepository(Code)
     public repo: Repository<Code>,

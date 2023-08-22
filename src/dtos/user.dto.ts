@@ -67,8 +67,8 @@ export class AuthDto {
 export class DefaultAuthResponsesUserDto extends PartialType(
   OmitType(User, ['password', 'position', 'role'] as const),
 ) {
-  readonly position: CodeDto;
-  readonly role: UserRoleDto;
+  readonly position?: CodeDto;
+  readonly role?: UserRoleDto;
 }
 export class ProfileAuthResponseDto extends PartialType(DefaultResponsesDto) {
   readonly data: DefaultAuthResponsesUserDto;

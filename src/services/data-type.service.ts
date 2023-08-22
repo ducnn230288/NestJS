@@ -11,7 +11,7 @@ export const P_DATA_TYPE_UPDATE = '00e77095-35ea-4755-bbae-46a1ba78e46e';
 export const P_DATA_TYPE_DELETE = '0e481286-bd5d-4203-a374-a8f8f8735f33';
 
 @Injectable()
-export class DataTypeService extends BaseService {
+export class DataTypeService extends BaseService<DataType> {
   constructor(
     @InjectRepository(DataType)
     public repo: Repository<DataType>,

@@ -30,6 +30,9 @@
       "@entities": [
         "src/entities"
       ],
+      "@repositories": [
+        "src/repositories"
+      ],
       "@services": [
         "src/services"
       ],
