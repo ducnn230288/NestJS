@@ -11,7 +11,9 @@
     "Passwords are not identical": "Mật khẩu không giống nhau",
     "Password do not match": "Mật khẩu không khớp!",
     "Invalid email": "Email không hợp lệ!",
-    "User not found": "Người dùng {email} không tồn tại!"
+    "User not found": "Người dùng {email} không tồn tại!",
+    "Invalid OTP": "OTP không hợp lệ!",
+    "Otp expired": "OTP hết hạn"
   },
   "Data": {
     "name is already taken": "Tên đã tồn tại"

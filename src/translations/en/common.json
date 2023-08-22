@@ -12,7 +12,9 @@
     "Passwords are not identical": "Passwords are not identical",
     "Password do not match": "Password do not match!",
     "Invalid email": "Invalid email!",
-    "User not found": "User {email} not found!"
+    "User not found": "User {email} not found!",
+    "Invalid OTP": "Invalid OTP",
+    "Otp expired" : "Otp expired"
   },
   "Data": {
     "Name is already taken": "Name is already taken"

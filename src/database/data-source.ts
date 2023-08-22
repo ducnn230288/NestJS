@@ -18,11 +18,11 @@ import { member1669372347132 } from './migrations/1668566358184-member';
 
 const options: DataSourceOptions & SeederOptions = {
   type: 'postgres',
-  host: process.env.DATABASE_HOST || 'localhost',
-  port: +process.env.DATABASE_PORT || 5432,
-  username: process.env.DATABASE_USER || 'postgres',
-  password: process.env.DATABASE_PASSWORD || 'lctiendat',
-  database: process.env.DATABASE_NAME || 'postgres',
+  host: process.env.DATABASE_HOST  || 'localhost',
+  port: +process.env.DATABASE_PORT  || 5432,
+  username: process.env.DATABASE_USER  || 'postgres',
+  password: process.env.DATABASE_PASSWORD  || 'lctiendat',
+  database: process.env.DATABASE_NAME  || 'member_ari',
   entities: [Code, CodeType, User, UserRole, Data, DataTranslation, DataType, Post, PostTranslation, PostType],
   migrations: [member1669372347132],
   seeds: [MainSeeder],

@@ -1,4 +1,4 @@
-import { Body, Get, Post, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Get, Param, Post, Put, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { I18n, I18nContext } from 'nestjs-i18n';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes } from '@nestjs/swagger';
@@ -29,13 +29,15 @@ import {
   AuthDto,
   DefaultAuthResponsesUserDto,
   ContactRequestDto,
+  VerifyOtpDto,
+  VerifyOtpResponseDto,
 } from '@dtos';
 import { User } from '@entities';
 import { AuthService, P_AUTH_DELETE_IMAGE_TEMP } from '@services';
 
 @Headers('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService) { }
 
   @Public({
     summary: 'Login',
@@ -72,6 +74,23 @@ export class AuthController {
   }
 
   @Public({
+    summary: 'Verify OTP',
+  })
+  @Post('verify-otp')
+  async verifyOTP(
+    @I18n() i18n: I18nContext,
+    @Body() body: VerifyOtpDto,
+  ) : Promise<VerifyOtpResponseDto> {
+    const data = await this.authService.verifyOTP(body, i18n);
+    return {
+      message: i18n.t('common.Success'),
+      data : {
+        otpCode : data.otpCode
+      }
+    };
+  }
+
+  @Public({
     summary: 'Send email Contact',
   })
   @Post('send-email-contact')
@@ -85,18 +104,15 @@ export class AuthController {
     };
   }
 
-  @Auth({
+  @Public({
     summary: 'Reset password',
-    serializeOptions: { groups: [OnlyUpdateGroup] },
-    tokenGuard: ResetPasswordTokenGuard,
   })
   @Post('reset-password')
   async resetPassword(
     @I18n() i18n: I18nContext,
     @Body(new SerializerBody([OnlyUpdateGroup])) body: RestPasswordAuthRequestDto,
-    @AuthUser() user: User,
   ): Promise<DefaultResponsesDto> {
-    await this.authService.resetPassword(body, user, i18n);
+    await this.authService.resetPassword(body, i18n);
     return {
       message: i18n.t('common.Success'),
     };

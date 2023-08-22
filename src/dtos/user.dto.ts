@@ -1,4 +1,4 @@
-import { IsOptional, IsString, MinLength } from 'class-validator';
+import { IsOptional, IsString, Length, MinLength } from 'class-validator';
 import { ApiProperty, OmitType, PartialType, PickType } from '@nestjs/swagger';
 
 import { Example } from '@common';
@@ -20,6 +20,9 @@ export class RegisterAuthRequestDto extends PickType(User, [
   @ApiProperty({ example: Example.password, description: '' })
   readonly retypedPassword: string;
 }
+
+export class VerifyOtpDto extends PickType(User, ['otpCode'] as const) {}
+
 export class ContactRequestDto extends PickType(User, ['email', 'phoneNumber', 'description'] as const) {
   @ApiProperty({ example: faker.person.firstName(), description: '' })
   @IsString()
@@ -45,7 +48,7 @@ export class ProfileAuthRequestDto extends PickType(User, [
   retypedPassword: string;
 }
 export class ForgottenPasswordAuthRequestDto extends PickType(User, ['email'] as const) {}
-export class RestPasswordAuthRequestDto extends PickType(User, ['password'] as const) {
+export class RestPasswordAuthRequestDto extends PickType(User, ['password','otpCode'] as const) {
   @MinLength(6)
   @ApiProperty({ example: Example.password, description: '' })
   readonly retypedPassword: string;
@@ -117,4 +120,8 @@ export class UserDto extends PartialType(
 
 export class UserResponseDto extends PartialType(DefaultResponsesDto) {
   readonly data: DefaultAuthResponsesUserDto;
+}
+
+export class VerifyOtpResponseDto extends PartialType(DefaultResponsesDto) {
+  readonly data: VerifyOtpDto;
 }

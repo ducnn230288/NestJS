@@ -7,6 +7,7 @@ import {
   IsDecimal,
   IsEmail,
   IsNumber,
+  IsNumberString,
   IsOptional,
   IsString,
   MaxLength,
@@ -114,6 +115,17 @@ export class User extends Base {
   @IsNumber()
   @IsOptional()
   dateLeave?: number;
+
+  @Column({ nullable: true, type: 'real' })
+  @ApiProperty({ example: faker.random.numeric(6), description: '' })
+  @IsNumberString()
+  otpCode?: number; 
+  
+  @Column({ nullable: true })
+  @ApiProperty({ example: faker.date.past(), description: '' })
+  @IsDateString()
+  @IsOptional()
+  otpExpire?: Date; 
 
   @Column({ nullable: true, type: 'real', default: 0 })
   @ApiProperty({ example: faker.number.int({ min: 0.5, max: 12 }), description: '' })

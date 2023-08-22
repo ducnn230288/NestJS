@@ -6,9 +6,9 @@ import { ContactRequestDto } from '@dtos';
 
 @Injectable()
 export class MailService {
-  constructor(private mailerService: MailerService) {}
+  constructor(private mailerService: MailerService) { }
 
-  async sendUserConfirmation(user: User, token: string) {
+  async sendUserConfirmation(user: User, token: string, otp: number) {
     await this.mailerService.sendMail({
       to: user.email,
       from: '"Support Team" <' + process.env.MAIL_FROM + '>',
@@ -17,6 +17,7 @@ export class MailService {
       context: {
         name: user.name,
         url: process.env.DOMAIN_FE + 'auth/reset-password?token=' + token,
+        otp
       },
     });
   }

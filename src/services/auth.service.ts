@@ -12,6 +12,7 @@ import {
   LoginAuthRequestDto,
   RegisterAuthRequestDto,
   RestPasswordAuthRequestDto,
+  VerifyOtpDto,
 } from '@dtos';
 import { BaseService } from '@common';
 import { Data, User } from '@entities';
@@ -49,15 +50,15 @@ export class AuthService extends BaseService {
       ),
       returnRefresh
         ? this.jwtService.signAsync(
-            {
-              userId: user.id,
-              email: user.email,
-            },
-            {
-              secret: process.env.JWT_REFRESH_SECRET,
-              expiresIn: '1d',
-            },
-          )
+          {
+            userId: user.id,
+            email: user.email,
+          },
+          {
+            secret: process.env.JWT_REFRESH_SECRET,
+            expiresIn: '1d',
+          },
+        )
         : null,
     ]);
     if (returnRefresh) {
@@ -74,7 +75,6 @@ export class AuthService extends BaseService {
   }
 
   async forgottenPassword(body: ForgottenPasswordAuthRequestDto, i18n: I18nContext) {
-
     const user = await this.repo
       .createQueryBuilder('base')
       .andWhere(`base.email=:email`, { email: body.email })
@@ -93,10 +93,13 @@ export class AuthService extends BaseService {
         expiresIn: process.env.JWT_EXPIRATION_TIME,
       },
     );
-    console.log(user);
-    
-    // await this.update(user.id, user, i18n);
-    // await this.mailService.sendUserConfirmation(user, user.resetPasswordToken);
+
+    user.otpCode = this.createOTP();
+    user.otpExpire = new Date(Date.now() + 300 * 1000);
+
+
+    await this.update(user.id, user, i18n);
+    await this.mailService.sendUserConfirmation(user, user.resetPasswordToken, user.otpCode);
     return true;
   }
 
@@ -105,12 +108,21 @@ export class AuthService extends BaseService {
     return true;
   }
 
-  async resetPassword(body: RestPasswordAuthRequestDto, user: User, i18n: I18nContext) {
-    if (body.password === body.retypedPassword) {
-      await this.update(user.id, { password: body.password, resetPasswordToken: null }, i18n);
-    } else {
+  async resetPassword(body: RestPasswordAuthRequestDto, i18n: I18nContext) {
+    const user = await this.repo.createQueryBuilder('base').andWhere(`base.otpCode=:otpCode`, { otpCode: body.otpCode }).getOne();
+
+    if (!user) {
+      throw new UnauthorizedException(i18n.t('common.Auth.Invalid OTP'));
+    }
+
+    if (user.otpExpire && user.otpExpire < new Date()) {
+      throw new BadRequestException(i18n.t('common.Auth.Otp expired'));
+    }
+    if (body.password !== body.retypedPassword) {
       throw new UnauthorizedException(i18n.t('common.Auth.Password do not match'));
     }
+    await this.update(user.id, { password: body.password, resetPasswordToken: null, otpCode: null }, i18n);
+
     return true;
   }
 
@@ -223,7 +235,18 @@ export class AuthService extends BaseService {
     return data;
   }
 
-  createOTP() {
+  async verifyOTP(body: VerifyOtpDto, i18n: I18nContext) {
+    const user = await this.repo.createQueryBuilder('base').andWhere(`base.otpCode=:otpCode`, { otpCode: body.otpCode }).getOne();
+    if (!user) {
+      throw new UnauthorizedException(i18n.t('common.Auth.Invalid Otp'));
+    }
+    if (user.otpExpire && user.otpExpire < new Date()) {
+      throw new BadRequestException(i18n.t('common.Auth.Otp expired'));
+    }
+    return user;
+  }
+
+  createOTP(): number {
     return Math.floor(100000 + Math.random() * 900000);
   }
 }
