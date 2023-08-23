@@ -18,6 +18,7 @@ import { BaseService } from '@common';
 import { Data, User } from '@entities';
 import { MailService } from './mail.service';
 import * as moment from 'moment';
+import * as otpGenerator from 'otp-generator';
 
 export const P_AUTH_DELETE_IMAGE_TEMP = '11cc566b-b109-49f8-983f-84ff08f9849e';
 
@@ -95,7 +96,7 @@ export class AuthService extends BaseService {
       },
     );
 
-    user.otpCode = this.createOTP();
+    user.otpCode = otpGenerator.generate(6,{ lowerCaseAlphabets : false,upperCaseAlphabets: false, specialChars: false });
     user.otpExpire = moment(Date.now()).add(+process.env.OTP_EXPIRATION, 'm').toDate();
 
 
@@ -245,9 +246,5 @@ export class AuthService extends BaseService {
       throw new BadRequestException(i18n.t('common.Auth.Otp expired'));
     }
     return user;
-  }
-
-  createOTP(): number {
-    return Math.floor(100000 + Math.random() * 900000);
   }
 }
