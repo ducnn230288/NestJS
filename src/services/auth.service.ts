@@ -17,6 +17,7 @@ import {
 import { BaseService } from '@common';
 import { Data, User } from '@entities';
 import { MailService } from './mail.service';
+import * as moment from 'moment';
 
 export const P_AUTH_DELETE_IMAGE_TEMP = '11cc566b-b109-49f8-983f-84ff08f9849e';
 
@@ -95,7 +96,7 @@ export class AuthService extends BaseService {
     );
 
     user.otpCode = this.createOTP();
-    user.otpExpire = new Date(Date.now() + 300 * 1000);
+    user.otpExpire = moment(Date.now()).add(+process.env.OTP_EXPIRATION, 'm').toDate();
 
 
     await this.update(user.id, user, i18n);
