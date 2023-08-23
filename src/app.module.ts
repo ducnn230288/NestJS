@@ -180,6 +180,7 @@ import {
         watch: process.env.NODE_ENV !== 'production',
       },
       resolvers: [{ use: QueryResolver, options: ['Accept-Language'] }, AcceptLanguageResolver],
+      viewEngine: 'hbs',
     }),
   ],
 })
