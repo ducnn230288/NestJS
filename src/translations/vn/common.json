@@ -20,5 +20,12 @@
     "Other leave requests need approval": "Còn những yêu cầu nghỉ cần duyệt",
     "Data id not found": "Dữ liệu {id} không tồn tại",
     "Can't be deleted because there's still link data": "Không thể xóa được do vẫn còn dữ liệu liên kết"
+  },
+  "Views": {
+    "404": {
+      "The page you were looking": "Trang bạn đang tìm kiếm không được tìm thấy!",
+      "You may have mistyped": "Có thể bạn đã gõ sai địa chỉ hoặc trang đã được di chuyển.",
+      "Back to Home": "Trở về trang chủ"
+    }
   }
 }

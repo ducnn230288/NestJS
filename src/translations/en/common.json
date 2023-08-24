@@ -17,7 +17,14 @@
   "Data": {
     "Name is already taken": "Name is already taken"
   },
-  "User" : {
+  "User": {
     "Can't be deleted because there's still link data": "Can't be deleted because there's still link data"
+  },
+  "Views": {
+    "404": {
+      "The page you were looking": "The page you were looking for is not found!",
+      "You may have mistyped": "You may have mistyped the address or the page may have moved.",
+      "Back to Home": "Back to Home"
+    }
   }
 }

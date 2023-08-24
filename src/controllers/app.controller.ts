@@ -11,6 +11,6 @@ export class AppController {
 
   @Get('/administrator')
   administrator(@Res() res: Response) {
-    return res.sendFile(resolve('./src/public/index.html'));
+    return res.sendFile(resolve('./src/public/administrator.html'));
   }
 }

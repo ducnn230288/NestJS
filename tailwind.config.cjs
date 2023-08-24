@@ -8,7 +8,7 @@ module.exports = {
       md: '768px',
       lg: '1024px',
       xl: '1280px',
-      '2xl': '1536px',
+      '2xl': '1280px',
     },
     colors: () => ({
       inherit: 'inherit',
@@ -282,6 +282,11 @@ module.exports = {
       },
     }),
     keyframes: {
+      move: {
+        '0%': { transform: 'rotate(1deg) translate(2px, 2px)' },
+        '50%': { transform: 'rotate(-1deg) translate(-2px, -2px)' },
+        '100%': { transform: 'rotate(1deg) translate(2px, 2px)' },
+      },
       shine: {
         '100%': { left: '125%' },
       },
@@ -306,6 +311,7 @@ module.exports = {
       }
     },
     animation: {
+      move: 'move 5s infinite',
       spin: 'spin 1s linear infinite',
       shine: 'shine 0.8s',
       'intro-x-animation': 'introXAnimation .4s ease-in-out forwards .33333s',
