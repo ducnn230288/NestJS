@@ -27,7 +27,9 @@ export class PostService extends BaseService<Post> {
   }
 
   async findSlug(slug: string, i18n: I18nContext) {
+
     const { postId } = await this.repoTranslation.getDataBySlug(slug);
+
     return this.findOne(postId, [], i18n);
   }
 

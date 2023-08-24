@@ -5,7 +5,7 @@ import { HttpStatus } from '@nestjs/common';
 import { CreateDataTypeRequestDto, UpdateDataTypeRequestDto, CreateDataRequestDto, UpdateDataRequestDto } from '@dtos';
 import { Data, DataType } from '@entities';
 
-import { BaseTest } from '../base';
+import { BaseTest } from '../test/base';
 import { DataService, DataTypeService } from '@services';
 
 export const testCase = (type?: string, permissions: string[] = []) => {
@@ -207,16 +207,6 @@ export const testCase = (type?: string, permissions: string[] = []) => {
       .set('Authorization', 'Bearer ' + BaseTest.token)
       .expect(type ? HttpStatus.OK : HttpStatus.FORBIDDEN);
     if (type) {
-      // body.data.translations.forEach((item: any) => {
-      //   let index;
-      //   data.translations.forEach((subItem: any, i: number) => {
-      //     if (subItem.language === item.language) {
-      //       index = i;
-      //     }
-      //   });
-      //   expect(item).toEqual(jasmine.objectContaining(dataUpdate.translations[index]));
-      // });
-      // body.data.translations = dataUpdate.translations;
       const { translations, ...test } = dataUpdate;
       expect(body.data).toEqual(jasmine.objectContaining(test));
     }
@@ -230,5 +220,18 @@ export const testCase = (type?: string, permissions: string[] = []) => {
     if (type) {
       expect(body.data).toEqual(jasmine.objectContaining(dataUpdateType));
     }
+  });
+
+  it('Update one [PUT /api/data/:id/disable/:boolean]', async () => {
+    const { body } = await request(BaseTest.server)
+      .put('/api/data/' + result.id + '/disable/true')
+      .set('Authorization', 'Bearer ' + BaseTest.token)
+      .send()
+      .expect(type ? HttpStatus.OK : HttpStatus.FORBIDDEN);
+   
+      if (type) {
+        const { translations, ...test } = data;
+        expect(body.data).toEqual(jasmine.objectContaining(test));
+      }
   });
 };

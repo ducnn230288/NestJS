@@ -32,10 +32,13 @@ export class PostRepository extends BaseRepository<Post> {
         await entityManager.save(entityManager.create(PostTranslation, { postId: result.id, ...item }));
       }
     });
+
+
     return result;
   }
 
   async updateWithTranslation(id: string, { translations, ...body }: UpdatePostRequestDto, i18n: I18nContext) {
+
     let result = null;
     await this.dataSource.transaction(async (entityManager) => {
       const data = await entityManager.preload(Post, {
@@ -46,17 +49,20 @@ export class PostRepository extends BaseRepository<Post> {
         throw new BadRequestException(i18n.t('common.Data id not found', { args: { id } }));
       }
       result = await this.save(data);
-      for (const item of translations) {
-        const existingName = await entityManager
-          .createQueryBuilder(PostTranslation, 'base')
-          .andWhere(`base.name=:name`, { name: item.name })
-          .andWhere(`base.language=:language`, { language: item.language })
-          .andWhere(`base.postId != :postId`, { postId: id })
-          .withDeleted()
-          .getCount();
-        if (existingName) throw new BadRequestException(i18n.t('common.Post.name is already taken'));
 
-        await entityManager.save(await entityManager.preload(PostTranslation, { postId: result.id, ...item }));
+      if (translations) {
+        for (const item of translations) {
+          const existingName = await entityManager
+            .createQueryBuilder(PostTranslation, 'base')
+            .andWhere(`base.name=:name`, { name: item.name })
+            .andWhere(`base.language=:language`, { language: item.language })
+            .andWhere(`base.postId != :postId`, { postId: id })
+            .withDeleted()
+            .getCount();
+          if (existingName) throw new BadRequestException(i18n.t('common.Post.name is already taken'));
+
+          // await entityManager.save(await entityManager.preload(PostTranslation, { postId: id, ...item }));
+        }
       }
     });
     return result;

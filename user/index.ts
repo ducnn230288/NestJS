@@ -7,7 +7,7 @@ import { CreateUserRoleRequestDto, UpdateUserRoleRequestDto, CreateUserRequestDt
 import { User, UserRole } from '@entities';
 import { P_USER_CREATE, P_USER_UPDATE } from '@services';
 
-import { BaseTest } from '../base';
+import { BaseTest } from '../test/base';
 
 export const testCase = (type?: string, permissions: string[] = []) => {
   beforeAll(() => BaseTest.initBeforeAll(type, permissions));
@@ -156,6 +156,7 @@ export const testCase = (type?: string, permissions: string[] = []) => {
     }
   });
 
+
   it('Get one [GET /api/user/:id]', async () => {
     const { body } = await request(BaseTest.server)
       .get('/api/user/' + result.id)
@@ -195,6 +196,20 @@ export const testCase = (type?: string, permissions: string[] = []) => {
     }
   });
 
+  it('Update one [PUT /api/user/:id/disable/:boolean]', async () => {
+    const { body } = await request(BaseTest.server)
+      .put('/api/user/' + result.id + '/disable/true')
+      .set('Authorization', 'Bearer ' + BaseTest.token)
+      .send()
+      .expect(type ? HttpStatus.OK : HttpStatus.FORBIDDEN);
+      
+    if (type) {
+      body.data.dob = new Date(body.data.dob);
+      body.data.startDate = new Date(body.data.startDate);
+      expect(body.data).toEqual(jasmine.objectContaining(data));
+    }
+  });
+
   it('Delete one [DELETE /api/user-role/:id]', async () => {
     const { body } = await request(BaseTest.server)
       .delete('/api/user-role/' + resultRole.id)
@@ -204,4 +219,6 @@ export const testCase = (type?: string, permissions: string[] = []) => {
       expect(body.data).toEqual(jasmine.objectContaining(dataUpdateRole));
     }
   });
+
+  
 };

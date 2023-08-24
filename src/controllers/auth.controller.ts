@@ -70,7 +70,7 @@ export class AuthController {
       message: i18n.t('common.Success'),
     };
   }
-
+ 
   @Public({
     summary: 'Send email Contact',
   })
