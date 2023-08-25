@@ -51,9 +51,11 @@ import {
 import {
   CodeTypeRepository,
   DataRepository,
+  DayoffRepository,
   PostRepository,
   PostTranslationRepository,
   UserRepository,
+  UserTeamRepository,
 } from '@repositories';
 import {
   AuthService,
@@ -103,6 +105,7 @@ import {
     DataRepository,
     DataService,
     DataTypeService,
+    DayoffRepository,
     DayoffService,
     PostRepository,
     PostService,
@@ -111,6 +114,7 @@ import {
     UserRepository,
     UserService,
     UserRoleService,
+    UserTeamRepository,
     UserTeamService,
     BookingRoomService,
   ],

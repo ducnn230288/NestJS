@@ -43,4 +43,8 @@ export class UserRepository extends BaseRepository<User> {
       .leftJoinAndSelect('base.position', 'position')
       .getOne();
   }
+
+  async getCountByManagerId(managerId: string) {
+    return await this.createQueryBuilder('base').andWhere(`base.managerId = :managerId`, { managerId }).getCount();
+  }
 }

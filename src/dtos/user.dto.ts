@@ -89,9 +89,13 @@ export class CreateUserRequestDto extends PickType(User, [
   'roleCode',
   'managerId',
 ] as const) {
-  @MinLength(6)
   @ApiProperty({ example: Example.password, description: '' })
+  @MinLength(6)
   retypedPassword: string;
+
+  @ApiProperty({ example: [faker.string.uuid()], description: '' })
+  @IsOptional()
+  teamsId?: string[];
 }
 
 export class UpdateUserRequestDto extends PickType(User, [
