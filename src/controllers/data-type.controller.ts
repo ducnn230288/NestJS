@@ -1,5 +1,6 @@
 import { Body, Delete, Get, Param, Post, Put, Query, ValidationPipe } from '@nestjs/common';
 import { I18n, I18nContext } from 'nestjs-i18n';
+import dayjs from 'dayjs';
 
 import { Auth, Headers, MaxGroup, SerializerBody } from '@common';
 import {
@@ -16,7 +17,6 @@ import {
   P_DATA_TYPE_LISTED,
   P_DATA_TYPE_UPDATE,
 } from '@services';
-import * as dayjs from 'dayjs';
 
 @Headers('data-type')
 export class DataTypeController {

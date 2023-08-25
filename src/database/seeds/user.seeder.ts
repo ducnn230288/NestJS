@@ -1,7 +1,7 @@
 import { Seeder } from 'typeorm-extension';
 import { DataSource } from 'typeorm';
 import { faker } from '@faker-js/faker/locale/vi';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 
 import { Example } from '@common';
 import { User, UserRole } from '@entities';

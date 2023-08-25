@@ -1,5 +1,6 @@
 import { Body, Delete, Get, Param, Post, Put, Query, ValidationPipe } from '@nestjs/common';
 import { I18n, I18nContext } from 'nestjs-i18n';
+import dayjs from 'dayjs';
 
 import { Auth, Headers, SerializerBody } from '@common';
 import {
@@ -11,7 +12,6 @@ import {
   UpdateCodeRequestDto,
 } from '@dtos';
 import { CodeService, P_CODE_LISTED, P_CODE_DETAIL, P_CODE_CREATE, P_CODE_UPDATE, P_CODE_DELETE } from '@services';
-import * as dayjs from 'dayjs';
 
 @Headers('code')
 export class CodeController {
