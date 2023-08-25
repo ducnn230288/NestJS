@@ -9,7 +9,6 @@ import {
   ListCodeTypeResponseDto,
   CreateCodeTypeRequestDto,
   UpdateCodeTypeRequestDto,
-  CodeTypeRelationshipDto,
 } from '@dtos';
 import {
   CodeTypeService,

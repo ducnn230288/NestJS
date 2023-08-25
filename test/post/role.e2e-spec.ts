@@ -8,7 +8,7 @@ import {
   P_POST_TYPE_CREATE,
   P_POST_TYPE_DELETE,
   P_POST_TYPE_LISTED,
-  P_POST_TYPE_UPDATE
+  P_POST_TYPE_UPDATE,
 } from '@services';
 
 describe('Role - /api/post', () =>
@@ -20,5 +20,5 @@ describe('Role - /api/post', () =>
     P_POST_TYPE_CREATE,
     P_POST_TYPE_DELETE,
     P_POST_TYPE_LISTED,
-    P_POST_TYPE_UPDATE
+    P_POST_TYPE_UPDATE,
   ]));
