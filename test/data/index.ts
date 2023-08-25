@@ -124,6 +124,7 @@ export const testCase = (type?: string, permissions: string[] = []) => {
       .send(data)
       .expect(type ? HttpStatus.CREATED : HttpStatus.FORBIDDEN);
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { translations, ...test } = data;
     if (type) {
       expect(body.data).toEqual(jasmine.objectContaining(test));
@@ -148,6 +149,7 @@ export const testCase = (type?: string, permissions: string[] = []) => {
       //   expect(item).toEqual(jasmine.objectContaining(data.translations[index]));
       // });
       // body.data[0].translations = data.translations;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { translations, ...test } = data;
       expect(body.data[0]).toEqual(jasmine.objectContaining(test));
     }
@@ -196,6 +198,7 @@ export const testCase = (type?: string, permissions: string[] = []) => {
       //   dataUpdate.translations[index].id = item.id;
       // });
       // body.data.translations = dataUpdate.translations;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { translations, ...test } = dataUpdate;
       expect(body.data).toEqual(jasmine.objectContaining(test));
     }
@@ -217,6 +220,7 @@ export const testCase = (type?: string, permissions: string[] = []) => {
       //   expect(item).toEqual(jasmine.objectContaining(dataUpdate.translations[index]));
       // });
       // body.data.translations = dataUpdate.translations;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { translations, ...test } = dataUpdate;
       expect(body.data).toEqual(jasmine.objectContaining(test));
     }

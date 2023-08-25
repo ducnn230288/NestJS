@@ -2,7 +2,6 @@ import { Body, Get, Post, Put, UploadedFile, UseInterceptors } from '@nestjs/com
 import { I18n, I18nContext } from 'nestjs-i18n';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes } from '@nestjs/swagger';
-import * as fs from 'fs';
 
 import {
   Auth,
@@ -27,7 +26,6 @@ import {
   RestPasswordAuthRequestDto,
   UserResponseDto,
   AuthDto,
-  DefaultAuthResponsesUserDto,
   ContactRequestDto,
 } from '@dtos';
 import { User } from '@entities';
@@ -203,14 +201,14 @@ export class AuthController {
   })
   async checkDeleteFile(@I18n() i18n: I18nContext): Promise<ProfileAuthResponseDto> {
     if (process.env.AWS_ACCESS_KEY_ID) {
-      const data = await this.authService.getListS3();
-      data.Contents.forEach(async (file) => await this.authService.checkDeleteFile(file.Key));
+      // const data = await this.authService.getListS3();
+      // data.Contents.forEach(async (file) => await this.authService.checkDeleteFile(file.Key));
     } else {
-      fs.readdir('./uploads', async (err, files) => {
-        // for (const file of files) {
-        //   !(await this.authService.checkDeleteFile(file)) && fs.unlinkSync('./uploads/' + file);
-        // }
-      });
+      // fs.readdir('./uploads', async (err, files) => {
+      // for (const file of files) {
+      //   !(await this.authService.checkDeleteFile(file)) && fs.unlinkSync('./uploads/' + file);
+      // }
+      // });
     }
     return {
       message: i18n.t('common.Success'),
