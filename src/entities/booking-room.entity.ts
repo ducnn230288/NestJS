@@ -1,16 +1,7 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  OneToOne,
-} from 'typeorm';
+import { Column, Entity, ManyToOne } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { faker } from '@faker-js/faker';
-import {
-  IsOptional,
-  IsString,
-} from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 import { Base } from '@common';
 import { User } from '@entities';
@@ -63,6 +54,4 @@ export class BookingRoom extends Base {
   @ManyToOne(() => Room, (room) => room.bookingRoom, { eager: true })
   @Type(() => Room)
   readonly room: Room;
-
-  
 }

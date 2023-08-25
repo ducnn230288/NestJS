@@ -1,14 +1,7 @@
-import {
-  Column,
-  Entity,
-  OneToOne,
-} from 'typeorm';
+import { Column, Entity, OneToOne } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { faker } from '@faker-js/faker';
-import {
-  IsOptional,
-  IsString,
-} from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 import { Base } from '@common';
 import { BookingRoom } from '@entities';
@@ -30,5 +23,4 @@ export class Room extends Base {
   @OneToOne(() => BookingRoom, (booking) => booking.room)
   @Type(() => BookingRoom)
   readonly bookingRoom?: BookingRoom[];
-  
 }

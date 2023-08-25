@@ -15,7 +15,7 @@ export const P_USER_TEAM_UPDATE = '8cbfcd72-746d-4d40-bef2-034520769b43';
 export const P_USER_TEAM_DELETE = 'a3988171-8aaa-4925-9a8b-8e3190d92fd4';
 
 @Injectable()
-export class UserTeamService extends BaseService {
+export class UserTeamService extends BaseService<UserTeam> {
   constructor(
     @InjectRepository(UserTeam)
     public repo: Repository<UserTeam>, // @InjectRepository(UserTeamHistory) // public repoHistory: Repository<UserTeamHistory>, // @InjectRepository(UserHistory) // public repoHistoryUser: Repository<UserHistory>,

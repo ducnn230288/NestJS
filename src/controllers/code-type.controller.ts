@@ -9,7 +9,6 @@ import {
   ListCodeTypeResponseDto,
   CreateCodeTypeRequestDto,
   UpdateCodeTypeRequestDto,
-  CodeTypeRelationshipDto,
 } from '@dtos';
 import {
   CodeTypeService,
@@ -19,7 +18,7 @@ import {
   P_CODE_TYPE_UPDATE,
   P_CODE_TYPE_DELETE,
 } from '@services';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 
 @Headers('code-type')
 export class CodeTypeController {

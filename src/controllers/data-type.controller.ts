@@ -16,7 +16,7 @@ import {
   P_DATA_TYPE_LISTED,
   P_DATA_TYPE_UPDATE,
 } from '@services';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 
 @Headers('data-type')
 export class DataTypeController {

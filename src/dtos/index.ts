@@ -1,4 +1,5 @@
 export * from './base.dto';
+export * from './booking-room.dto';
 export * from './code.dto';
 export * from './code-type.dto';
 export * from './data.dto';

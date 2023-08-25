@@ -50,7 +50,7 @@ import {
   P_USER_ROLE_UPDATE,
   UserRoleService,
 } from '@services';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 
 @Headers('user-role')
 export class UserRoleController {

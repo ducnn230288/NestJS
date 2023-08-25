@@ -13,7 +13,10 @@ export const P_POST_DELETE = '4097d5ff-e35c-4bff-a5b1-013ca1181762';
 
 @Injectable()
 export class PostService extends BaseService<Post> {
-  constructor(public repo: PostRepository, public repoTranslation: PostTranslationRepository) {
+  constructor(
+    public repo: PostRepository,
+    public repoTranslation: PostTranslationRepository,
+  ) {
     super(repo);
     this.listJoin = ['translations'];
   }

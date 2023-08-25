@@ -2,7 +2,7 @@ import { BadRequestException, ForbiddenException, Injectable } from '@nestjs/com
 import { InjectRepository } from '@nestjs/typeorm';
 import { Brackets, Repository } from 'typeorm';
 import { I18nContext } from 'nestjs-i18n';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 
 import { BaseService } from '@common';
 import { CreateDayoffRequestDto, StatusDayoffRequestDto } from '@dtos';
@@ -17,7 +17,7 @@ export const P_DAYOFF_DELETE = 'cdece61b-f159-4dec-8b27-b7de50c9b849';
 export const P_DAYOFF_UPDATE_STATUS = '3431f438-20fd-4482-b2e1-ad7f89c67eed';
 
 @Injectable()
-export class DayoffService extends BaseService {
+export class DayoffService extends BaseService<DayOff> {
   constructor(
     @InjectRepository(DayOff)
     public repo: Repository<DayOff>,

@@ -11,7 +11,7 @@ import {
   ArrayDataTypeResponseDto,
 } from '@dtos';
 import { DataService, P_DATA_LISTED, P_DATA_CREATE, P_DATA_UPDATE, P_DATA_DELETE } from '@services';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 
 @Headers('data')
 export class DataController {

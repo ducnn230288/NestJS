@@ -16,7 +16,7 @@ import {
   P_POST_TYPE_LISTED,
   P_POST_TYPE_UPDATE,
 } from '@services';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 
 @Headers('post-type')
 export class PostTypeController {

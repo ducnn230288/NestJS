@@ -11,7 +11,7 @@ import {
   ArrayDataTypeResponseDto,
 } from '@dtos';
 import { PostService, P_POST_LISTED, P_POST_CREATE, P_POST_UPDATE, P_POST_DELETE } from '@services';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 
 @Headers('post')
 export class PostController {

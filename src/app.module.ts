@@ -46,7 +46,7 @@ import {
   UserRole,
   UserTeam,
   BookingRoom,
-  Room
+  Room,
 } from '@entities';
 import {
   CodeTypeRepository,
@@ -68,7 +68,7 @@ import {
   UserRoleService,
   UserService,
   UserTeamService,
-  BookingRoomService
+  BookingRoomService,
 } from '@services';
 
 @Module({
@@ -132,7 +132,7 @@ import {
       UserRole,
       UserTeam,
       BookingRoom,
-      Room
+      Room,
     ]),
     JwtModule.registerAsync({
       useFactory: () => ({

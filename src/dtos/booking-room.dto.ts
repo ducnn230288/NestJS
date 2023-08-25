@@ -1,7 +1,6 @@
 import { PickType } from '@nestjs/swagger';
 import { BookingRoom } from '@entities';
 
-
 export class CreateBookingRoomRequestDto extends PickType(BookingRoom, [
   'bookDate',
   'startTime',
@@ -9,5 +8,5 @@ export class CreateBookingRoomRequestDto extends PickType(BookingRoom, [
   'description',
   'meetingName',
   'userId',
-  'roomId'
+  'roomId',
 ] as const) {}

@@ -11,7 +11,7 @@ import {
   UpdateCodeRequestDto,
 } from '@dtos';
 import { CodeService, P_CODE_LISTED, P_CODE_DETAIL, P_CODE_CREATE, P_CODE_UPDATE, P_CODE_DELETE } from '@services';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 
 @Headers('code')
 export class CodeController {
