@@ -1,7 +1,7 @@
 import { Brackets, Repository } from 'typeorm';
 import { BadRequestException } from '@nestjs/common';
 import { I18nContext } from 'nestjs-i18n';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 
 import { PaginationQueryDto } from '@dtos';
 import { DeepPartial } from 'typeorm/common/DeepPartial';
@@ -12,7 +12,10 @@ export abstract class BaseService<T> {
   public listJoin = [];
   public listJoinCount = [];
   public listHistoryKey = [];
-  protected constructor(public repo: BaseRepository<T>, public repoHistory?: Repository<T>) {}
+  protected constructor(
+    public repo: BaseRepository<T>,
+    public repoHistory?: Repository<T>,
+  ) {}
 
   /**
    * Decorator that marks a class as a [provider](https://docs.nestjs.com/providers).
@@ -189,6 +192,7 @@ export abstract class BaseService<T> {
     return data;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async create(body: DeepPartial<T>, i18n: I18nContext) {
     const data = this.repo.create({ ...body });
     return this.repo.save(data);

@@ -126,52 +126,52 @@ export class AuthService extends BaseService<User> {
       );
     });
   }
-  async checkDeleteFile(fileName: string) {
-    // let data = await this.repo
-    //   .createQueryBuilder('base')
-    //   .andWhere(`base.avatar like :avatar`, { avatar: '%' + fileName })
-    //   .getCount();
-    //
-    // if (!data) {
-    //   data = await this.repoData
-    //     .createQueryBuilder('base')
-    //     .andWhere(`base.image like :image`, { image: '%' + fileName })
-    //     .getCount();
-    // }
-    // if (!data) {
-    //   const dataTemp = await this.repoPost.find({});
-    //   dataTemp.forEach((item: Page) => {
-    //     item.content.forEach((subItem: any) => {
-    //       if (!data && subItem.image && subItem.image.indexOf(fileName) === (process.env.DOMAIN + 'files/').length) {
-    //         data = 1;
-    //       }
-    //       if (!data && subItem?.content?.blocks?.length > 0) {
-    //         subItem?.content?.blocks.forEach((block: any) => {
-    //           if (!data && block?.data?.file?.url.indexOf(fileName) === (process.env.DOMAIN + 'files/').length) {
-    //             data = 1;
-    //           }
-    //         });
-    //       }
-    //     });
-    //   });
-    // }
-    // if (!data && process.env.AWS_ACCESS_KEY_ID) {
-    //   new S3({
-    //     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    //     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    //   }).deleteObject(
-    //     {
-    //       Bucket: process.env.AWS_ACCESS_BUCKET_NAME,
-    //       Key: fileName,
-    //     },
-    //     (err, data) => {
-    //       if (err) {
-    //         console.log(err);
-    //       }
-    //       console.log(data);
-    //     },
-    //   );
-    // }
-    // return data;
-  }
+  // async checkDeleteFile(fileName: string) {
+  // let data = await this.repo
+  //   .createQueryBuilder('base')
+  //   .andWhere(`base.avatar like :avatar`, { avatar: '%' + fileName })
+  //   .getCount();
+  //
+  // if (!data) {
+  //   data = await this.repoData
+  //     .createQueryBuilder('base')
+  //     .andWhere(`base.image like :image`, { image: '%' + fileName })
+  //     .getCount();
+  // }
+  // if (!data) {
+  //   const dataTemp = await this.repoPost.find({});
+  //   dataTemp.forEach((item: Page) => {
+  //     item.content.forEach((subItem: any) => {
+  //       if (!data && subItem.image && subItem.image.indexOf(fileName) === (process.env.DOMAIN + 'files/').length) {
+  //         data = 1;
+  //       }
+  //       if (!data && subItem?.content?.blocks?.length > 0) {
+  //         subItem?.content?.blocks.forEach((block: any) => {
+  //           if (!data && block?.data?.file?.url.indexOf(fileName) === (process.env.DOMAIN + 'files/').length) {
+  //             data = 1;
+  //           }
+  //         });
+  //       }
+  //     });
+  //   });
+  // }
+  // if (!data && process.env.AWS_ACCESS_KEY_ID) {
+  //   new S3({
+  //     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  //     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  //   }).deleteObject(
+  //     {
+  //       Bucket: process.env.AWS_ACCESS_BUCKET_NAME,
+  //       Key: fileName,
+  //     },
+  //     (err, data) => {
+  //       if (err) {
+  //         console.log(err);
+  //       }
+  //       console.log(data);
+  //     },
+  //   );
+  // }
+  // return data;
+  // }
 }
