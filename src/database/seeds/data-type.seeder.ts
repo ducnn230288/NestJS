@@ -26,9 +26,5 @@ export class DataTypeSeeder implements Seeder {
         await repository.save(newData);
       }
     }
-
-    // const userFactory = await factoryManager.get(CategoryType);
-    // await userFactory.save();
-    // await userFactory.saveMany(5);
   }
 }

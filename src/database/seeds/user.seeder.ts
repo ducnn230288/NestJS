@@ -111,7 +111,6 @@ export class UserSeeder implements Seeder {
       await repoRole.save(newDataRoleSuperAdmin);
 
       const repository = dataSource.getRepository(User);
-      // const repositoryHistory = dataSource.getRepository(UserHistory);
       const data: User = {
         email: 'admin@admin.com',
         avatar: 'https://hinhanhdep.org/wp-content/uploads/2016/07/anh-avatar-girl-xinh.jpg',
@@ -140,16 +139,7 @@ export class UserSeeder implements Seeder {
       if (!dataExists) {
         const newData = repository.create(data);
         await repository.save(newData);
-        // newData = await repository.save(newData);
-        // const originalID = newData.id;
-        // delete newData.id;
-        // delete newData.createdAt;
-        // const newHistory = repositoryHistory.create(newData);
-        // await repositoryHistory.save({ ...newHistory, originalID, action: 'CREATED' });
       }
     }
-    // const userFactory = await factoryManager.get(CategoryType); factoryManager: SeederFactoryManager
-    // await userFactory.save();
-    // await userFactory.saveMany(5);
   }
 }

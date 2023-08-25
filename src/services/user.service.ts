@@ -29,40 +29,4 @@ export class UserService extends BaseService<User> {
     if (existingUser) throw new BadRequestException(i18n.t('common.Auth.Email is already taken'));
     return super.create(body, i18n);
   }
-
-  // async history(newData: User, status = 'UPDATED') {
-  //   const originalID = newData.id;
-  //   if (status === 'UPDATED') {
-  //     const oldData = await this.repoHistory
-  //       .createQueryBuilder('base')
-  //       .where('base.originalID = :originalID', { originalID })
-  //       .orderBy('base.createdAt', 'DESC')
-  //       .getOne();
-  //     if (oldData) {
-  //       const keys: string[] = ['name', 'avatar', 'email', 'phoneNumber', 'description'];
-  //       let checkDifferent = false;
-  //       keys.forEach((key: string) => {
-  //         if (!checkDifferent && newData[key]?.toString() != oldData[key]?.toString()) {
-  //           checkDifferent = true;
-  //         }
-  //       });
-  //       if (!checkDifferent) {
-  //         const keysDate = ['dob'];
-  //         keysDate.forEach((key: string) => {
-  //           if (!checkDifferent && dayjs(oldData[key]).toISOString() != dayjs(newData[key]).toISOString()) {
-  //             checkDifferent = true;
-  //           }
-  //         });
-  //       }
-  //       if (!checkDifferent) {
-  //         return false;
-  //       }
-  //     }
-  //   }
-  //
-  //   delete newData.id;
-  //   delete newData.createdAt;
-  //   // const data = this.repoHistory.create({ ...newData, originalID, action: status });
-  //   // await this.repoHistory.save(data);
-  // }
 }

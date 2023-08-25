@@ -22,7 +22,6 @@ export class SerializerBody implements PipeTransform {
             const collect = [];
             for (const key in e.constraints) {
               collect.push(e.constraints[key]);
-              // collect.push(i18next.t(e.contexts[key].i18n, { target: e.target, property: e.property, value: e.value }));
             }
             return collect;
           })
