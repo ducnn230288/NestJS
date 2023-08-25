@@ -53,11 +53,9 @@ export class UserController {
     @I18n() i18n: I18nContext,
     @Body(new SerializerBody([MaxGroup, OnlyUpdateGroup])) createData: CreateUserRequestDto,
   ): Promise<UserResponseDto> {
-    const data = await this.service.create(createData, i18n);
-    // await this.service.history(data, 'CREATED');
     return {
       message: i18n.t('common.Create Success'),
-      data,
+      data: await this.service.create(createData, i18n),
     };
   }
 
@@ -96,14 +94,12 @@ export class UserController {
     @Param('id') id: string,
     @Body(new SerializerBody([MaxGroup])) updateData: UpdateUserRequestDto,
   ): Promise<UserResponseDto> {
-    const data = await this.service.update(id, updateData, i18n, (data) => {
-      delete data.password;
-      return data;
-    });
-    // await this.service.history(data);
     return {
       message: i18n.t('common.Update Success'),
-      data,
+      data: await this.service.update(id, updateData, i18n, (data) => {
+        delete data.password;
+        return data;
+      }),
     };
   }
 

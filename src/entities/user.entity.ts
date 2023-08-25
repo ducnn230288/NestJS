@@ -30,7 +30,6 @@ import { Example, MaxGroup, OnlyUpdateGroup, Base } from '@common';
 import { BookingRoom, Code, UserRole, UserTeam } from '@entities';
 
 @Entity()
-// @Unique(['email', 'phoneNumber'])
 export class User extends Base {
   @Column()
   @ApiProperty({ example: faker.person.fullName(), description: '' })

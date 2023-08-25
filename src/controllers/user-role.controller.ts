@@ -96,7 +96,7 @@ export class UserRoleController {
   async update(
     @I18n() i18n: I18nContext,
     @Param('id') id: string,
-    @Body(new SerializerBody()) body: UpdateUserRoleRequestDto, //
+    @Body(new SerializerBody()) body: UpdateUserRoleRequestDto,
   ): Promise<UserRoleResponseDto> {
     return {
       message: i18n.t('common.Update Success'),

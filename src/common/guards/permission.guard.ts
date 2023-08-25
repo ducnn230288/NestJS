@@ -14,7 +14,6 @@ export const PermissionGuard = (permission?: string): Type<CanActivate> => {
           !user?.role?.permissions ||
           (!user?.role?.isSystemAdmin && !user?.role?.permissions.includes(permission))
         ) {
-          // throw new UnauthorizedException();
           return false;
         }
       }

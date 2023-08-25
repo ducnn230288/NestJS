@@ -35,9 +35,5 @@ export class CodeSeeder implements Seeder {
         newData = await repository.save(newData);
       }
     }
-
-    // const userFactory = await factoryManager.get(CategoryType);
-    // await userFactory.save();
-    // await userFactory.saveMany(5);
   }
 }
