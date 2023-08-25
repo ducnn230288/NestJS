@@ -1,5 +1,6 @@
 import { Body, Delete, Get, Param, Post, Put, Query, ValidationPipe } from '@nestjs/common';
 import { I18n, I18nContext } from 'nestjs-i18n';
+import dayjs from 'dayjs';
 
 import { Auth, Headers, MaxGroup, Public, SerializerBody } from '@common';
 import {
@@ -16,7 +17,6 @@ import {
   P_POST_TYPE_LISTED,
   P_POST_TYPE_UPDATE,
 } from '@services';
-import dayjs from 'dayjs';
 
 @Headers('post-type')
 export class PostTypeController {

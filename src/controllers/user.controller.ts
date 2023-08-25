@@ -1,5 +1,6 @@
 import { Body, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { I18n, I18nContext } from 'nestjs-i18n';
+import dayjs from 'dayjs';
 
 import { Auth, Headers, MaxGroup, OnlyUpdateGroup, Public, SerializerBody } from '@common';
 import {
@@ -10,7 +11,6 @@ import {
   UserResponseDto,
 } from '@dtos';
 import { P_USER_CREATE, P_USER_DELETE, P_USER_DETAIL, P_USER_LISTED, P_USER_UPDATE, UserService } from '@services';
-import * as dayjs from 'dayjs';
 
 @Headers('user')
 export class UserController {

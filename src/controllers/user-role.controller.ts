@@ -1,5 +1,6 @@
 import { Body, Delete, Get, Param, Post, Put, Query, ValidationPipe } from '@nestjs/common';
 import { I18n, I18nContext } from 'nestjs-i18n';
+import dayjs from 'dayjs';
 
 import { Auth, Headers, SerializerBody } from '@common';
 import {
@@ -50,7 +51,6 @@ import {
   P_USER_ROLE_UPDATE,
   UserRoleService,
 } from '@services';
-import dayjs from 'dayjs';
 
 @Headers('user-role')
 export class UserRoleController {
