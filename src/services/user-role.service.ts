@@ -12,7 +12,7 @@ export const P_USER_ROLE_UPDATE = '3e8aa2c2-35bf-4a56-8bf2-8f8de240e24c';
 export const P_USER_ROLE_DELETE = '62fd3bc2-0921-4113-9b5b-9966dd5a0517';
 
 @Injectable()
-export class UserRoleService extends BaseService {
+export class UserRoleService extends BaseService<UserRole> {
   constructor(
     @InjectRepository(UserRole)
     public repo: Repository<UserRole>,

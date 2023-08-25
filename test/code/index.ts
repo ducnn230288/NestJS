@@ -12,32 +12,32 @@ export const testCase = (type?: string, permissions: string[] = []) => {
   afterAll(BaseTest.initAfterAll);
 
   const dataType: CreateCodeTypeRequestDto = {
-    name: faker.name.jobType(),
+    name: faker.person.jobType(),
     code: faker.finance.bic(),
   };
   const dataUpdateType: UpdateCodeTypeRequestDto = {
-    name: faker.name.jobType(),
+    name: faker.person.jobType(),
   };
   let resultType: CodeType = {
-    id: faker.datatype.uuid(),
-    name: faker.name.jobType(),
+    id: faker.string.uuid(),
+    name: faker.person.jobType(),
     code: faker.finance.bic(),
   };
 
   const data: CreateCodeRequestDto = {
-    name: faker.name.jobType(),
+    name: faker.person.jobType(),
     code: faker.finance.bic(),
     type: dataType.code,
     description: faker.lorem.paragraph(),
   };
 
   const dataUpdate: UpdateCodeRequestDto = {
-    name: faker.name.jobType(),
+    name: faker.person.jobType(),
   };
 
   let result: Code = {
-    id: faker.datatype.uuid(),
-    name: faker.name.jobType(),
+    id: faker.string.uuid(),
+    name: faker.person.jobType(),
     type: resultType.code,
     code: faker.finance.bic(),
   };

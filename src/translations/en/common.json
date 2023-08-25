@@ -17,12 +17,19 @@
   "Data": {
     "Name is already taken": "Name is already taken"
   },
-  "User" : {
+  "User": {
     "Other leave requests need approval": "Other leave requests need approval",
     "Still managing other people": "Still managing other people",
     "Can't be deleted because there's still link data": "Can't be deleted because there's still link data"
   },
   "DayOff": {
     "The leave date has been registered": "The leave date has been registered"
+  },
+  "Views": {
+    "404": {
+      "The page you were looking": "The page you were looking for is not found!",
+      "You may have mistyped": "You may have mistyped the address or the page may have moved.",
+      "Back to Home": "Back to Home"
+    }
   }
 }

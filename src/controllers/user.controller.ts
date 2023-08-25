@@ -53,12 +53,12 @@ export class UserController {
   async create(
     @I18n() i18n: I18nContext,
     @Body(new SerializerBody([MaxGroup, OnlyUpdateGroup])) createData: CreateUserRequestDto,
-  ): Promise<any> {
+  ): Promise<UserResponseDto> {
     const data = await this.service.create(createData, i18n);
     // await this.service.history(data, 'CREATED');
     return {
       message: i18n.t('common.Create Success'),
-      data: data,
+      data,
     };
   }
 
@@ -82,7 +82,7 @@ export class UserController {
   async updateDateOff(@I18n() i18n: I18nContext, @Param('dateLeave') dateLeave: string): Promise<UserResponseDto> {
     return {
       message: i18n.t('common.Update Success'),
-      data: (await this.service.update(undefined, { dateLeave }, i18n)) as DefaultAuthResponsesUserDto,
+      data: await this.service.update(undefined, { dateLeave }, i18n),
     };
   }
 
@@ -97,11 +97,14 @@ export class UserController {
     @Param('id') id: string,
     @Body(new SerializerBody([MaxGroup])) updateData: UpdateUserRequestDto,
   ): Promise<UserResponseDto> {
-    const data = await this.service.update(id, updateData, i18n);
+    const data = await this.service.update(id, updateData, i18n, (data) => {
+      delete data.password;
+      return data;
+    });
     // await this.service.history(data);
     return {
       message: i18n.t('common.Update Success'),
-      data: data,
+      data,
     };
   }
 
@@ -117,11 +120,7 @@ export class UserController {
   ): Promise<UserResponseDto> {
     return {
       message: i18n.t('common.Update Success'),
-      data: (await this.service.update(
-        id,
-        { isDisabled: boolean === 'true' ? dayjs().toDate() : null },
-        i18n,
-      )) as DefaultAuthResponsesUserDto,
+      data: await this.service.update(id, { isDisabled: boolean === 'true' ? dayjs().toDate() : null }, i18n),
     };
   }
 

@@ -2,17 +2,12 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { Request } from 'express';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 
-import { User } from '@entities';
+import { UserRepository } from '@repositories';
 
 @Injectable()
 export class ResetPasswordTokenStrategy extends PassportStrategy(Strategy, 'jwt-reset-password') {
-  constructor(
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
-  ) {
+  constructor(private readonly repo: UserRepository) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
@@ -22,12 +17,11 @@ export class ResetPasswordTokenStrategy extends PassportStrategy(Strategy, 'jwt-
   }
 
   async validate(req: Request, payload: any) {
-    const user = await this.userRepository
-      .createQueryBuilder('base')
-      .andWhere(`base.id=:id`, { id: payload.userId })
-      .andWhere(`base.email=:email`, { email: payload.email })
-      .andWhere(`base.resetPasswordToken=:data`, { data: req.get('Authorization').replace('Bearer', '').trim() })
-      .getOne();
+    const user = await this.repo.getDataByResetPassword(
+      payload.userId,
+      payload.email,
+      req.get('Authorization').replace('Bearer', '').trim(),
+    );
     if (!user || !user.resetPasswordToken) throw new UnauthorizedException();
 
     return user;

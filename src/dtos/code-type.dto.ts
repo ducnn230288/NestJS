@@ -19,7 +19,7 @@ export class ListCodeTypeResponseDto extends PartialType(PaginationResponsesDto)
 export class CodeTypeRelationshipDto extends PartialType(
   OmitType(CodeType, ['isDeleted', 'createdAt', 'updatedAt', 'items'] as const),
 ) {
-  readonly items: CodeDto[];
+  readonly items?: CodeDto[];
 }
 export class CodeTypeRelationshipResponseDto extends PartialType(DefaultResponsesDto) {
   readonly data: CodeTypeRelationshipDto;

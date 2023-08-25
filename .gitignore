@@ -38,4 +38,5 @@ lerna-debug.log*
 # Env
 *.env
 package-lock.json
-src/public/*
+/src/public/assets
+/src/public/locales

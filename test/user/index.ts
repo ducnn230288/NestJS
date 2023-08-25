@@ -14,27 +14,27 @@ export const testCase = (type?: string, permissions: string[] = []) => {
   afterAll(BaseTest.initAfterAll);
 
   const dataRole: CreateUserRoleRequestDto = {
-    name: faker.name.jobType(),
-    code: faker.random.alpha(),
+    name: faker.person.jobType(),
+    code: faker.string.alpha(),
     isSystemAdmin: true,
     permissions: [P_USER_CREATE],
   };
   const dataUpdateRole: UpdateUserRoleRequestDto = {
-    name: faker.name.jobType(),
+    name: faker.person.jobType(),
     isSystemAdmin: false,
     permissions: [P_USER_UPDATE],
   };
   let resultRole: UserRole = {
-    id: faker.datatype.uuid(),
-    code: faker.random.alpha(),
-    name: faker.name.jobType(),
+    id: faker.string.uuid(),
+    code: faker.string.alpha(),
+    name: faker.person.jobType(),
     isSystemAdmin: false,
     permissions: [],
   };
 
   const data: CreateUserRequestDto = {
-    avatar: faker.image.imageUrl(),
-    name: faker.name.fullName(),
+    avatar: faker.image.url(),
+    name: faker.person.fullName(),
     password: Example.password,
     retypedPassword: Example.password,
     email: faker.internet.email().toLowerCase(),
@@ -46,28 +46,28 @@ export const testCase = (type?: string, permissions: string[] = []) => {
   };
 
   const dataUpdate: UpdateUserRequestDto = {
-    name: faker.name.fullName(),
+    name: faker.person.fullName(),
     email: faker.internet.email().toLowerCase(),
     phoneNumber: faker.phone.number('0#########'),
     dob: faker.date.birthdate(),
     startDate: faker.date.past(),
     description: faker.lorem.paragraph(),
-    avatar: faker.image.imageUrl(),
+    avatar: faker.image.url(),
     roleCode: resultRole.code,
   };
 
   let result: User = {
-    id: faker.datatype.uuid(),
-    name: faker.name.fullName(),
+    id: faker.string.uuid(),
+    name: faker.person.fullName(),
     email: faker.internet.email().toLowerCase(),
     phoneNumber: faker.phone.number('0#########'),
     dob: faker.date.birthdate(),
     startDate: faker.date.past(),
     positionCode: 'DEV',
     description: faker.lorem.paragraph(),
-    avatar: faker.image.imageUrl(),
-    dateLeave: faker.datatype.number({ min: 0.5, max: 12 }),
-    dateOff: faker.datatype.number({ min: 0.5, max: 12 }),
+    avatar: faker.image.url(),
+    dateLeave: faker.number.int({ min: 0.5, max: 12 }),
+    dateOff: faker.number.int({ min: 0.5, max: 12 }),
   };
   it('Create [POST /api/user-role]', async () => {
     await new Promise((res) => setTimeout(res, 1));

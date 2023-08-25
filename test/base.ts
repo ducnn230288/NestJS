@@ -10,7 +10,7 @@ import { UserRoleService, UserService } from '@services';
 
 export const BaseTest = {
   userAdmin: {
-    name: faker.name.fullName(),
+    name: faker.person.fullName(),
     password: Example.password,
     retypedPassword: Example.password,
     email: faker.internet.email().toLowerCase(),
@@ -21,7 +21,7 @@ export const BaseTest = {
     roleCode: undefined,
   },
   userRole: {
-    name: faker.name.fullName(),
+    name: faker.person.fullName(),
     password: Example.password,
     retypedPassword: Example.password,
     email: faker.internet.email().toLowerCase(),
@@ -32,7 +32,7 @@ export const BaseTest = {
     roleCode: undefined,
   },
   user: {
-    name: faker.name.fullName(),
+    name: faker.person.fullName(),
     password: Example.password,
     retypedPassword: Example.password,
     email: faker.internet.email().toLowerCase(),

@@ -49,6 +49,13 @@ import {
   Room
 } from '@entities';
 import {
+  CodeTypeRepository,
+  DataRepository,
+  PostRepository,
+  PostTranslationRepository,
+  UserRepository,
+} from '@repositories';
+import {
   AuthService,
   CodeService,
   CodeTypeService,
@@ -79,7 +86,6 @@ import {
     UserRoleController,
     UserTeamController,
     BookingRoomController,
-
   ],
   providers: [
     AccessTokenStrategy,
@@ -92,18 +98,26 @@ import {
     AuthService,
     MailService,
     CodeService,
+    CodeTypeRepository,
     CodeTypeService,
+    DataRepository,
     DataService,
     DataTypeService,
     DayoffService,
+    PostRepository,
     PostService,
+    PostTranslationRepository,
     PostTypeService,
+    UserRepository,
     UserService,
     UserRoleService,
     UserTeamService,
     BookingRoomService,
   ],
   imports: [
+    MulterModule.register({
+      storage: memoryStorage(),
+    }),
     TypeOrmModule.forFeature([
       Code,
       CodeType,
@@ -120,9 +134,6 @@ import {
       BookingRoom,
       Room
     ]),
-    MulterModule.register({
-      storage: memoryStorage(),
-    }),
     JwtModule.registerAsync({
       useFactory: () => ({
         secret: process.env.JWT_PUBLIC_KEY,
@@ -189,6 +200,7 @@ import {
         watch: process.env.NODE_ENV !== 'production',
       },
       resolvers: [{ use: QueryResolver, options: ['Accept-Language'] }, AcceptLanguageResolver],
+      viewEngine: 'hbs',
     }),
   ],
 })

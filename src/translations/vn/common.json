@@ -18,10 +18,18 @@
   },
   "user" : {
     "Other leave requests need approval": "Còn những yêu cầu nghỉ cần duyệt",
-    "Still managing other people": "Còn quản lý người khác",
-    "Can't be deleted because there's still link data": "Không thể xóa được do vẫn còn dữ liệu liên kết"
+    "Data id not found": "Dữ liệu {id} không tồn tại",
+    "Can't be deleted because there's still link data": "Không thể xóa được do vẫn còn dữ liệu liên kết",
+    "Still managing other people": "Còn quản lý người khác"
   },
   "DayOff": {
     "The leave date has been registered": "Ngày nghỉ đã được đăng ký"
+  },
+  "Views": {
+    "404": {
+      "The page you were looking": "Trang bạn đang tìm kiếm không được tìm thấy!",
+      "You may have mistyped": "Có thể bạn đã gõ sai địa chỉ hoặc trang đã được di chuyển.",
+      "Back to Home": "Trở về trang chủ"
+    }
   }
 }
