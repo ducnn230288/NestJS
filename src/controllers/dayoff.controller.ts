@@ -28,6 +28,7 @@ export class DayoffController {
   @Auth({
     summary: 'Get List data',
     permission: P_DAYOFF_LISTED,
+    serializeOptions: { groups: [MaxGroup] },
   })
   @Get()
   async findAll(
