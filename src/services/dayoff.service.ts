@@ -1,6 +1,6 @@
 import { BadRequestException, ForbiddenException, Injectable } from '@nestjs/common';
 import { I18nContext } from 'nestjs-i18n';
-import dayjs from 'dayjs';
+import * as dayjs from 'dayjs';
 
 import { BaseService } from '@common';
 import { CreateDayoffRequestDto, StatusDayoffRequestDto } from '@dtos';

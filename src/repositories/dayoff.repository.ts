@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { BaseRepository } from '@common';
 import { DayOff } from '@entities';
 import { Brackets, DataSource } from 'typeorm';
-import dayjs from 'dayjs';
+import * as dayjs from 'dayjs';
 
 @Injectable()
 export class DayoffRepository extends BaseRepository<DayOff> {
