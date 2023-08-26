@@ -1,6 +1,6 @@
 import { Body, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { I18n, I18nContext } from 'nestjs-i18n';
-import dayjs from 'dayjs';
+import * as dayjs from 'dayjs';
 
 import { Auth, Headers, MaxGroup, OnlyUpdateGroup, SerializerBody } from '@common';
 import {
