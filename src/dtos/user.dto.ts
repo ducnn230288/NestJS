@@ -111,7 +111,11 @@ export class UpdateUserRequestDto extends PickType(User, [
   'dateLeave',
   'roleCode',
   'managerId',
-] as const) {}
+] as const) {
+  @ApiProperty({ example: [faker.string.uuid()], description: '' })
+  @IsOptional()
+  teamsId?: string[];
+}
 
 export class ListUserResponseDto extends PartialType(PaginationResponsesDto) {
   readonly data: UserDto[];
