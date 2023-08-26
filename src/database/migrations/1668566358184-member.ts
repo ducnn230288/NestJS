@@ -38,6 +38,12 @@ export class member1669372347132 implements MigrationInterface {
       `CREATE TABLE "user_team" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "isDeleted" TIMESTAMP, "isDisabled" TIMESTAMP, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "name" character varying NOT NULL, "description" character varying, "managerId" uuid, CONSTRAINT "PK_155dbc144ff2bd4713fdf1f6c77" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
+      `CREATE TABLE "room" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "isDeleted" TIMESTAMP, "isDisabled" TIMESTAMP, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "room_code" character varying NOT NULL, "room_name" character varying, CONSTRAINT "PK_c6d46db005d623e691b2fbcba23" PRIMARY KEY ("id"))`,
+    );
+    await queryRunner.query(
+      `CREATE TABLE "booking_room" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "isDeleted" TIMESTAMP, "isDisabled" TIMESTAMP, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "bookDate" TIMESTAMP NOT NULL, "startTime" TIMESTAMP, "endTime" TIMESTAMP, "description" character varying NOT NULL, "meetingName" character varying NOT NULL, "userId" uuid NOT NULL, "roomId" uuid NOT NULL, CONSTRAINT "PK_e35dcb428979ee7cc7808440126" PRIMARY KEY ("id"))`,
+    );
+    await queryRunner.query(
       `CREATE TABLE "code" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "isDeleted" TIMESTAMP, "isDisabled" TIMESTAMP, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "code" character varying NOT NULL, "type" character varying NOT NULL, "name" character varying NOT NULL, "description" character varying, CONSTRAINT "UQ_3aab60cbcf5684b4a89fb46147e" UNIQUE ("code"), CONSTRAINT "PK_367e70f79a9106b8e802e1a9825" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
@@ -79,6 +85,12 @@ export class member1669372347132 implements MigrationInterface {
       `ALTER TABLE "user_team" ADD CONSTRAINT "FK_1d03af227d451afbabb890b52fb" FOREIGN KEY ("managerId") REFERENCES "user"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,
     );
     await queryRunner.query(
+      `ALTER TABLE "booking_room" ADD CONSTRAINT "FK_fdb3cb9bc8afbe9dc2d689ddbeb" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE "booking_room" ADD CONSTRAINT "FK_50557fd862e2f80337e385433d4" FOREIGN KEY ("roomId") REFERENCES "room"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,
+    );
+    await queryRunner.query(
       `ALTER TABLE "code" ADD CONSTRAINT "FK_927209d9e3f6f87ace1a933c978" FOREIGN KEY ("type") REFERENCES "code_type"("code") ON DELETE NO ACTION ON UPDATE NO ACTION`,
     );
     await queryRunner.query(
@@ -93,6 +105,8 @@ export class member1669372347132 implements MigrationInterface {
     await queryRunner.query(`ALTER TABLE "user_teams_user_team" DROP CONSTRAINT "FK_074b07e15f0ba9b81a75740b039"`);
     await queryRunner.query(`ALTER TABLE "user_teams_user_team" DROP CONSTRAINT "FK_74cb5a61491f8722d90c3769729"`);
     await queryRunner.query(`ALTER TABLE "code" DROP CONSTRAINT "FK_927209d9e3f6f87ace1a933c978"`);
+    await queryRunner.query(`ALTER TABLE "booking_room" DROP CONSTRAINT "FK_50557fd862e2f80337e385433d4"`);
+    await queryRunner.query(`ALTER TABLE "booking_room" DROP CONSTRAINT "FK_fdb3cb9bc8afbe9dc2d689ddbeb"`);
     await queryRunner.query(`ALTER TABLE "user_team" DROP CONSTRAINT "FK_1d03af227d451afbabb890b52fb"`);
     await queryRunner.query(`ALTER TABLE "user" DROP CONSTRAINT "FK_22188999bf0339b3fb2ff462aeb"`);
     await queryRunner.query(`ALTER TABLE "user" DROP CONSTRAINT "FK_df69481de1f438f2082e4d54749"`);
@@ -108,6 +122,8 @@ export class member1669372347132 implements MigrationInterface {
     await queryRunner.query(`DROP INDEX "public"."IDX_74cb5a61491f8722d90c376972"`);
     await queryRunner.query(`DROP TABLE "user_teams_user_team"`);
     await queryRunner.query(`DROP TABLE "code"`);
+    await queryRunner.query(`DROP TABLE "booking_room"`);
+    await queryRunner.query(`DROP TABLE "room"`);
     await queryRunner.query(`DROP TABLE "user_team"`);
     await queryRunner.query(`DROP TABLE "user_role"`);
     await queryRunner.query(`DROP TABLE "user"`);

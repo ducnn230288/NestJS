@@ -15,6 +15,8 @@ import { PostTranslation } from '../entities/post-translation.entity';
 import { PostType } from '../entities/post-type.entity';
 import { UserTeam } from '../entities/user-team.entity';
 import { DayOff } from '../entities/dayoff.entity';
+import { BookingRoom } from '../entities/booking-room.entity';
+import { Room } from '../entities/room.entity';
 import { MainSeeder } from './main.seeder';
 import { member1669372347132 } from './migrations/1668566358184-member';
 
@@ -38,6 +40,8 @@ const options: DataSourceOptions & SeederOptions = {
     PostType,
     UserTeam,
     DayOff,
+    BookingRoom,
+    Room,
   ],
   migrations: [member1669372347132],
   seeds: [MainSeeder],
