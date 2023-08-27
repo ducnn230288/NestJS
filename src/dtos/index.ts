@@ -5,6 +5,7 @@ export * from './code-type.dto';
 export * from './data.dto';
 export * from './data-type.dto';
 export * from './dayoff.dto';
+export * from './parameter.dto';
 export * from './post.dto';
 export * from './post-type.dto';
 export * from './user.dto';

@@ -10,6 +10,7 @@ import { UserRole } from '../entities/user-role.entity';
 import { Data } from '../entities/data.entity';
 import { DataTranslation } from '../entities/data-translation.entity';
 import { DataType } from '../entities/data-type.entity';
+import { Parameter } from '../entities/parameter.entity';
 import { Post } from '../entities/post.entity';
 import { PostTranslation } from '../entities/post-translation.entity';
 import { PostType } from '../entities/post-type.entity';
@@ -35,6 +36,7 @@ const options: DataSourceOptions & SeederOptions = {
     Data,
     DataTranslation,
     DataType,
+    Parameter,
     Post,
     PostTranslation,
     PostType,
