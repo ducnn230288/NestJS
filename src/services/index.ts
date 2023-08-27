@@ -7,5 +7,6 @@ export * from './data-type.service';
 export * from './post.service';
 export * from './post-type.service';
 export * from './mail.service';
+export * from './parameter.service';
 export * from './user.service';
 export * from './user-role.service';
