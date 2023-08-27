@@ -44,11 +44,11 @@ export class ParameterController {
     summary: 'Get Detail data',
     serializeOptions: { groups: [MaxGroup] },
   })
-  @Get(':id')
-  async findOne(@I18n() i18n: I18nContext, @Param('id') id: string): Promise<ParameterRelationshipResponseDto> {
+  @Get(':code')
+  async findOne(@I18n() i18n: I18nContext, @Param('code') code: string): Promise<ParameterRelationshipResponseDto> {
     return {
       message: i18n.t('common.Get Detail Success'),
-      data: await this.service.findOne(id, [], i18n),
+      data: await this.service.findOne(code),
     };
   }
 

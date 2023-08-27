@@ -46,6 +46,7 @@ import {
 import {
   CodeTypeRepository,
   DataRepository,
+  ParameterRepository,
   PostRepository,
   PostTranslationRepository,
   UserRepository,
@@ -94,6 +95,7 @@ import {
     DataRepository,
     DataService,
     DataTypeService,
+    ParameterRepository,
     ParameterService,
     PostRepository,
     PostService,
