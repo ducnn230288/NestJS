@@ -8,7 +8,14 @@ import { ContactRequestDto } from '@dtos';
 export class MailService {
   constructor(private mailerService: MailerService) {}
 
-  async sendUserConfirmation(user: User, token: string) {
+  /**
+   *
+   * @param user
+   * @param token
+   * @returns void
+   *
+   */
+  async sendUserConfirmation(user: User, token: string): Promise<void> {
     await this.mailerService.sendMail({
       to: user.email,
       from: '"Support Team" <' + process.env.MAIL_FROM + '>',
@@ -21,7 +28,13 @@ export class MailService {
     });
   }
 
-  async sendUserContact(context: ContactRequestDto) {
+  /**
+   *
+   * @param context
+   * @returns void
+   *
+   */
+  async sendUserContact(context: ContactRequestDto): Promise<void> {
     await this.mailerService.sendMail({
       to: process.env.MAIL_FROM,
       from: '"ARI TECHNOLOGY" <' + process.env.MAIL_FROM + '>',

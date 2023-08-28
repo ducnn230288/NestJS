@@ -27,11 +27,35 @@ export class AuthService extends BaseService<User> {
   ) {
     super(repo);
   }
-  async updateRefreshToken(userId: string, refreshToken: string, i18n: I18nContext) {
+
+  /**
+   *
+   * @param userId
+   * @param refreshToken
+   * @param i18n
+   * @returns void
+   *
+   */
+  async updateRefreshToken(userId: string, refreshToken: string, i18n: I18nContext): Promise<void> {
     await this.update(userId, { refreshToken: await argon2.hash(refreshToken) }, i18n);
   }
 
-  async getTokens(user: User, returnRefresh = true, i18n: I18nContext) {
+  /**
+   *
+   * @param user
+   * @param returnRefresh
+   * @param i18n
+   * @returns { accessToken, refreshToken }
+   *
+   */
+  async getTokens(
+    user: User,
+    returnRefresh = true,
+    i18n: I18nContext,
+  ): Promise<{
+    accessToken: string;
+    refreshToken: string;
+  }> {
     const [accessToken, refreshToken] = await Promise.all([
       this.jwtService.signAsync(
         { userId: user.id, email: user.email },
@@ -49,11 +73,25 @@ export class AuthService extends BaseService<User> {
     return { accessToken, refreshToken };
   }
 
-  async logout(user: User, i18n: I18nContext) {
+  /**
+   *
+   * @param user
+   * @param i18n
+   * @returns User
+   *
+   */
+  async logout(user: User, i18n: I18nContext): Promise<User> {
     return await this.update(user.id, { refreshToken: null }, i18n);
   }
 
-  async forgottenPassword(body: ForgottenPasswordAuthRequestDto, i18n: I18nContext) {
+  /**
+   *
+   * @param body
+   * @param i18n
+   * @returns boolean
+   *
+   */
+  async forgottenPassword(body: ForgottenPasswordAuthRequestDto, i18n: I18nContext): Promise<boolean> {
     const user = await this.repo.getDataByEmail(body.email);
     if (!user) throw new UnauthorizedException(i18n.t('common.Auth.Invalid email'));
 
@@ -67,12 +105,26 @@ export class AuthService extends BaseService<User> {
     return true;
   }
 
-  async sendMailContact(body: ContactRequestDto) {
+  /**
+   *
+   * @param body
+   * @returns boolean
+   *
+   */
+  async sendMailContact(body: ContactRequestDto): Promise<boolean> {
     await this.mailService.sendUserContact(body);
     return true;
   }
 
-  async resetPassword(body: RestPasswordAuthRequestDto, user: User, i18n: I18nContext) {
+  /**
+   *
+   * @param body
+   * @param user
+   * @param i18n
+   * @returns boolean
+   *
+   */
+  async resetPassword(body: RestPasswordAuthRequestDto, user: User, i18n: I18nContext): Promise<boolean> {
     if (body.password === body.retypedPassword)
       await this.update(user.id, { password: body.password, resetPasswordToken: null }, i18n);
     else throw new UnauthorizedException(i18n.t('common.Auth.Password do not match'));
@@ -80,7 +132,14 @@ export class AuthService extends BaseService<User> {
     return true;
   }
 
-  async login(body: LoginAuthRequestDto, i18n: I18nContext) {
+  /**
+   *
+   * @param body
+   * @param i18n
+   * @returns User
+   *
+   */
+  async login(body: LoginAuthRequestDto, i18n: I18nContext): Promise<User> {
     const user = await this.repo.getDataByEmailJoin(body.email);
     if (!user) throw new UnauthorizedException(i18n.t('common.Auth.User not found', { args: { email: body.email } }));
 
@@ -92,7 +151,14 @@ export class AuthService extends BaseService<User> {
     return user;
   }
 
-  async register(body: RegisterAuthRequestDto, i18n: I18nContext) {
+  /**
+   *
+   * @param body
+   * @param i18n
+   * @returns User
+   *
+   */
+  async register(body: RegisterAuthRequestDto, i18n: I18nContext): Promise<User> {
     if (body.password !== body.retypedPassword)
       throw new BadRequestException(i18n.t('common.Auth.Passwords are not identical'));
 
@@ -105,27 +171,27 @@ export class AuthService extends BaseService<User> {
     return data;
   }
 
-  async getListS3(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      new S3({
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-      }).listObjectsV2(
-        {
-          Bucket: process.env.AWS_ACCESS_BUCKET_NAME,
-          Delimiter: '/',
-          Prefix: 'avata-dev/',
-        },
-        (err, data) => {
-          if (err) {
-            console.log(err);
-            reject(err.message);
-          }
-          resolve(data);
-        },
-      );
-    });
-  }
+  // async getListS3() {
+  //   return new Promise((resolve, reject) => {
+  //     new S3({
+  //       accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  //       secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  //     }).listObjectsV2(
+  //       {
+  //         Bucket: process.env.AWS_ACCESS_BUCKET_NAME,
+  //         Delimiter: '/',
+  //         Prefix: 'avata-dev/',
+  //       },
+  //       (err, data) => {
+  //         if (err) {
+  //           console.log(err);
+  //           reject(err.message);
+  //         }
+  //         resolve(data);
+  //       },
+  //     );
+  //   });
+  // }
   // async checkDeleteFile(fileName: string) {
   // let data = await this.repo
   //   .createQueryBuilder('base')

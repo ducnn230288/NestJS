@@ -12,8 +12,16 @@ export class DataRepository extends BaseRepository<Data> {
     super(Data, dataSource.createEntityManager());
   }
 
-  async createWithTranslation({ translations, ...body }: CreateDataRequestDto, i18n: I18nContext) {
-    let result = null;
+  /**
+   *
+   * @param translations
+   * @param body
+   * @param i18n
+   * @returns Data
+   *
+   */
+  async createWithTranslation({ translations, ...body }: CreateDataRequestDto, i18n: I18nContext): Promise<Data> {
+    let result: Data = null;
     await this.dataSource.transaction(async (entityManager) => {
       result = await entityManager.save(entityManager.create(Data, { ...body }));
       if (translations) {
@@ -35,8 +43,21 @@ export class DataRepository extends BaseRepository<Data> {
     return result;
   }
 
-  async updateWithTranslation(id: string, { translations, ...body }: UpdateDataRequestDto, i18n: I18nContext) {
-    let result = null;
+  /**
+   *
+   * @param id
+   * @param translations
+   * @param body
+   * @param i18n
+   * @returns Data
+   *
+   */
+  async updateWithTranslation(
+    id: string,
+    { translations, ...body }: UpdateDataRequestDto,
+    i18n: I18nContext,
+  ): Promise<Data> {
+    let result: Data = null;
     await this.dataSource.transaction(async (entityManager) => {
       const data = await entityManager.preload(Data, {
         id,

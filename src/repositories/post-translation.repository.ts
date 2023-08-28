@@ -9,7 +9,13 @@ export class PostTranslationRepository extends BaseRepository<PostTranslation> {
     super(PostTranslation, dataSource.createEntityManager());
   }
 
-  async getDataBySlug(slug: string) {
+  /**
+   *
+   * @param slug
+   * @returns PostTranslation
+   *
+   */
+  async getDataBySlug(slug: string): Promise<PostTranslation> {
     return await this.createQueryBuilder('base').where(`base.slug=:slug`, { slug }).withDeleted().getOne();
   }
 }

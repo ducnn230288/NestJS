@@ -18,7 +18,14 @@ export class CodeTypeService extends BaseService<CodeType> {
     this.listJoin = ['items'];
   }
 
-  async findOneCode(code: string, i18n: I18nContext) {
+  /**
+   *
+   * @param code
+   * @param i18n
+   * @returns CodeType
+   *
+   */
+  async findOneCode(code: string, i18n: I18nContext): Promise<CodeType> {
     const data = await this.repo.getDataByCodeJoinItems(code);
 
     if (!data) throw new BadRequestException(i18n.t('common.Data id not found', { args: { id: code } }));

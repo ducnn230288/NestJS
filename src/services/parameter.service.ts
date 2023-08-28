@@ -16,6 +16,12 @@ export class ParameterService extends BaseService<Parameter> {
     this.listQuery = ['name'];
   }
 
+  /**
+   *
+   * @param code
+   * @returns Parameter
+   *
+   */
   async findOne(code: string): Promise<Parameter> {
     return this.repo.getDataByCode(code);
   }

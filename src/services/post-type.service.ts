@@ -21,7 +21,15 @@ export class PostTypeService extends BaseService<PostType> {
   ) {
     super(repo);
   }
-  async removeCheck(id: string, i18n: I18nContext) {
+
+  /**
+   *
+   * @param id
+   * @param i18n
+   * @returns PostType
+   *
+   */
+  async removeCheck(id: string, i18n: I18nContext): Promise<PostType> {
     const data = await this.findOne(id, [], i18n);
     const count = await this.repoPost.getCountByCode(data.code);
     if (count > 0)

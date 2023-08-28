@@ -11,12 +11,25 @@ export class PostRepository extends BaseRepository<Post> {
     super(Post, dataSource.createEntityManager());
   }
 
-  async getCountByCode(code: string) {
+  /**
+   *
+   * @param code
+   * @returns number
+   *
+   */
+  async getCountByCode(code: string): Promise<number> {
     return await this.createQueryBuilder('base').where(`base.type=:code`, { code }).withDeleted().getCount();
   }
 
-  async createWithTranslation({ translations, ...body }: CreatePostRequestDto, i18n: I18nContext) {
-    let result = null;
+  /**
+   *
+   * @param code
+   * @param i18n
+   * @returns Post
+   *
+   */
+  async createWithTranslation({ translations, ...body }: CreatePostRequestDto, i18n: I18nContext): Promise<Post> {
+    let result: Post = null;
     await this.dataSource.transaction(async (entityManager) => {
       result = await entityManager.save(entityManager.create(Post, { ...body }));
       for (const item of translations) {
@@ -35,8 +48,20 @@ export class PostRepository extends BaseRepository<Post> {
     return result;
   }
 
-  async updateWithTranslation(id: string, { translations, ...body }: UpdatePostRequestDto, i18n: I18nContext) {
-    let result = null;
+  /**
+   *
+   * @param code
+   * @param id
+   * @param i18n
+   * @returns Post
+   *
+   */
+  async updateWithTranslation(
+    id: string,
+    { translations, ...body }: UpdatePostRequestDto,
+    i18n: I18nContext,
+  ): Promise<Post> {
+    let result: Post = null;
     await this.dataSource.transaction(async (entityManager) => {
       const data = await entityManager.preload(Post, {
         id,
