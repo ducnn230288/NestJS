@@ -20,7 +20,7 @@ export class BookingRoomService extends BaseService<BookingRoom> {
    *
    * @param bookingRoomReqest
    * @param i18n
-   * @returns {statusCode, message, data}
+   * @returns BookingRoom
    *
    */
   // async create(bookingRoomReqest: CreateBookingRoomRequestDto, i18n: I18nContext) {

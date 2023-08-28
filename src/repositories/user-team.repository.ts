@@ -9,11 +9,23 @@ export class UserTeamRepository extends BaseRepository<UserTeam> {
     super(UserTeam, dataSource.createEntityManager());
   }
 
-  async getManyByArrayId(ids: string[]) {
+  /**
+   *
+   * @param ids
+   * @returns UserTeam[]
+   *
+   */
+  async getManyByArrayId(ids: string[]): Promise<UserTeam[]> {
     return await this.createQueryBuilder('base').where(`base.id IN (:...ids)`, { ids }).withDeleted().getMany();
   }
 
-  async getCountByManagerId(managerId: string) {
+  /**
+   *
+   * @param managerId
+   * @returns UserTeam[]
+   *
+   */
+  async getCountByManagerId(managerId: string): Promise<UserTeam[]> {
     return await this.createQueryBuilder('base').andWhere(`base.managerId=:managerId`, { managerId }).getMany();
   }
 }

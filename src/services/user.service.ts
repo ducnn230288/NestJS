@@ -47,13 +47,33 @@ export class UserService extends BaseService<User> {
     return super.create(body, i18n);
   }
 
+  /**
+   *
+   * @param i18n
+   * @returns null
+   *
+   */
   async updateAllDaysOff(i18n: I18nContext) {
     const data = await this.repo.createQueryBuilder('base').getMany();
     data.forEach((item) => this.update(item.id, { ...item, dateLeave: item.dateLeave + 1 }, i18n));
     return null;
   }
 
-  async update(id: string, body: any, i18n: I18nContext, callBack?: (data: Awaited<User>) => Awaited<User>) {
+  /**
+   *
+   * @param id
+   * @param body
+   * @param i18n
+   * @param callBack
+   * @returns User
+   *
+   */
+  async update(
+    id: string,
+    body: any,
+    i18n: I18nContext,
+    callBack?: (data: Awaited<User>) => Awaited<User>,
+  ): Promise<User> {
     if (body.managerId) {
       const user = await this.findOne(id, [], i18n);
       if (user.managerId && body.managerId != user.managerId) {
@@ -73,6 +93,12 @@ export class UserService extends BaseService<User> {
     });
   }
 
+  /**
+   *
+   * @param startDate
+   * @returns number
+   *
+   */
   getTotalDate(startDate: Date): number {
     const now = dayjs();
     const time = now.diff(now.startOf('year'), 'months');
@@ -91,7 +117,14 @@ export class UserService extends BaseService<User> {
     return dateLeave;
   }
 
-  async remove(id: string, i18n: I18nContext) {
+  /**
+   *
+   * @param id
+   * @param i18n
+   * @returns User
+   *
+   */
+  async remove(id: string, i18n: I18nContext): Promise<User> {
     const user = await this.findOne(id, [], i18n);
     if (user.roleCode === 'manager') {
       const count = await this.repo.getCountByManagerId(user.id);

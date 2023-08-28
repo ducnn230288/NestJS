@@ -25,13 +25,28 @@ export class DayoffService extends BaseService<DayOff> {
     this.listJoin = ['staff', 'manager', 'approvedBy'];
   }
 
-  async updateStaff(user: User, i18n: I18nContext) {
+  /**
+   *
+   * @param user
+   * @param i18n
+   * @returns User
+   *
+   */
+  async updateStaff(user: User, i18n: I18nContext): Promise<User> {
     const data = await this.repo.getManyDayOffThisYearByStaffId(user.id);
     const dateOff = data.reduce((sum: number, item) => sum + item.timeNumber, 0);
-    await this.userService.update(user.id, { dateOff, startDate: user.startDate }, i18n);
+    return await this.userService.update(user.id, { dateOff, startDate: user.startDate }, i18n);
   }
 
-  async checkHaveDate(user: User, body: CreateDayoffRequestDto, i18n: I18nContext) {
+  /**
+   *
+   * @param user
+   * @param body
+   * @param i18n
+   * @returns void
+   *
+   */
+  async checkHaveDate(user: User, body: CreateDayoffRequestDto, i18n: I18nContext): Promise<void> {
     const data = await this.repo.getCountWaitByDateLeaveAndStaffId(user.id, body.dateLeaveStart, body.dateLeaveEnd);
 
     if (data > 0) {
@@ -50,7 +65,15 @@ export class DayoffService extends BaseService<DayOff> {
     }
   }
 
-  async createDayOff(body: CreateDayoffRequestDto, user: User, i18n: I18nContext) {
+  /**
+   *
+   * @param user
+   * @param body
+   * @param i18n
+   * @returns DayOff
+   *
+   */
+  async createDayOff(body: CreateDayoffRequestDto, user: User, i18n: I18nContext): Promise<DayOff> {
     await this.checkHaveDate(user, body, i18n);
     body.staffId = user.id;
     body.managerId = user.managerId;
@@ -72,7 +95,16 @@ export class DayoffService extends BaseService<DayOff> {
     return data;
   }
 
-  async updateStatus(id: string, body: StatusDayoffRequestDto, user: User, i18n: I18nContext) {
+  /**
+   *
+   * @param id
+   * @param user
+   * @param body
+   * @param i18n
+   * @returns DayOff
+   *
+   */
+  async updateStatus(id: string, body: StatusDayoffRequestDto, user: User, i18n: I18nContext): Promise<DayOff> {
     const { managerId, staff } = await this.findOne(id, [], i18n);
     if (managerId !== user.id) {
       throw ForbiddenException;
