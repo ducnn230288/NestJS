@@ -9,14 +9,28 @@ export class UserRepository extends BaseRepository<User> {
     super(User, dataSource.createEntityManager());
   }
 
-  async getDataByIdAndEmail(id: string, email: string) {
+  /**
+   *
+   * @param id
+   * @param email
+   * @returns User
+   *
+   */
+  async getDataByIdAndEmail(id: string, email: string): Promise<User> {
     return await this.createQueryBuilder('base')
       .andWhere(`base.id=:id`, { id })
       .andWhere(`base.email=:email`, { email })
       .getOne();
   }
 
-  async getDataByIdAndEmailJoinRole(id: string, email: string) {
+  /**
+   *
+   * @param id
+   * @param email
+   * @returns User
+   *
+   */
+  async getDataByIdAndEmailJoinRole(id: string, email: string): Promise<User> {
     return await this.createQueryBuilder('base')
       .andWhere(`base.id=:id`, { id })
       .andWhere(`base.email=:email`, { email })
@@ -24,7 +38,15 @@ export class UserRepository extends BaseRepository<User> {
       .getOne();
   }
 
-  async getDataByResetPassword(id: string, email: string, token: string) {
+  /**
+   *
+   * @param id
+   * @param email
+   * @param token
+   * @returns User
+   *
+   */
+  async getDataByResetPassword(id: string, email: string, token: string): Promise<User> {
     return await this.createQueryBuilder('base')
       .andWhere(`base.id=:id`, { id })
       .andWhere(`base.email=:email`, { email })
@@ -32,11 +54,23 @@ export class UserRepository extends BaseRepository<User> {
       .getOne();
   }
 
-  async getDataByEmail(email: string) {
+  /**
+   *
+   * @param email
+   * @returns User
+   *
+   */
+  async getDataByEmail(email: string): Promise<User> {
     return await this.createQueryBuilder('base').andWhere(`base.email=:email`, { email }).getOne();
   }
 
-  async getDataByEmailJoin(email: string) {
+  /**
+   *
+   * @param email
+   * @returns User
+   *
+   */
+  async getDataByEmailJoin(email: string): Promise<User> {
     return await this.createQueryBuilder('base')
       .andWhere(`base.email=:email`, { email })
       .leftJoinAndSelect('base.role', 'role')

@@ -9,7 +9,13 @@ export class ParameterRepository extends BaseRepository<Parameter> {
     super(Parameter, dataSource.createEntityManager());
   }
 
-  async getDataByCode(code: string) {
+  /**
+   *
+   * @param code
+   * @returns Parameter
+   *
+   */
+  async getDataByCode(code: string): Promise<Parameter> {
     return await this.createQueryBuilder('base')
       .where(`base.code=:code`, { code })
       .addOrderBy('base.createdAt', 'ASC')

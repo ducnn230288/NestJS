@@ -18,7 +18,13 @@ export class DataService extends BaseService<Data> {
     this.listJoin = ['translations'];
   }
 
-  async findArrayCode(types: string[]) {
+  /**
+   *
+   * @param types
+   * @returns { [p]: Data[] }
+   *
+   */
+  async findArrayCode(types: string[]): Promise<{ [p: string]: Data[] }> {
     const tempData: { [key: string]: Data[] } = {};
     for (const type of types) {
       tempData[type] = (await this.findAll({ filter: { type, isDisabled: 'NULL' }, sorts: { order: 'ASC' } }))[0];
@@ -26,10 +32,25 @@ export class DataService extends BaseService<Data> {
     return tempData;
   }
 
-  async create(body: CreateDataRequestDto, i18n: I18nContext) {
+  /**
+   *
+   * @param body
+   * @param i18n
+   * @returns Data
+   *
+   */
+  async create(body: CreateDataRequestDto, i18n: I18nContext): Promise<Data> {
     return this.repo.createWithTranslation(body, i18n);
   }
 
+  /**
+   *
+   * @param id
+   * @param body
+   * @param i18n
+   * @returns Data
+   *
+   */
   async update(id: string, body: UpdateDataRequestDto, i18n: I18nContext) {
     return this.repo.updateWithTranslation(id, body, i18n);
   }

@@ -25,7 +25,14 @@ export class UserService extends BaseService<User> {
     this.listJoin = ['teams', 'role', 'position', 'manager'];
   }
 
-  async create(body: CreateUserRequestDto, i18n: I18nContext) {
+  /**
+   *
+   * @param body
+   * @param i18n
+   * @returns User
+   *
+   */
+  async create(body: CreateUserRequestDto, i18n: I18nContext): Promise<User> {
     if (body.password !== body.retypedPassword)
       throw new BadRequestException(i18n.t('common.Auth.Passwords are not identical'));
 

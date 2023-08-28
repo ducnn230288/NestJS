@@ -21,7 +21,13 @@ export class PostService extends BaseService<Post> {
     this.listJoin = ['translations'];
   }
 
-  async findArrayCode(types: string[]) {
+  /**
+   *
+   * @param types
+   * @returns { [p]: Data[] }
+   *
+   */
+  async findArrayCode(types: string[]): Promise<{ [p: string]: Data[] }> {
     const tempData: { [key: string]: Data[] } = {};
     for (const type of types) {
       tempData[type] = (await this.findAll({ filter: { type, isDisabled: 'NULL' }, sorts: { createdAt: 'DESC' } }))[0];
@@ -29,16 +35,38 @@ export class PostService extends BaseService<Post> {
     return tempData;
   }
 
-  async findSlug(slug: string, i18n: I18nContext) {
+  /**
+   *
+   * @param slug
+   * @param i18n
+   * @returns Post
+   *
+   */
+  async findSlug(slug: string, i18n: I18nContext): Promise<Post> {
     const { postId } = await this.repoTranslation.getDataBySlug(slug);
     return this.findOne(postId, [], i18n);
   }
 
-  async create(body: CreatePostRequestDto, i18n: I18nContext) {
+  /**
+   *
+   * @param body
+   * @param i18n
+   * @returns Post
+   *
+   */
+  async create(body: CreatePostRequestDto, i18n: I18nContext): Promise<Post> {
     return await this.repo.createWithTranslation(body, i18n);
   }
 
-  async update(id: string, body: UpdatePostRequestDto, i18n: I18nContext) {
+  /**
+   *
+   * @param id
+   * @param body
+   * @param i18n
+   * @returns Post
+   *
+   */
+  async update(id: string, body: UpdatePostRequestDto, i18n: I18nContext): Promise<Post> {
     return await this.repo.updateWithTranslation(id, body, i18n);
   }
 }

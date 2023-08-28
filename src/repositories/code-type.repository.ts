@@ -9,7 +9,13 @@ export class CodeTypeRepository extends BaseRepository<CodeType> {
     super(CodeType, dataSource.createEntityManager());
   }
 
-  async getDataByCodeJoinItems(code: string) {
+  /**
+   *
+   * @param code
+   * @returns CodeType
+   *
+   */
+  async getDataByCodeJoinItems(code: string): Promise<CodeType> {
     return await this.createQueryBuilder('base')
       .where(`base.code=:code`, { code })
       .leftJoinAndMapMany('base.items', 'Code', 'code', 'base.code = code.type')
