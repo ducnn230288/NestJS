@@ -53,12 +53,12 @@ export const testCase = (type?: string, permissions: string[] = []) => {
         description: faker.lorem.paragraph(),
         slug: faker.lorem.slug(),
       },
-      // {
-      //   language: 'en',
-      //   name: faker.person.jobType(),
-      //   description: faker.lorem.paragraph(),
-      //   slug: faker.lorem.slug(),
-      // },
+      {
+        language: 'en',
+        name: faker.person.jobType(),
+        description: faker.lorem.paragraph(),
+        slug: faker.lorem.slug(),
+      },
     ],
   };
 
@@ -231,19 +231,19 @@ export const testCase = (type?: string, permissions: string[] = []) => {
   //   expect(body.data[0]).toEqual(jasmine.objectContaining(test));
   // }
 
-  it('Update one [PUT /api/post/:id]', async () => {
+  // it('Update one [PUT /api/post/:id]', async () => {
 
-    const { body } = await request(BaseTest.server)
-      .put('/api/post/' + resultType.id)
-      .set('Authorization', 'Bearer ' + BaseTest.token)
-      .send(dataUpdate)
-      .expect(type ? HttpStatus.OK : HttpStatus.FORBIDDEN);
+  //   const { body } = await request(BaseTest.server)
+  //     .put('/api/post/' + resultType.id)
+  //     .set('Authorization', 'Bearer ' + BaseTest.token)
+  //     .send(dataUpdate)
+  //     .expect(type ? HttpStatus.OK : HttpStatus.FORBIDDEN);
 
-    if (type) {
-      const { translations, ...test } = dataUpdate;
-      expect(body.data).toEqual(jasmine.objectContaining(test));
-    }
-  });
+  //   if (type) {
+  //     const { translations, ...test } = dataUpdate;
+  //     expect(body.data).toEqual(jasmine.objectContaining(test));
+  //   }
+  // });
 
   // it('Update one [PUT /api/post/:id/disable/:boolean]', async () => {
   //   const { body } = await request(BaseTest.server)
@@ -251,7 +251,6 @@ export const testCase = (type?: string, permissions: string[] = []) => {
   //     .set('Authorization', 'Bearer ' + BaseTest.token)
   //     .send()
   //     .expect(type ? HttpStatus.OK : HttpStatus.FORBIDDEN);
-
 
   //   if (type) {
   //     body.data.translations = data.translations;

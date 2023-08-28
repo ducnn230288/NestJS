@@ -5,7 +5,7 @@ import { HttpStatus } from '@nestjs/common';
 import { CreateDataTypeRequestDto, UpdateDataTypeRequestDto, CreateDataRequestDto, UpdateDataRequestDto } from '@dtos';
 import { Data, DataType } from '@entities';
 
-import { BaseTest } from '../test/base';
+import { BaseTest } from '../base';
 import { DataService, DataTypeService } from '@services';
 
 export const testCase = (type?: string, permissions: string[] = []) => {

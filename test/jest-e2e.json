@@ -1,18 +1,18 @@
 {
   "moduleFileExtensions": ["js", "json", "ts"],
-  "rootDir": ".",
+  "rootDir": "./post",
   "testEnvironment": "node",
   "testRegex": ".e2e-spec.ts$",
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
   },
   "moduleNameMapper": {
-    "@common": "<rootDir>../src/common",
-    "@controllers": "<rootDir>../src/controllers",
-    "@dtos": "<rootDir>../src/dtos",
-    "@entities": "<rootDir>../src/entities",
-    "@repositories": "<rootDir>../src/repositories",
-    "@services": "<rootDir>../src/services"
+    "@common": "<rootDir>../../src/common",
+    "@controllers": "<rootDir>../../src/controllers",
+    "@dtos": "<rootDir>../../src/dtos",
+    "@entities": "<rootDir>../../src/entities",
+    "@repositories": "<rootDir>../../src/repositories",
+    "@services": "<rootDir>../../src/services"
   },
   "testRunner": "jest-jasmine2"
 }

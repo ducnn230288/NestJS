@@ -5,7 +5,7 @@ import { HttpStatus } from '@nestjs/common';
 import { Code, CodeType } from '@entities';
 import { CreateCodeTypeRequestDto, UpdateCodeTypeRequestDto, CreateCodeRequestDto, UpdateCodeRequestDto } from '@dtos';
 
-import { BaseTest } from '../test/base';
+import { BaseTest } from '../base';
 
 export const testCase = (type?: string, permissions: string[] = []) => {
   beforeAll(() => BaseTest.initBeforeAll(type, permissions));

@@ -61,7 +61,10 @@ export class PostRepository extends BaseRepository<Post> {
             .getCount();
           if (existingName) throw new BadRequestException(i18n.t('common.Post.name is already taken'));
 
-          // await entityManager.save(await entityManager.preload(PostTranslation, { postId: id, ...item }));
+          console.log(result);
+          
+
+          await entityManager.save(await entityManager.preload(PostTranslation, { postId: result.id, ...item }));
         }
       }
     });

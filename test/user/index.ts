@@ -7,7 +7,7 @@ import { CreateUserRoleRequestDto, UpdateUserRoleRequestDto, CreateUserRequestDt
 import { User, UserRole } from '@entities';
 import { P_USER_CREATE, P_USER_UPDATE } from '@services';
 
-import { BaseTest } from '../test/base';
+import { BaseTest } from '../base';
 
 export const testCase = (type?: string, permissions: string[] = []) => {
   beforeAll(() => BaseTest.initBeforeAll(type, permissions));
