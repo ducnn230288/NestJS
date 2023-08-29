@@ -11,7 +11,13 @@ import { JwtModule } from '@nestjs/jwt';
 import { MulterModule } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
 
-import { AccessTokenStrategy, AllExceptionFilter, RefreshTokenStrategy, ResetPasswordTokenStrategy } from '@common';
+import {
+  AccessTokenStrategy,
+  AllExceptionFilter,
+  BaseGateway,
+  RefreshTokenStrategy,
+  ResetPasswordTokenStrategy,
+} from '@common';
 import {
   AppController,
   AuthController,
@@ -108,6 +114,7 @@ import {
     UserRepository,
     UserService,
     UserRoleService,
+    BaseGateway,
   ],
   imports: [
     MulterModule.register({
