@@ -4,7 +4,7 @@ export * from './code.controller';
 export * from './code-type.controller';
 export * from './data.controller';
 export * from './data-type.controller';
-export * from './logger.controller';
+export * from './error.controller';
 export * from './parameter.controller';
 export * from './post.controller';
 export * from './post-type.controller';
