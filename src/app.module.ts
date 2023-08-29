@@ -13,7 +13,8 @@ import { memoryStorage } from 'multer';
 
 import {
   AccessTokenStrategy,
-  NotFoundExceptionFilter,
+  AllExceptionFilter,
+  BaseGateway,
   RefreshTokenStrategy,
   ResetPasswordTokenStrategy,
 } from '@common';
@@ -26,6 +27,7 @@ import {
   DataController,
   DataTypeController,
   DayoffController,
+  ErrorController,
   ParameterController,
   PostController,
   PostTypeController,
@@ -40,6 +42,7 @@ import {
   DataTranslation,
   DataType,
   DayOff,
+  Error,
   Parameter,
   Post,
   PostTranslation,
@@ -68,6 +71,7 @@ import {
   DataTypeService,
   DayoffService,
   MailService,
+  ErrorService,
   ParameterService,
   PostService,
   PostTypeService,
@@ -86,6 +90,7 @@ import {
     DataController,
     DataTypeController,
     DayoffController,
+    ErrorController,
     ParameterController,
     PostController,
     PostTypeController,
@@ -100,7 +105,7 @@ import {
     ResetPasswordTokenStrategy,
     {
       provide: APP_FILTER,
-      useClass: NotFoundExceptionFilter,
+      useClass: AllExceptionFilter,
     },
     AuthService,
     MailService,
@@ -112,6 +117,7 @@ import {
     DataTypeService,
     DayoffRepository,
     DayoffService,
+    ErrorService,
     ParameterRepository,
     ParameterService,
     PostRepository,
@@ -124,6 +130,7 @@ import {
     UserTeamRepository,
     UserTeamService,
     BookingRoomService,
+    BaseGateway,
   ],
   imports: [
     MulterModule.register({
@@ -136,6 +143,7 @@ import {
       DataTranslation,
       DataType,
       DayOff,
+      Error,
       Parameter,
       Post,
       PostTranslation,

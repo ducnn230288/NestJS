@@ -1,1 +1,1 @@
-export * from './not-found.filter';
+export * from './all-exception.filter';

@@ -4,6 +4,7 @@ export * from './data.entity';
 export * from './data-translation.entity';
 export * from './data-type.entity';
 export * from './dayoff.entity';
+export * from './error.entity';
 export * from './parameter.entity';
 export * from './post.entity';
 export * from './post-translation.entity';
