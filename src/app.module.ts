@@ -11,12 +11,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { MulterModule } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
 
-import {
-  AccessTokenStrategy,
-  NotFoundExceptionFilter,
-  RefreshTokenStrategy,
-  ResetPasswordTokenStrategy,
-} from '@common';
+import { AccessTokenStrategy, AllExceptionFilter, RefreshTokenStrategy, ResetPasswordTokenStrategy } from '@common';
 import {
   AppController,
   AuthController,
@@ -24,6 +19,7 @@ import {
   CodeTypeController,
   DataController,
   DataTypeController,
+  ErrorController,
   ParameterController,
   PostController,
   PostTypeController,
@@ -36,6 +32,7 @@ import {
   Data,
   DataTranslation,
   DataType,
+  Error,
   Parameter,
   Post,
   PostTranslation,
@@ -57,6 +54,7 @@ import {
   CodeTypeService,
   DataService,
   DataTypeService,
+  ErrorService,
   ParameterService,
   PostService,
   PostTypeService,
@@ -73,6 +71,7 @@ import {
     CodeTypeController,
     DataController,
     DataTypeController,
+    ErrorController,
     ParameterController,
     PostController,
     PostTypeController,
@@ -85,8 +84,12 @@ import {
     ResetPasswordTokenStrategy,
     {
       provide: APP_FILTER,
-      useClass: NotFoundExceptionFilter,
+      useClass: AllExceptionFilter,
     },
+    // {
+    //   provide: APP_FILTER,
+    //   useClass: ErrorFilter,
+    // },
     AuthService,
     MailService,
     CodeService,
@@ -95,6 +98,7 @@ import {
     DataRepository,
     DataService,
     DataTypeService,
+    ErrorService,
     ParameterRepository,
     ParameterService,
     PostRepository,
@@ -115,6 +119,7 @@ import {
       Data,
       DataTranslation,
       DataType,
+      Error,
       Parameter,
       Post,
       PostTranslation,

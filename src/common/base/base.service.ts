@@ -193,7 +193,7 @@ export abstract class BaseService<T> {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async create(body: DeepPartial<T>, i18n: I18nContext) {
+  async create(body: DeepPartial<T>, i18n?: I18nContext) {
     const data = this.repo.create({ ...body });
     return this.repo.save(data);
   }
