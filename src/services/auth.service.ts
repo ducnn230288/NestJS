@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as argon2 from 'argon2';
-import { S3 } from 'aws-sdk';
+// import { S3 } from 'aws-sdk';
 import { I18nContext } from 'nestjs-i18n';
 
 import {
